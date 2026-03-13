@@ -1,3 +1,3 @@
 function showMessage() {
-    alert("Thank you for visiting WasteZero!");
+    alert("Welcome to the Smart Waste Management System!");
 }
