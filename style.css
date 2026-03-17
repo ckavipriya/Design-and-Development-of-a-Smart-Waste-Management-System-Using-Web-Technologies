@@ -1,148 +1,47 @@
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial, Helvetica, sans-serif;
-}
-
 body{
-background:#f4f7fb;
-}
-
-/* header */
-h1{
-font-size:48px;
-font-weight:600;
-letter-spacing:1px;
-}
-
-h2{
-font-size:32px;
-color:#333;
-}
-
-p{
-font-size:17px;
-line-height:1.6;
-color:#555;
+font-family:Poppins, sans-serif;
+margin:0;
+background:#f4f4f4;
 }
 
 header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:20px 40px;
-background:#111;
+background:#2c3e50;
 color:white;
-}
-
-.logo{
-font-size:22px;
-font-weight:bold;
+padding:20px;
+text-align:center;
 }
 
 nav a{
-font-size:17px;
-font-weight:500;
-letter-spacing:0.5px;
+color:white;
+margin:10px;
+text-decoration:none;
+font-weight:bold;
 }
-/* hero */
+
+nav a:hover{
+color:#00ffcc;
+}
 
 .hero{
-height:80vh;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
+padding:60px;
 text-align:center;
+background:#16a085;
 color:white;
-background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
-url("https://images.unsplash.com/photo-1532996122724-e3c354a0b15b");
-background-size:cover;
 }
 
-.hero h1{
-font-size:50px;
-margin-bottom:20px;
-}
-
-.hero p{
-width:60%;
-font-size:18px;
-margin-bottom:25px;
-}
-
-.btn{
-background:linear-gradient(45deg,#00c08a,#00e6a8);
-padding:14px 30px;
-border-radius:30px;
+button{
+padding:10px 20px;
+background:#2c3e50;
 color:white;
-font-weight:600;
-transition:0.3s;
+border:none;
+cursor:pointer;
 }
 
-.btn:hover{
-transform:scale(1.05);
+button:hover{
+background:#1abc9c;
 }
 
-/* features */
-
-.features{
-padding:80px 40px;
+section{
+padding:40px;
 text-align:center;
-}
-
-.features h2{
-margin-bottom:40px;
-font-size:32px;
-}
-
-.feature-box{
-display:inline-block;
-width:260px;
-padding:30px;
-margin:20px;
-background:white;
-border-radius:10px;
-box-shadow:0 8px 20px rgba(0,0,0,0.1);
-transition:0.3s;
-}
-
-.feature-box i{
-font-size:40px;
-color:#00c08a;
-margin-bottom:15px;
-}
-
-.feature-box:hover{
-transform:translateY(-8px);
-}
-
-/* stats */
-
-.stats{
-display:flex;
-justify-content:center;
-background:#111;
-color:white;
-padding:50px;
-}
-
-.stat{
-margin:0 40px;
-text-align:center;
-}
-
-.stat h2{
-font-size:36px;
-color:#00e6a8;
-}
-
-/* footer */
-
-footer{
-text-align:center;
-padding:20px;
-background:#000;
-color:white;
 }
