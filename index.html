@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Smart Waste Management System</title>
 
-<link rel="stylesheet" href="cstyle.css">
+<link rel="stylesheet" href="style.css">
 
 </head>
 
@@ -15,26 +15,30 @@
 
 <header>
 <h1>Smart Waste Management System</h1>
-<p>Clean City | Smart Technology</p>
+<p>Using Web Technologies</p>
 </header>
 
 <nav>
-<a href="#">Home</a>
-<a href="#features">Features</a>
-<a href="#status">Waste Status</a>
-<a href="#ai">AI Assistant</a>
+
+<a href="index.html">Home</a>
+<a href="about.html">About</a>
+<a href="status.html">Waste Status</a>
+<a href="report.html">Report</a>
+<a href="contact.html">Contact</a>
+
 </nav>
 
 <section class="hero">
 
 <h2>Welcome to Smart Waste Monitoring</h2>
-<p>Track garbage levels and keep the city clean using technology.</p>
+
+<p>This system helps monitor garbage levels and maintain a clean city.</p>
 
 <button onclick="showNotification()">Check Bin Status</button>
 
 </section>
 
-<section id="features" class="section">
+<section class="features">
 
 <h2>Project Features</h2>
 
@@ -44,39 +48,18 @@
 </div>
 
 <div class="card">
-<h3>Smart Alerts</h3>
-<p>Get notifications when garbage bins are full.</p>
+<h3>Smart Notification</h3>
+<p>Receive alerts when garbage bins are full.</p>
 </div>
 
 <div class="card">
 <h3>AI Waste Assistant</h3>
-<p>Learn how to dispose waste correctly.</p>
+<p>Get suggestions on proper waste disposal.</p>
 </div>
 
 </section>
 
-<section id="status" class="section">
-
-<h2>Waste Bin Status</h2>
-
-<div class="card">
-<h3>Area A</h3>
-<p>Status : Almost Full</p>
-</div>
-
-<div class="card">
-<h3>Area B</h3>
-<p>Status : Medium</p>
-</div>
-
-<div class="card">
-<h3>Area C</h3>
-<p>Status : Empty</p>
-</div>
-
-</section>
-
-<section id="ai" class="section">
+<section class="ai">
 
 <h2>AI Waste Assistant</h2>
 
@@ -92,45 +75,11 @@
 
 <footer>
 
-<p>© 2026 Smart Waste Management System</p>
+<p>© 2026 Smart Waste Management System Project</p>
 
 </footer>
 
-<script>
-
-function showNotification(){
-
-alert("⚠ Smart Alert: Garbage bin in Area A is almost full. Collection required!");
-
-}
-
-function aiReply(){
-
-let q = document.getElementById("question").value.toLowerCase();
-
-if(q.includes("plastic")){
-document.getElementById("answer").innerHTML =
-"Plastic should be placed in the recycling bin.";
-}
-
-else if(q.includes("food")){
-document.getElementById("answer").innerHTML =
-"Food waste should go into the organic waste bin.";
-}
-
-else if(q.includes("glass")){
-document.getElementById("answer").innerHTML =
-"Glass should be disposed in recyclable waste.";
-}
-
-else{
-document.getElementById("answer").innerHTML =
-"Please separate waste into recyclable, organic and non-recyclable.";
-}
-
-}
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
