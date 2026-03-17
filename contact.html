@@ -35,6 +35,17 @@
 <textarea placeholder="Your Message" style="width:100%; padding:10px; margin:10px 0"></textarea>
 
 <button type="submit" class="btn">Send Message</button>
+  <form onsubmit="sendMessage(event)">
+<input type="text" id="name" placeholder="Your Name" required>
+
+<input type="email" id="email" placeholder="Your Email" required>
+
+<textarea id="message" placeholder="Your Message"></textarea>
+
+<button type="submit" class="btn">Send Message</button>
+</form>
+
+<p id="response"></p>
 
 </form>
 
