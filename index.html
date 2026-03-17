@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -14,33 +15,32 @@
 <body>
 
 <header>
+
 <h1>Smart Waste Management System</h1>
-<p>Using Web Technologies</p>
+<p>Clean City | Smart Technology</p>
+
 </header>
 
 <nav>
 
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="status.html">Waste Status</a>
-<a href="report.html">Report</a>
-<a href="contact.html">Contact</a>
+<a href="#home">Home</a>
+<a href="#features">Features</a>
+<a href="#status">Waste Status</a>
+<a href="#ai">AI Assistant</a>
 
 </nav>
 
-<section class="hero">
+<section id="home" class="hero">
 
 <h2>Welcome to Smart Waste Monitoring</h2>
 
 <p>This system helps monitor garbage levels and maintain a clean city.</p>
 
-<button onclick="showNotification(); window.location.href='status.html';">
-Check Bin Status
-</button>
+<button onclick="showStatus()">Check Bin Status</button>
 
 </section>
 
-<section class="features">
+<section id="features" class="section">
 
 <h2>Project Features</h2>
 
@@ -51,17 +51,38 @@ Check Bin Status
 
 <div class="card">
 <h3>Smart Notification</h3>
-<p>Receive alerts when garbage bins are full.</p>
+<p>Get alerts when garbage bins are full.</p>
 </div>
 
 <div class="card">
 <h3>AI Waste Assistant</h3>
-<p>Get suggestions on proper waste disposal.</p>
+<p>Get help on proper waste disposal.</p>
 </div>
 
 </section>
 
-<section class="ai">
+<section id="status" class="section">
+
+<h2>Waste Bin Status</h2>
+
+<div class="card">
+<h3>Area A</h3>
+<p style="color:red;">Status : Full</p>
+</div>
+
+<div class="card">
+<h3>Area B</h3>
+<p style="color:orange;">Status : Medium</p>
+</div>
+
+<div class="card">
+<h3>Area C</h3>
+<p style="color:green;">Status : Empty</p>
+</div>
+
+</section>
+
+<section id="ai" class="section">
 
 <h2>AI Waste Assistant</h2>
 
@@ -77,11 +98,51 @@ Check Bin Status
 
 <footer>
 
-<p>© 2026 Smart Waste Management System Project</p>
+<p>© 2026 Smart Waste Management System</p>
 
 </footer>
 
-<script src="script.js"></script>
+<script>
+
+function showStatus(){
+
+alert("⚠ Smart Alert: Garbage bin in Area A is almost full!");
+
+document.getElementById("status").scrollIntoView({
+behavior:"smooth"
+});
+
+}
+
+function aiReply(){
+
+let q=document.getElementById("question").value.toLowerCase();
+
+if(q.includes("plastic")){
+document.getElementById("answer").innerHTML=
+"Plastic should be placed in the recycling bin.";
+}
+
+else if(q.includes("food")){
+document.getElementById("answer").innerHTML=
+"Food waste should go into the organic bin.";
+}
+
+else if(q.includes("glass")){
+document.getElementById("answer").innerHTML=
+"Glass should go into recyclable waste.";
+}
+
+else{
+
+document.getElementById("answer").innerHTML=
+"Separate waste into recyclable, organic and non-recyclable.";
+
+}
+
+}
+
+</script>
 
 </body>
 </html>
