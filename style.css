@@ -53,6 +53,10 @@ color:#00e6a8;
 </div>
 
 </section>
+img{
+max-width:100%;
+height:auto;
+}
 
 /* hero */
 
@@ -187,6 +191,40 @@ box-shadow:0 5px 15px rgba(0,0,0,0.1);
 padding:60px;
 text-align:center;
 background:#eef2f7;
+}
+.hero{
+height:500px;
+background:url("https://images.unsplash.com/photo-1604187351574-c75ca79f5807") center/cover no-repeat;
+display:flex;
+align-items:center;
+justify-content:center;
+text-align:center;
+color:white;
+}
+
+.hero-content{
+background:rgba(0,0,0,0.5);
+padding:40px;
+border-radius:10px;
+}
+
+.hero h1{
+font-size:45px;
+margin-bottom:15px;
+}
+
+.hero p{
+font-size:18px;
+margin-bottom:20px;
+}
+
+.btn{
+background:#00b894;
+color:white;
+padding:12px 25px;
+text-decoration:none;
+border-radius:5px;
+font-weight:bold;
 }
 
 /* footer */
