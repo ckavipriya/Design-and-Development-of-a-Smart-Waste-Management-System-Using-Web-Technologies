@@ -1,222 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
-<title>Smart Waste Management System</title>
-
-<link rel="stylesheet" href="style.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Waste Management System</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<header>
-
-<div class="logo">♻ Smart Waste</div>
-
-<nav>
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="status.html">Dashboard</a>
-<a href="report.html">Report</a>
-<a href="contact.html">Contact</a>
-</nav>
-
-</header>
-
-
-<!-- HERO SECTION -->
-
-<section class="hero">
-
-<div class="hero-content">
-
-<h1>Smart Waste Management System</h1>
-
-<p>
-AI-based monitoring platform for efficient garbage collection and cleaner cities.
-</p>
-
-<a href="status.html" class="btn">Open Smart Dashboard</a>
-
-</div>
-
-</section>
-
-
-<!-- GALLERY -->
-
-<section class="gallery">
-
-<h2>Smart Waste Management in Action</h2>
-
-<div class="images">
-
-<img src="https://images.unsplash.com/photo-1528323273322-d81458248d40">
-
-<img src="https://images.unsplash.com/photo-1605600659873-d808a13e4b01">
-
-<img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952">
-
-</div>
-
-</section>
-
-
-<!-- FEATURES -->
-
-<section class="features">
-
-<h2>Key Features</h2>
-
-<div class="cards">
-
-<div class="card">
-<h3>📡 Real Time Monitoring</h3>
-<p>Track waste levels from smart bins across different city locations.</p>
-</div>
-
-<div class="card">
-<h3>🔔 Smart Notifications</h3>
-<p>Receive alerts when bins reach maximum capacity.</p>
-</div>
-
-<div class="card">
-<h3>🌱 Eco Friendly</h3>
-<p>Promotes sustainable waste management and cleaner cities.</p>
-</div>
-
-</div>
-
-</section>
-
-
-<!-- DASHBOARD PREVIEW -->
-
-<section class="dashboard">
-
-<h2>Smart Bin Monitoring</h2>
-
-<div class="bins">
-
-<div class="bin">
-
-<h3>Main Street Bin</h3>
-
-<div class="bar">
-<div class="level level70"></div>
-</div>
-
-<p>70% Full</p>
-
-</div>
-
-
-<div class="bin">
-
-<h3>Bus Stand Bin</h3>
-
-<div class="bar">
-<div class="level level40"></div>
-</div>
-
-<p>40% Full</p>
-
-</div>
-
-
-<div class="bin">
-
-<h3>Market Area Bin</h3>
-
-<div class="bar">
-<div class="level level90"></div>
-</div>
-
-<p>90% Full</p>
-
-</div>
-
-</div>
-
-</section>
-
-
-<!-- STATS -->
-
-<section class="stats">
-
-<h2>Impact of Smart Waste System</h2>
-
-<div class="statsbox">
-
-<div class="stat">
-<h3>150+</h3>
-<p>Smart Bins Installed</p>
-</div>
-
-<div class="stat">
-<h3>60%</h3>
-<p>Efficiency Improvement</p>
-</div>
-
-<div class="stat">
-<h3>40%</h3>
-<p>Cleaner Streets</p>
-</div>
-
-</div>
-
-</section>
-
-
-<!-- ABOUT PREVIEW -->
-
-<section class="aboutpreview">
-
-<h2>Why Smart Waste Management?</h2>
-
-<p>
-Traditional waste collection methods are inefficient and cause overflowing bins.
-Smart waste management systems use sensors and AI technology to monitor
-waste levels and notify collection teams at the right time.
-</p>
-
-</section>
-
-
-<!-- AI CHATBOT -->
-
-<div class="chatbot-button" onclick="openChat()">💬</div>
-
-<div id="chatbox" class="chatbox">
-
-<div class="chat-header">
-AI Waste Assistant
-<span onclick="closeChat()">✖</span>
-</div>
-
-<div class="chat-body" id="chat-body">
-<p>Hello! Ask me about the smart waste system.</p>
-</div>
-
-<input type="text" id="userInput" placeholder="Ask something...">
-
-<button onclick="sendMessage()">Send</button>
-
-</div>
-
-
-<script src="script.js"></script>
-
-
-<footer>
-
-<p>© 2026 Smart Waste Management System</p>
-
-</footer>
+  <!-- Header Section -->
+  <header>
+    <div class="container">
+      <h1>Smart Waste Management System</h1>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Home Section -->
+  <section id="home" class="section">
+    <div class="container">
+      <h2>Welcome to Our Smart Waste Management System</h2>
+      <p>Efficiently manage waste in your community with our intelligent solutions.</p>
+      <a href="#contact" class="btn">Get In Touch</a>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about" class="section">
+    <div class="container">
+      <h2>About the Project</h2>
+      <p>This system monitors waste bins in real-time and optimizes collection routes, saving time, fuel, and reducing environmental impact.</p>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section">
+    <div class="container">
+      <h2>Contact Us</h2>
+      <form action="#" method="post">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your Name" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Your Email" required>
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Write your message here..." rows="5" required></textarea>
+
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Smart Waste Management System. All rights reserved.</p>
+    </div>
+  </footer>
 
 </body>
 </html>
