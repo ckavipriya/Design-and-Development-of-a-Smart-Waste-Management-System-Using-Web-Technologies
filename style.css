@@ -3,6 +3,11 @@ font-family:Poppins;
 margin:0;
 background:#f4f7fb;
 }
+body{
+font-family:Poppins;
+margin:0;
+background:#f4f7fb;
+}
 
 /* header */
 
@@ -207,4 +212,217 @@ margin-bottom:10px;
 height:120px;
 overflow:auto;
 font-size:14px;
+}
+
+
+/* header */
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+background:#1e2a38;
+color:white;
+}
+
+.logo{
+font-size:22px;
+font-weight:bold;
+}
+
+nav a{
+color:white;
+margin:0 12px;
+text-decoration:none;
+font-weight:500;
+}
+
+nav a:hover{
+color:#00e6a8;
+}
+
+/* hero */
+
+.hero{
+height:450px;
+background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
+url("https://images.unsplash.com/photo-1604187351574-c75ca79f5807");
+background-size:cover;
+background-position:center;
+color:white;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+.hero h1{
+font-size:42px;
+}
+
+.hero p{
+width:60%;
+}
+
+.btn{
+background:#00e6a8;
+padding:12px 30px;
+margin-top:20px;
+text-decoration:none;
+color:black;
+font-weight:bold;
+border-radius:6px;
+}
+.hero2{
+background:#1e2a38;
+color:white;
+padding:80px;
+text-align:center;
+}
+
+.reporttable{
+margin:auto;
+border-collapse:collapse;
+background:white;
+}
+
+.reporttable th,
+.reporttable td{
+padding:12px 20px;
+border:1px solid #ddd;
+}
+
+/* features */
+
+.features{
+padding:70px;
+text-align:center;
+}
+
+.cards{
+display:flex;
+justify-content:center;
+gap:30px;
+margin-top:30px;
+}
+
+.card{
+background:white;
+padding:30px;
+width:260px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* dashboard */
+
+.dashboard{
+padding:70px;
+text-align:center;
+background:#eef2f7;
+}
+
+.bins{
+display:flex;
+justify-content:center;
+gap:40px;
+margin-top:30px;
+}
+
+.bar{
+width:160px;
+height:20px;
+background:#ddd;
+border-radius:10px;
+}
+
+.level{
+height:100%;
+background:#00c08a;
+border-radius:10px;
+}
+
+.level70{width:70%;}
+.level40{width:40%;}
+.level90{width:90%;}
+
+/* stats */
+
+.stats{
+padding:70px;
+text-align:center;
+}
+
+.statsbox{
+display:flex;
+justify-content:center;
+gap:60px;
+margin-top:30px;
+}
+
+.stat{
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* about */
+
+.aboutpreview{
+padding:60px;
+text-align:center;
+background:#eef2f7;
+}
+
+/* footer */
+
+footer{
+background:#1e2a38;
+color:white;
+text-align:center;
+padding:20px;
+}
+.chatbot-button{
+position:fixed;
+bottom:20px;
+right:20px;
+background:#00c08a;
+color:white;
+font-size:22px;
+padding:15px;
+border-radius:50%;
+cursor:pointer;
+}
+
+.chatbox{
+display:none;
+position:fixed;
+bottom:80px;
+right:20px;
+width:250px;
+background:white;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+padding:10px;
+}
+
+.chat-header{
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.chat-body{
+height:120px;
+overflow:auto;
+font-size:14px;
+}
+section{
+padding:60px;
+}
+
+body{
+background:#f5f7fa;
 }
