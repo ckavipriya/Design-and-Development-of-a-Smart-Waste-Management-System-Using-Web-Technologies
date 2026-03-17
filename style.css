@@ -1,23 +1,23 @@
 body{
 
-font-family: Arial;
+font-family: Arial, sans-serif;
 margin:0;
-background:#f4f4f4;
+background:#f0f4f8;
 
 }
 
 header{
 
-background:#2c7a2c;
+background:linear-gradient(90deg,#2c7a2c,#00b894);
 color:white;
 text-align:center;
-padding:20px;
+padding:25px;
 
 }
 
 nav{
 
-background:#333;
+background:#222;
 padding:12px;
 text-align:center;
 
@@ -29,6 +29,7 @@ color:white;
 margin:15px;
 text-decoration:none;
 font-size:18px;
+font-weight:bold;
 
 }
 
@@ -41,32 +42,47 @@ color:#00ffcc;
 .hero{
 
 text-align:center;
-padding:60px;
-background:#e8ffe8;
+padding:80px;
+background-image:url("https://images.unsplash.com/photo-1528323273322-d81458248d40");
+background-size:cover;
+color:white;
+
+}
+
+.hero h2{
+
+font-size:40px;
 
 }
 
 button{
 
-background:#2c7a2c;
+background:#00b894;
 color:white;
 border:none;
-padding:12px 20px;
-font-size:16px;
+padding:14px 25px;
+font-size:18px;
 cursor:pointer;
+border-radius:6px;
 
 }
 
 button:hover{
 
-background:#1f5c1f;
+background:#019875;
 
 }
 
-.section{
+.features{
 
-padding:40px;
+padding:50px;
 text-align:center;
+
+}
+
+.features h2{
+
+margin-bottom:30px;
 
 }
 
@@ -75,23 +91,23 @@ text-align:center;
 background:white;
 display:inline-block;
 width:250px;
-padding:20px;
+padding:25px;
 margin:20px;
-border-radius:8px;
-box-shadow:0px 0px 10px rgba(0,0,0,0.1);
+border-radius:10px;
+box-shadow:0px 5px 15px rgba(0,0,0,0.1);
+transition:transform 0.3s;
 
 }
 
-input{
+.card:hover{
 
-padding:10px;
-width:250px;
+transform:scale(1.05);
 
 }
 
 footer{
 
-background:#222;
+background:#111;
 color:white;
 text-align:center;
 padding:15px;
