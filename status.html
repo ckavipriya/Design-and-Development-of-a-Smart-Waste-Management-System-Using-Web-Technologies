@@ -85,6 +85,23 @@
 <footer>
 <p>© 2026 Smart Waste Management System</p>
 </footer>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
 
+const ctx=document.getElementById('wasteChart');
+
+new Chart(ctx,{
+type:'bar',
+data:{
+labels:['Organic','Plastic','Metal','Other'],
+datasets:[{
+label:'Waste Collected',
+data:[45,30,15,10],
+backgroundColor:['green','blue','orange','gray']
+}]
+}
+});
+
+</script>
 </body>
 </html>
