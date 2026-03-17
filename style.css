@@ -1,18 +1,10 @@
 body{
-font-family:Poppins;
-margin:0;
-background:#f4f7fb;
-}
-body{
 font-family:'Poppins',sans-serif;
-}
-body{
-font-family:Poppins;
 margin:0;
-background:#f4f7fb;
+background:#f5f7fa;
 }
 
-/* header */
+/* HEADER */
 
 header{
 display:flex;
@@ -28,7 +20,6 @@ font-size:22px;
 font-weight:bold;
 }
 
-
 nav a{
 color:white;
 margin:0 12px;
@@ -39,26 +30,9 @@ font-weight:500;
 nav a:hover{
 color:#00e6a8;
 }
-<section class="gallery">
 
-<h2>Smart Waste Technology</h2>
 
-<div class="gallery-grid">
-
-<img src="https://images.unsplash.com/photo-1528323273322-d81458248d40">
-<img src="https://images.unsplash.com/photo-1503594384566-461fe158e797">
-<img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b">
-<img src="https://images.unsplash.com/photo-1605600659873-d808a13e4b01">
-
-</div>
-
-</section>
-img{
-max-width:100%;
-height:auto;
-}
-
-/* hero */
+/* HERO */
 
 .hero{
 height:450px;
@@ -66,138 +40,9 @@ background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
 url("https://images.unsplash.com/photo-1604187351574-c75ca79f5807");
 background-size:cover;
 background-position:center;
-color:white;
 display:flex;
-flex-direction:column;
 justify-content:center;
 align-items:center;
-text-align:center;
-}
-
-.hero h1{
-font-size:42px;
-}
-
-.hero p{
-width:60%;
-}
-
-.btn{
-background:#00e6a8;
-padding:12px 30px;
-margin-top:20px;
-text-decoration:none;
-color:black;
-font-weight:bold;
-border-radius:6px;
-}
-.hero2{
-background:#1e2a38;
-color:white;
-padding:80px;
-text-align:center;
-}
-
-.reporttable{
-margin:auto;
-border-collapse:collapse;
-background:white;
-}
-
-.reporttable th,
-.reporttable td{
-padding:12px 20px;
-border:1px solid #ddd;
-}
-
-/* features */
-
-.features{
-padding:70px;
-text-align:center;
-}
-
-.cards{
-display:flex;
-justify-content:center;
-gap:30px;
-margin-top:30px;
-}
-
-.card{
-background:white;
-padding:30px;
-width:260px;
-border-radius:10px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-
-/* dashboard */
-
-.dashboard{
-padding:70px;
-text-align:center;
-background:#eef2f7;
-}
-
-.bins{
-display:flex;
-justify-content:center;
-gap:40px;
-margin-top:30px;
-}
-
-.bar{
-width:160px;
-height:20px;
-background:#ddd;
-border-radius:10px;
-}
-
-.level{
-height:100%;
-background:#00c08a;
-border-radius:10px;
-}
-
-.level70{width:70%;}
-.level40{width:40%;}
-.level90{width:90%;}
-
-/* stats */
-
-.stats{
-padding:70px;
-text-align:center;
-}
-
-.statsbox{
-display:flex;
-justify-content:center;
-gap:60px;
-margin-top:30px;
-}
-
-.stat{
-background:white;
-padding:25px;
-border-radius:10px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-
-/* about */
-
-.aboutpreview{
-padding:60px;
-text-align:center;
-background:#eef2f7;
-}
-.hero{
-height:500px;
-background:url("https://images.unsplash.com/photo-1604187351574-c75ca79f5807") center/cover no-repeat;
-display:flex;
-align-items:center;
-justify-content:center;
 text-align:center;
 color:white;
 }
@@ -209,148 +54,47 @@ border-radius:10px;
 }
 
 .hero h1{
-font-size:45px;
-margin-bottom:15px;
-}
-
-.hero p{
-font-size:18px;
-margin-bottom:20px;
-}
-
-.btn{
-background:#00b894;
-color:white;
-padding:12px 25px;
-text-decoration:none;
-border-radius:5px;
-font-weight:bold;
-}
-
-/* footer */
-
-footer{
-background:#1e2a38;
-color:white;
-text-align:center;
-padding:20px;
-}
-.chatbot-button{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#00c08a;
-color:white;
-font-size:22px;
-padding:15px;
-border-radius:50%;
-cursor:pointer;
-}
-
-.chatbox{
-display:none;
-position:fixed;
-bottom:80px;
-right:20px;
-width:250px;
-background:white;
-border-radius:10px;
-box-shadow:0 5px 15px rgba(0,0,0,0.3);
-padding:10px;
-}
-
-.chat-header{
-font-weight:bold;
-margin-bottom:10px;
-}
-
-.chat-body{
-height:120px;
-overflow:auto;
-font-size:14px;
-}
-
-
-/* header */
-
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:20px 40px;
-background:#1e2a38;
-color:white;
-}
-
-.logo{
-font-size:22px;
-font-weight:bold;
-}
-
-nav a{
-color:white;
-margin:0 12px;
-text-decoration:none;
-font-weight:500;
-}
-
-nav a:hover{
-color:#00e6a8;
-}
-
-/* hero */
-
-.hero{
-height:450px;
-background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
-url("https://images.unsplash.com/photo-1604187351574-c75ca79f5807");
-background-size:cover;
-background-position:center;
-color:white;
-display:flex;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-text-align:center;
-}
-
-.hero h1{
 font-size:42px;
 }
 
 .hero p{
-width:60%;
+font-size:18px;
 }
 
 .btn{
 background:#00e6a8;
-padding:12px 30px;
-margin-top:20px;
-text-decoration:none;
+padding:12px 25px;
 color:black;
-font-weight:bold;
+text-decoration:none;
 border-radius:6px;
+font-weight:bold;
+display:inline-block;
+margin-top:20px;
 }
-.hero2{
-background:#1e2a38;
-color:white;
-padding:80px;
+
+
+/* GALLERY */
+
+.gallery{
+padding:60px;
 text-align:center;
 }
 
-.reporttable{
-margin:auto;
-border-collapse:collapse;
-background:white;
+.images{
+display:flex;
+justify-content:center;
+gap:20px;
+margin-top:30px;
 }
 
-.reporttable th,
-.reporttable td{
-padding:12px 20px;
-border:1px solid #ddd;
+.images img{
+width:300px;
+border-radius:10px;
+box-shadow:0 6px 15px rgba(0,0,0,0.2);
 }
 
-/* features */
+
+/* FEATURES */
 
 .features{
 padding:70px;
@@ -372,7 +116,8 @@ border-radius:10px;
 box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
-/* dashboard */
+
+/* DASHBOARD */
 
 .dashboard{
 padding:70px;
@@ -404,7 +149,8 @@ border-radius:10px;
 .level40{width:40%;}
 .level90{width:90%;}
 
-/* stats */
+
+/* STATS */
 
 .stats{
 padding:70px;
@@ -425,7 +171,8 @@ border-radius:10px;
 box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
-/* about */
+
+/* ABOUT */
 
 .aboutpreview{
 padding:60px;
@@ -433,7 +180,8 @@ text-align:center;
 background:#eef2f7;
 }
 
-/* footer */
+
+/* FOOTER */
 
 footer{
 background:#1e2a38;
@@ -441,6 +189,10 @@ color:white;
 text-align:center;
 padding:20px;
 }
+
+
+/* CHATBOT */
+
 .chatbot-button{
 position:fixed;
 bottom:20px;
@@ -474,11 +226,4 @@ margin-bottom:10px;
 height:120px;
 overflow:auto;
 font-size:14px;
-}
-section{
-padding:60px;
-}
-
-body{
-background:#f5f7fa;
 }
