@@ -154,6 +154,27 @@ at the right time.
 </p>
 
 </section>
+  <div class="chatbot-button" onclick="openChat()">
+💬
+</div>
+
+<div id="chatbox" class="chatbox">
+
+<div class="chat-header">
+AI Waste Assistant
+<span onclick="closeChat()">✖</span>
+</div>
+
+<div class="chat-body" id="chat-body">
+<p>Hi! I can help you with waste system information.</p>
+</div>
+
+<input type="text" id="userInput" placeholder="Ask something...">
+<button onclick="sendMessage()">Send</button>
+
+</div>
+
+<script src="script.js"></script>
 
 
 <footer>
@@ -161,6 +182,7 @@ at the right time.
 <p>© 2026 Smart Waste Management System</p>
 
 </footer>
+  
 
 </body>
 </html>
