@@ -18,7 +18,7 @@ padding:20px;
 nav{
 
 background:#333;
-padding:10px;
+padding:12px;
 text-align:center;
 
 }
@@ -26,8 +26,8 @@ text-align:center;
 nav a{
 
 color:white;
-text-decoration:none;
 margin:15px;
+text-decoration:none;
 font-size:18px;
 
 }
@@ -63,7 +63,7 @@ background:#1f5c1f;
 
 }
 
-.features{
+.section{
 
 padding:40px;
 text-align:center;
@@ -79,13 +79,6 @@ padding:20px;
 margin:20px;
 border-radius:8px;
 box-shadow:0px 0px 10px rgba(0,0,0,0.1);
-
-}
-
-.ai{
-
-text-align:center;
-padding:40px;
 
 }
 
