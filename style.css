@@ -1,21 +1,28 @@
 body{
 font-family:Poppins;
 margin:0;
-background:#f5f7fa;
+background:#f4f7fb;
 }
+
+/* header */
 
 header{
 display:flex;
 justify-content:space-between;
 align-items:center;
+padding:20px 40px;
 background:#1e2a38;
 color:white;
-padding:20px 40px;
+}
+
+.logo{
+font-size:22px;
+font-weight:bold;
 }
 
 nav a{
 color:white;
-margin:0 10px;
+margin:0 12px;
 text-decoration:none;
 font-weight:500;
 }
@@ -24,11 +31,14 @@ nav a:hover{
 color:#00e6a8;
 }
 
+/* hero */
+
 .hero{
-height:400px;
+height:450px;
 background:linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),
 url("https://images.unsplash.com/photo-1604187351574-c75ca79f5807");
 background-size:cover;
+background-position:center;
 color:white;
 display:flex;
 flex-direction:column;
@@ -38,21 +48,27 @@ text-align:center;
 }
 
 .hero h1{
-font-size:40px;
+font-size:42px;
+}
+
+.hero p{
+width:60%;
 }
 
 .btn{
 background:#00e6a8;
-padding:12px 25px;
+padding:12px 30px;
 margin-top:20px;
 text-decoration:none;
 color:black;
 font-weight:bold;
-border-radius:5px;
+border-radius:6px;
 }
 
+/* features */
+
 .features{
-padding:60px;
+padding:70px;
 text-align:center;
 }
 
@@ -65,14 +81,16 @@ margin-top:30px;
 
 .card{
 background:white;
-padding:25px;
-width:250px;
+padding:30px;
+width:260px;
 border-radius:10px;
-box-shadow:0 4px 15px rgba(0,0,0,0.1);
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
+/* dashboard */
+
 .dashboard{
-padding:60px;
+padding:70px;
 text-align:center;
 background:#eef2f7;
 }
@@ -85,7 +103,7 @@ margin-top:30px;
 }
 
 .bar{
-width:150px;
+width:160px;
 height:20px;
 background:#ddd;
 border-radius:10px;
@@ -97,17 +115,40 @@ background:#00c08a;
 border-radius:10px;
 }
 
-.level70{
-width:70%;
+.level70{width:70%;}
+.level40{width:40%;}
+.level90{width:90%;}
+
+/* stats */
+
+.stats{
+padding:70px;
+text-align:center;
 }
 
-.level40{
-width:40%;
+.statsbox{
+display:flex;
+justify-content:center;
+gap:60px;
+margin-top:30px;
 }
 
-.level90{
-width:90%;
+.stat{
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
+
+/* about */
+
+.aboutpreview{
+padding:60px;
+text-align:center;
+background:#eef2f7;
+}
+
+/* footer */
 
 footer{
 background:#1e2a38;
