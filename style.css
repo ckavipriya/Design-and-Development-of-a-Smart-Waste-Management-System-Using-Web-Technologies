@@ -25,6 +25,7 @@ font-size:22px;
 font-weight:bold;
 }
 
+
 nav a{
 color:white;
 margin:0 12px;
@@ -35,6 +36,20 @@ font-weight:500;
 nav a:hover{
 color:#00e6a8;
 }
+<section class="gallery">
+
+<h2>Smart Waste Technology</h2>
+
+<div class="gallery-grid">
+
+<img src="https://images.unsplash.com/photo-1528323273322-d81458248d40">
+<img src="https://images.unsplash.com/photo-1503594384566-461fe158e797">
+<img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b">
+<img src="https://images.unsplash.com/photo-1605600659873-d808a13e4b01">
+
+</div>
+
+</section>
 
 /* hero */
 
