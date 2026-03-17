@@ -1,14 +1,195 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="https://base44.com/logo_v2.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="manifest" href="/manifest.json" />
-    <title>Base44 APP</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Waste Management System</title>
+
+<style>
+body{
+font-family: Arial;
+margin:0;
+background:#f4f4f4;
+}
+
+header{
+background:#2c7a2c;
+color:white;
+padding:15px;
+text-align:center;
+}
+
+nav{
+background:#333;
+padding:10px;
+text-align:center;
+}
+
+nav a{
+color:white;
+margin:15px;
+text-decoration:none;
+font-size:18px;
+}
+
+nav a:hover{
+color:#00ffcc;
+}
+
+.hero{
+padding:50px;
+text-align:center;
+background:#e8ffe8;
+}
+
+button{
+padding:10px 20px;
+font-size:16px;
+background:#2c7a2c;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+button:hover{
+background:#1f5c1f;
+}
+
+.section{
+padding:40px;
+text-align:center;
+}
+
+.card{
+background:white;
+padding:20px;
+margin:20px;
+border-radius:8px;
+box-shadow:0 0 10px rgba(0,0,0,0.1);
+display:inline-block;
+width:250px;
+}
+
+input{
+padding:10px;
+width:250px;
+}
+
+footer{
+background:#222;
+color:white;
+text-align:center;
+padding:15px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Smart Waste Management System</h1>
+<p>Clean City | Smart Technology</p>
+</header>
+
+<nav>
+<a href="#">Home</a>
+<a href="#status">Waste Status</a>
+<a href="#ai">AI Assistant</a>
+<a href="#contact">Contact</a>
+</nav>
+
+<div class="hero">
+<h2>Welcome to Smart Waste Monitoring</h2>
+<p>Track waste levels and keep the city clean.</p>
+
+<button onclick="showNotification()">Check Bin Status</button>
+</div>
+
+<section id="status" class="section">
+
+<h2>Waste Bin Status</h2>
+
+<div class="card">
+<h3>Area A</h3>
+<p>Status: Almost Full</p>
+</div>
+
+<div class="card">
+<h3>Area B</h3>
+<p>Status: Medium</p>
+</div>
+
+<div class="card">
+<h3>Area C</h3>
+<p>Status: Empty</p>
+</div>
+
+</section>
+
+<section id="ai" class="section">
+
+<h2>AI Waste Assistant</h2>
+
+<p>Ask how to dispose waste</p>
+
+<input type="text" id="question" placeholder="Example: plastic waste">
+
+<br><br>
+
+<button onclick="aiReply()">Ask AI</button>
+
+<p id="answer"></p>
+
+</section>
+
+<section id="contact" class="section">
+
+<h2>Contact Waste Management</h2>
+
+<p>Email: smartwaste@city.com</p>
+<p>Phone: +91 9876543210</p>
+
+</section>
+
+<footer>
+<p>© 2026 Smart Waste Management System</p>
+</footer>
+
+<script>
+
+function showNotification(){
+
+alert("⚠ Smart Alert: Garbage bin in Area A is almost full. Collection required!");
+
+}
+
+function aiReply(){
+
+let q = document.getElementById("question").value.toLowerCase();
+
+if(q.includes("plastic")){
+document.getElementById("answer").innerHTML =
+"Plastic should be placed in the recycling bin.";
+}
+
+else if(q.includes("food")){
+document.getElementById("answer").innerHTML =
+"Food waste should go into the organic waste bin.";
+}
+
+else if(q.includes("glass")){
+document.getElementById("answer").innerHTML =
+"Glass should be disposed in recyclable waste.";
+}
+
+else{
+document.getElementById("answer").innerHTML =
+"Please separate waste into recyclable, organic, and non-recyclable.";
+}
+
+}
+
+</script>
+
+</body>
 </html>
