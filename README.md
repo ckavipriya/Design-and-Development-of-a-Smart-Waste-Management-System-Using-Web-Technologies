@@ -1,13 +1,30 @@
-# WasteZero
+# Smart Waste Management System
 
-WasteZero is a simple waste management awareness project.
+This project is a web-based smart waste monitoring system developed
+using HTML, CSS and JavaScript.
 
-Features:
-- Waste awareness
-- Simple UI
-- Basic waste tracking idea
+## Features
 
-Technologies Used:
+- Waste bin monitoring
+- Smart waste alerts
+- Waste status dashboard
+- AI waste assistant
+
+## Pages
+
+- Home
+- About
+- Waste Status
+- Project Report
+- Contact
+
+## Purpose
+
+The system helps improve waste collection efficiency and maintain
+clean cities by monitoring garbage levels.
+
+## Technologies Used
+
 - HTML
 - CSS
 - JavaScript
