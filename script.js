@@ -38,5 +38,16 @@ chat.innerHTML += "<p><b>You:</b> "+input+"</p>";
 chat.innerHTML += "<p><b>AI:</b> "+response+"</p>";
 
 document.getElementById("userInput").value="";
+}
+  function sendMessage(event){
+
+event.preventDefault();
+
+let name=document.getElementById("name").value;
+
+document.getElementById("response").innerHTML=
+"Thank you "+name+"! Your message has been received.";
+
+
 
 }
