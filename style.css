@@ -64,6 +64,24 @@ color:black;
 font-weight:bold;
 border-radius:6px;
 }
+.hero2{
+background:#1e2a38;
+color:white;
+padding:80px;
+text-align:center;
+}
+
+.reporttable{
+margin:auto;
+border-collapse:collapse;
+background:white;
+}
+
+.reporttable th,
+.reporttable td{
+padding:12px 20px;
+border:1px solid #ddd;
+}
 
 /* features */
 
