@@ -154,22 +154,23 @@
   </footer>
 
   <!-- JavaScript for AI Reply -->
-  <script>
-    const form = document.getElementById('contactForm');
-    const aiReply = document.getElementById('aiReply');
+<script>
+const form = document.getElementById('contactForm');
+const aiReply = document.getElementById('aiReply');
 
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
-      const name = document.getElementById('name').value;
-      const problem = document.getElementById('problem').value;
+form.addEventListener('submit', function(e) {
+  e.preventDefault(); // Prevent page reload
 
-      aiReply.style.display = 'block';
-      aiReply.innerHTML = `<strong>AI Assistant:</strong> Hi ${name}, thank you for contacting us! We have received your message: "${problem}". Our team will get back to you shortly.`;
-      
-      form.reset();
-      aiReply.scrollIntoView({ behavior: "smooth", block: "start" });
-    });
-  </script>
+  const name = document.getElementById('name').value;
+  const problem = document.getElementById('problem').value;
+
+  aiReply.style.display = 'block';
+  aiReply.innerHTML = `<strong>AI Assistant:</strong> Hi ${name}, thank you for contacting us! We have received your message: "${problem}". Our team will get back to you shortly.`;
+  
+  form.reset();
+  aiReply.scrollIntoView({ behavior: "smooth", block: "start" });
+});
+</script>
 
 </body>
 </html>
