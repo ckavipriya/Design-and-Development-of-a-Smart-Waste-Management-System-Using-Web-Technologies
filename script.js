@@ -1,53 +1,26 @@
-function openChat(){
-document.getElementById("chatbox").style.display="block";
-}
+<script>
+const form = document.getElementById('contactForm');
+const aiReply = document.getElementById('aiReply');
 
-function closeChat(){
-document.getElementById("chatbox").style.display="none";
-}
+form.addEventListener('submit', function(e) {
+  e.preventDefault(); // Prevent page reload
 
-function sendMessage(){
+  const name = document.getElementById('name').value;
+  const problem = document.getElementById('problem').value;
 
-let input=document.getElementById("userInput").value.toLowerCase();
+  // Hide the form
+  form.style.display = 'none';
 
-let chat=document.getElementById("chat-body");
+  // Show AI reply box
+  aiReply.style.display = 'block';
+  aiReply.innerHTML = `
+    <h3>Thank You, ${name}!</h3>
+    <p>Your message has been received:</p>
+    <blockquote>"${problem}"</blockquote>
+    <p>Our AI assistant will get back to you shortly.</p>
+  `;
 
-let response="";
-
-if(input.includes("bin")){
-response="Smart bins monitor waste levels using sensors.";
-}
-
-else if(input.includes("status")){
-response="You can check the waste level in the Status page dashboard.";
-}
-
-else if(input.includes("project")){
-response="This is a Smart Waste Management System that helps cities manage garbage efficiently.";
-}
-
-else if(input.includes("report")){
-response="Waste collection reports are available in the Report section.";
-}
-
-else{
-response="Sorry, I can answer questions about the waste system.";
-}
-
-chat.innerHTML += "<p><b>You:</b> "+input+"</p>";
-chat.innerHTML += "<p><b>AI:</b> "+response+"</p>";
-
-document.getElementById("userInput").value="";
-}
-  function sendMessage(event){
-
-event.preventDefault();
-
-let name=document.getElementById("name").value;
-
-document.getElementById("response").innerHTML=
-"Thank you "+name+"! Your message has been received.";
-
-
-
-}
+  // Scroll smoothly to reply
+  aiReply.scrollIntoView({ behavior: "smooth", block: "start" });
+});
+</script>
