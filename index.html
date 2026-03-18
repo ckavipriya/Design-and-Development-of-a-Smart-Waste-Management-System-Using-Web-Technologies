@@ -9,13 +9,15 @@
 </head>
 <body>
 
-  <!-- Header Section -->
+  <!-- Header -->
   <header>
-    <div class="container">
+    <div class="container header-container">
       <h1>Smart Waste Management System</h1>
       <nav>
         <a href="#home">Home</a>
         <a href="#about">About</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#report">Report</a>
         <a href="#contact">Contact</a>
       </nav>
     </div>
@@ -23,18 +25,86 @@
 
   <!-- Home Section -->
   <section id="home" class="section">
-    <div class="container">
-      <h2>Welcome to Our Smart Waste Management System</h2>
-      <p>Efficiently manage waste in your community with our intelligent solutions.</p>
-      <a href="#contact" class="btn">Get In Touch</a>
+    <div class="container home-container">
+      <h2>Smart Waste Management in Action</h2>
+      <p>Efficiently manage waste in your community with intelligent solutions.</p>
+      <img src="https://i.ibb.co/N2b3s8M/smart-waste.jpg" alt="Smart Waste Management" class="home-img">
     </div>
   </section>
 
   <!-- About Section -->
   <section id="about" class="section">
     <div class="container">
-      <h2>About the Project</h2>
-      <p>This system monitors waste bins in real-time and optimizes collection routes, saving time, fuel, and reducing environmental impact.</p>
+      <h2>About Our System</h2>
+      <p>Our Smart Waste Management System uses IoT sensors and real-time data analytics to optimize waste collection, reduce costs, and protect the environment.</p>
+      <ul class="features">
+        <li>Real-time monitoring of waste bins</li>
+        <li>Optimized collection routes for efficiency</li>
+        <li>Alerts for full bins or issues</li>
+        <li>Environmentally friendly waste management</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Dashboard Section -->
+  <section id="dashboard" class="section dashboard-section">
+    <div class="container">
+      <h2>Dashboard Overview</h2>
+      <div class="dashboard-cards">
+        <div class="card">
+          <h3>Bins Full</h3>
+          <p>15</p>
+        </div>
+        <div class="card">
+          <h3>Collections Today</h3>
+          <p>8</p>
+        </div>
+        <div class="card">
+          <h3>Alerts</h3>
+          <p>2</p>
+        </div>
+        <div class="card">
+          <h3>Total Bins</h3>
+          <p>50</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Report Section -->
+  <section id="report" class="section">
+    <div class="container">
+      <h2>Reports</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Bin ID</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Last Collected</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>101</td>
+            <td>Main Street</td>
+            <td>Full</td>
+            <td>10:00 AM</td>
+          </tr>
+          <tr>
+            <td>102</td>
+            <td>Park Avenue</td>
+            <td>Empty</td>
+            <td>09:30 AM</td>
+          </tr>
+          <tr>
+            <td>103</td>
+            <td>City Square</td>
+            <td>Almost Full</td>
+            <td>08:45 AM</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </section>
 
