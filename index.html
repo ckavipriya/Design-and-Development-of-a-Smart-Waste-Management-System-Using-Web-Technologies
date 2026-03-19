@@ -281,10 +281,11 @@ It improves garbage collection efficiency and keeps cities clean.
 <section id="ai">
 <h2>AI Waste Assistant</h2>
 
-<div class="ai-box">
-<input type="text" id="userInput" placeholder="Ask about waste collection...">
-<button onclick="sendMessage()">Ask AI</button>
+<input type="text" id="question" placeholder="Ask anything...">
+<button onclick="askAI()">Ask AI</button>
 
+<p id="answer"></p>
+</section>
 <p id="aiResponse"></p>
 </div>
 </section>
@@ -298,21 +299,23 @@ It improves garbage collection efficiency and keeps cities clean.
 
 <script>
 
-document.getElementById("contactForm").addEventListener("submit",function(e){
+async function askAI(){
 
-e.preventDefault()
+const question = document.getElementById("question").value
 
-var name=document.getElementById("name").value
-var problem=document.getElementById("problem").value
-
-document.getElementById("formBox").style.display="none"
-
-document.getElementById("thankyou").style.display="block"
-
-document.getElementById("reply").innerHTML=
-"Thank you <b>"+name+"</b>. We received your message: <br><br><i>"+problem+"</i><br><br>Our AI assistant will contact you soon."
-
+const response = await fetch("http://localhost:3000/ask",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({question})
 })
+
+const data = await response.json()
+
+document.getElementById("answer").innerText = data.reply
+
+}
 
 </script>
 
