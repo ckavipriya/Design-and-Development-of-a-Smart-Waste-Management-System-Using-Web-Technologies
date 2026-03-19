@@ -22,6 +22,26 @@ font-weight:600;
 font-size:40px;
 }
 header nav a:hover {text-decoration:underline; color:#4CAF50;}
+.ai-box{
+background:white;
+padding:30px;
+max-width:500px;
+margin:auto;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+.ai-box input{
+width:70%;
+padding:10px;
+}
+
+.ai-box button{
+padding:10px;
+background:#4CAF50;
+color:white;
+border:none;
+}
 
 /* Sections */
 .section {padding:60px 0; 
