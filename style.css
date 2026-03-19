@@ -31,12 +31,13 @@ border-radius:10px;
 box-shadow:0 5px 20px rgba(0,0,0,0.1);
 }
 .bin-card{
-background:#ffffff;
-padding:30px;
+.bin-card{
+background:white;
+padding:25px;
 border-radius:15px;
-width:260px;
+width:220px;
 text-align:center;
-box-shadow:0 6px 15px rgba(0,0,0,0.15);
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
 .bin-btn{
@@ -99,12 +100,14 @@ margin-bottom:30px;
 .feature-card p {color:#fff;}
 
 /* Dashboard */
-<div class="card">
-<h3>Bin 101</h3>
-<div class="progress">
-<div class="progress-bar" style="width:80%">80%</div>
-</div>
-</div>
+.dashboard{
+display:flex;
+justify-content:center;
+gap:30px;
+flex-wrap:wrap;
+margin-top:40px;
+}
+
 .progress{
 background:#eee;
 border-radius:20px;
