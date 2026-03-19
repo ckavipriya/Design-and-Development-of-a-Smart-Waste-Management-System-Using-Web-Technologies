@@ -23,4 +23,36 @@ form.addEventListener('submit', function(e) {
   // Scroll smoothly to reply
   aiReply.scrollIntoView({ behavior: "smooth", block: "start" });
 });
+<script>
+
+function sendMessage(){
+
+var input=document.getElementById("userInput").value.toLowerCase()
+var response=""
+
+if(input.includes("bin full")){
+response="Please report the location of the full bin. The system will schedule collection."
+}
+
+else if(input.includes("collection")){
+response="Waste collection trucks operate every morning between 6AM and 10AM."
+}
+
+else if(input.includes("complaint")){
+response="Please use the contact form to register your complaint."
+}
+
+else if(input.includes("recycle")){
+response="Separate recyclable waste into the blue bin for proper recycling."
+}
+
+else{
+response="Thank you for contacting Smart Waste AI Assistant. Please provide more details."
+}
+
+document.getElementById("aiResponse").innerHTML=response
+
+}
+
+</script>
 </script>
