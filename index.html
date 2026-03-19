@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Smart Waste Management System</title>
 
@@ -11,123 +8,134 @@
 
 <style>
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
-}
-
 body{
-background:linear-gradient(120deg,#f6d365,#fda085,#a1c4fd,#c2e9fb);
-background-size:400% 400%;
-animation:rainbow 12s ease infinite;
+font-family:'Poppins',sans-serif;
+margin:0;
+background:#f4f6f8;
 }
 
-@keyframes rainbow{
-0%{background-position:0% 50%}
-50%{background-position:100% 50%}
-100%{background-position:0% 50%}
-}
+/* Navbar */
 
-header{
-background:white;
+nav{
+background:#2c3e50;
 padding:15px;
 text-align:center;
-box-shadow:0 2px 10px rgba(0,0,0,0.1);
 }
 
 nav a{
-margin:0 15px;
+color:white;
+margin:0 20px;
 text-decoration:none;
-color:#333;
 font-weight:500;
 }
 
+/* Sections */
+
 section{
-padding:60px 10%;
+padding:60px 20px;
 text-align:center;
 }
 
-h2{
-margin-bottom:20px;
-}
+/* Dashboard */
 
-.cards{
+.dashboard{
 display:flex;
 justify-content:center;
-gap:20px;
+gap:30px;
 flex-wrap:wrap;
+margin-top:30px;
 }
 
-.card{
+.bin-card{
 background:white;
-padding:30px;
-border-radius:10px;
-width:200px;
+padding:25px;
+width:250px;
+border-radius:12px;
 box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
-table{
-width:100%;
-background:white;
+.progress{
+background:#eee;
+height:15px;
 border-radius:10px;
+margin:15px 0;
 overflow:hidden;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
 }
 
-th,td{
+.progress-bar{
+height:100%;
+}
+
+.full{
+width:90%;
+background:#e74c3c;
+}
+
+.half{
+width:50%;
+background:#f1c40f;
+}
+
+.empty{
+width:10%;
+background:#2ecc71;
+}
+
+/* AI Assistant */
+
+.ai-box{
+margin-top:20px;
+}
+
+.ai-box input{
 padding:12px;
-border-bottom:1px solid #eee;
-}
-
-th{
-background:#4CAF50;
-color:white;
-}
-
-.contact-box{
-background:white;
-padding:30px;
-border-radius:10px;
-max-width:500px;
-margin:auto;
-box-shadow:0 5px 20px rgba(0,0,0,0.1);
-}
-
-input,textarea{
-width:100%;
-padding:10px;
-margin:10px 0;
-border-radius:5px;
+width:250px;
+border-radius:8px;
 border:1px solid #ccc;
 }
 
-button{
-background:#4CAF50;
+.ai-box button{
+padding:12px;
+background:#3498db;
 color:white;
-padding:10px 20px;
 border:none;
-border-radius:5px;
+border-radius:8px;
 cursor:pointer;
 }
 
-#thankyou{
-display:none;
-background:white;
-padding:30px;
-border-radius:10px;
-max-width:500px;
+/* Contact */
+
+.contact-form{
+max-width:400px;
 margin:auto;
-box-shadow:0 5px 20px rgba(0,0,0,0.1);
+display:flex;
+flex-direction:column;
+gap:15px;
 }
 
-footer{
-background:#333;
+.contact-form input,
+.contact-form textarea{
+padding:12px;
+border-radius:8px;
+border:1px solid #ccc;
+}
+
+.contact-form button{
+padding:12px;
+background:#27ae60;
 color:white;
+border:none;
+border-radius:8px;
+cursor:pointer;
+}
+
+/* Footer */
+
+footer{
+background:#2c3e50;
+color:white;
+padding:20px;
 text-align:center;
-padding:15px;
-margin-top:40px;
 }
 
 </style>
@@ -136,217 +144,89 @@ margin-top:40px;
 
 <body>
 
-<header>
-
-<h1>Smart Waste Management System</h1>
-
 <nav>
 <a href="#home">Home</a>
-<a href="#about">About</a>
 <a href="#dashboard">Dashboard</a>
-<a href="#report">Report</a>
+<a href="#ai">AI Assistant</a>
 <a href="#contact">Contact</a>
 </nav>
 
-</header>
-
-
 <section id="home">
 
-<h2>Smart Waste Management in Action</h2>
+<h1>Smart Waste Management System</h1>
 
-<p>Using technology to improve waste collection efficiency.</p>
-
-<img src="https://cdn-icons-png.flaticon.com/512/2921/2921822.png" width="200">
+<p>Using technology and AI to improve waste collection and build cleaner cities.</p>
 
 </section>
 
+<section id="dashboard">
 
-<section id="about">
-
-<h2>About the System</h2>
-
-<p>
-This system helps monitor waste bins using smart technology.
-It improves garbage collection efficiency and keeps cities clean.
-</p>
-
-</section>
-
+<h2>Waste Bin Dashboard</h2>
 
 <div class="dashboard">
 
 <div class="bin-card">
 <h3>Bin 101</h3>
-
 <div class="progress">
 <div class="progress-bar full"></div>
 </div>
-
-<p class="status red">Status: Full</p>
-
+<p>Status: Full</p>
 </div>
 
 <div class="bin-card">
 <h3>Bin 102</h3>
-
 <div class="progress">
 <div class="progress-bar half"></div>
 </div>
-
-<p class="status yellow">Status: Half Full</p>
-
+<p>Status: Half Full</p>
 </div>
 
 <div class="bin-card">
 <h3>Bin 103</h3>
-
 <div class="progress">
 <div class="progress-bar empty"></div>
 </div>
-
-<p class="status green">Status: Empty</p>
-
-</div>
-
-</div>
-
-
-
-<div class="bin-card">
-    <h2>Bin 101</h2>
-
-    
-
-<div class="bin-card">
-<h2>Bin 101</h2>
-<button class="bin-btn" onclick="showStatus('full')">Bin Full</button>
-<button class="bin-btn" onclick="showStatus('half')">Half Full</button>
-<button class="bin-btn" onclick="showStatus('empty')">Empty</button>
-<div id="aiReply"></div>
-</div>
-
-<div class="bin-card">
-<h2>Bin 102</h2>
-<p>Status: Monitoring</p>
-</div>
-
-<div class="bin-card">
-<h2>Bin 103</h2>
-<p>Status: Monitoring</p>
-</div>
-
-</div>
-
-    <button class="bin-btn" onclick="showStatus('full')">Bin Full</button>
-    <button class="bin-btn" onclick="showStatus('half')">Half Full</button>
-    <button class="bin-btn" onclick="showStatus('empty')">Empty</button>
-
-    <div id="aiReply" class="ai-reply"></div>
-</div>
-<div class="cards">
-
-<div class="card">
-<h3>Total Bins</h3>
-<p>50</p>
-</div>
-
-<div class="card">
-<h3>Full Bins</h3>
-<p>12</p>
-</div>
-
-<div class="card">
-<h3>Collected Today</h3>
-<p>8</p>
-</div>
-
-<div class="card">
-<h3>Alerts</h3>
-<p>3</p>
+<p>Status: Empty</p>
 </div>
 
 </div>
 
 </section>
 
+<section id="ai">
 
-<section id="report">
+<h2>AI Waste Assistant</h2>
 
-<h2>Reports</h2>
+<div class="ai-box">
 
-<table>
+<input type="text" id="question" placeholder="Ask about waste collection...">
 
-<tr>
-<th>Bin ID</th>
-<th>Location</th>
-<th>Status</th>
-</tr>
-  
+<button onclick="askAI()">Ask</button>
 
-<tr>
-<td>101</td>
-<td>Main Street</td>
-<td>Full</td>
-</tr>
+<p id="answer"></p>
 
-<tr>
-<td>102</td>
-<td>Park Road</td>
-<td>Empty</td>
-</tr>
-
-<tr>
-<td>103</td>
-<td>Bus Stand</td>
-<td>Almost Full</td>
-</tr>
-
-</table>
+</div>
 
 </section>
-
 
 <section id="contact">
 
 <h2>Contact Us</h2>
 
-<div class="contact-box" id="formBox">
+<form class="contact-form" onsubmit="submitForm(event)">
 
-<form id="contactForm">
-
-<input type="text" id="name" placeholder="Your Name" required>
+<input type="text" placeholder="Name" required>
 
 <input type="email" placeholder="Email" required>
 
-<textarea id="problem" placeholder="Your Problem" required></textarea>
+<textarea placeholder="Your message" required></textarea>
 
-<button type="submit">Send Message</button>
+<button type="submit">Send</button>
 
 </form>
 
-</div>
+<p id="formMessage"></p>
 
-
-<div id="thankyou">
-
-<h3>Message Sent Successfully 🎉</h3>
-
-<p id="reply"></p>
-
-</div>
-
-</section>
-<section id="ai">
-<h2>AI Waste Assistant</h2>
-
-<input type="text" id="question" placeholder="Ask anything...">
-<button onclick="askAI()">Ask AI</button>
-
-<p id="answer"></p>
-</section>
-<p id="aiResponse"></p>
-</div>
 </section>
 
 <footer>
@@ -357,26 +237,42 @@ It improves garbage collection efficiency and keeps cities clean.
 
 <script>
 
-function showStatus(status){
+function askAI(){
 
-let message=""
+let q=document.getElementById("question").value.toLowerCase()
 
-if(status==="full"){
-message="AI Alert: Bin 101 is full. Waste collection truck has been notified."
+let reply=""
+
+if(q.includes("bin")){
+reply="AI: Please check the dashboard for current bin status."
 }
 
-else if(status==="half"){
-message="AI Update: Bin 101 is half full. Monitoring waste level."
+else if(q.includes("collection")){
+reply="AI: Waste collection trucks operate every morning."
 }
 
-else if(status==="empty"){
-message="AI Update: Bin 101 is empty. No action required."
+else if(q.includes("recycle")){
+reply="AI: Please separate recyclable waste into the blue bin."
 }
 
-document.getElementById("aiReply").innerHTML = message
+else{
+reply="AI: Thank you for your question. Our waste management system will assist you."
+}
+
+document.getElementById("answer").innerText=reply
+
+}
+
+function submitForm(e){
+
+e.preventDefault()
+
+document.getElementById("formMessage").innerText="Your message has been sent successfully."
 
 }
 
 </script>
+
 </body>
+
 </html>
