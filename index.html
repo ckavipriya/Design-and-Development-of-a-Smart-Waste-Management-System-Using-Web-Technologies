@@ -1,13 +1,136 @@
-```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Smart Waste Management System</title>
 
-<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background:linear-gradient(120deg,#f6d365,#fda085,#a1c4fd,#c2e9fb);
+background-size:400% 400%;
+animation:rainbow 12s ease infinite;
+}
+
+@keyframes rainbow{
+0%{background-position:0% 50%}
+50%{background-position:100% 50%}
+100%{background-position:0% 50%}
+}
+
+header{
+background:white;
+padding:15px;
+text-align:center;
+box-shadow:0 2px 10px rgba(0,0,0,0.1);
+}
+
+nav a{
+margin:0 15px;
+text-decoration:none;
+color:#333;
+font-weight:500;
+}
+
+section{
+padding:60px 10%;
+text-align:center;
+}
+
+h2{
+margin-bottom:20px;
+}
+
+.cards{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:10px;
+width:200px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+table{
+width:100%;
+background:white;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+th,td{
+padding:12px;
+border-bottom:1px solid #eee;
+}
+
+th{
+background:#4CAF50;
+color:white;
+}
+
+.contact-box{
+background:white;
+padding:30px;
+border-radius:10px;
+max-width:500px;
+margin:auto;
+box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+input,textarea{
+width:100%;
+padding:10px;
+margin:10px 0;
+border-radius:5px;
+border:1px solid #ccc;
+}
+
+button{
+background:#4CAF50;
+color:white;
+padding:10px 20px;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+#thankyou{
+display:none;
+background:white;
+padding:30px;
+border-radius:10px;
+max-width:500px;
+margin:auto;
+box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+footer{
+background:#333;
+color:white;
+text-align:center;
+padding:15px;
+margin-top:40px;
+}
+
+</style>
 
 </head>
 
@@ -18,33 +141,163 @@
 <h1>Smart Waste Management System</h1>
 
 <nav>
-<a href="#">Home</a>
-<a href="#">About</a>
-<a href="#">Dashboard</a>
-<a href="#">Report</a>
-<a href="#">Contact</a>
+<a href="#home">Home</a>
+<a href="#about">About</a>
+<a href="#dashboard">Dashboard</a>
+<a href="#report">Report</a>
+<a href="#contact">Contact</a>
 </nav>
 
 </header>
 
 
-<section class="hero">
+<section id="home">
 
-<h1>Smart Waste Management in Action</h1>
+<h2>Smart Waste Management in Action</h2>
 
-<p>Efficiently manage waste in your community with intelligent solutions.</p>
+<p>Using technology to improve waste collection efficiency.</p>
 
-<div class="hero-box">
+<img src="https://cdn-icons-png.flaticon.com/512/2921/2921822.png" width="200">
 
-<button>Learn More</button>
+</section>
 
-<img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b"
-alt="Waste Management">
+
+<section id="about">
+
+<h2>About the System</h2>
+
+<p>
+This system helps monitor waste bins using smart technology.
+It improves garbage collection efficiency and keeps cities clean.
+</p>
+
+</section>
+
+
+<section id="dashboard">
+
+<h2>Dashboard</h2>
+
+<div class="cards">
+
+<div class="card">
+<h3>Total Bins</h3>
+<p>50</p>
+</div>
+
+<div class="card">
+<h3>Full Bins</h3>
+<p>12</p>
+</div>
+
+<div class="card">
+<h3>Collected Today</h3>
+<p>8</p>
+</div>
+
+<div class="card">
+<h3>Alerts</h3>
+<p>3</p>
+</div>
 
 </div>
 
 </section>
 
+
+<section id="report">
+
+<h2>Reports</h2>
+
+<table>
+
+<tr>
+<th>Bin ID</th>
+<th>Location</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>101</td>
+<td>Main Street</td>
+<td>Full</td>
+</tr>
+
+<tr>
+<td>102</td>
+<td>Park Road</td>
+<td>Empty</td>
+</tr>
+
+<tr>
+<td>103</td>
+<td>Bus Stand</td>
+<td>Almost Full</td>
+</tr>
+
+</table>
+
+</section>
+
+
+<section id="contact">
+
+<h2>Contact Us</h2>
+
+<div class="contact-box" id="formBox">
+
+<form id="contactForm">
+
+<input type="text" id="name" placeholder="Your Name" required>
+
+<input type="email" placeholder="Email" required>
+
+<textarea id="problem" placeholder="Your Problem" required></textarea>
+
+<button type="submit">Send Message</button>
+
+</form>
+
+</div>
+
+
+<div id="thankyou">
+
+<h3>Message Sent Successfully 🎉</h3>
+
+<p id="reply"></p>
+
+</div>
+
+</section>
+
+
+<footer>
+
+<p>© 2026 Smart Waste Management System</p>
+
+</footer>
+
+
+<script>
+
+document.getElementById("contactForm").addEventListener("submit",function(e){
+
+e.preventDefault()
+
+var name=document.getElementById("name").value
+var problem=document.getElementById("problem").value
+
+document.getElementById("formBox").style.display="none"
+
+document.getElementById("thankyou").style.display="block"
+
+document.getElementById("reply").innerHTML=
+"Thank you <b>"+name+"</b>. We received your message: <br><br><i>"+problem+"</i><br><br>Our AI assistant will contact you soon."
+
+})
+
+</script>
+
 </body>
 </html>
-```
