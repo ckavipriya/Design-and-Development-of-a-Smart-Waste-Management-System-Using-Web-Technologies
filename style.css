@@ -31,13 +31,13 @@ border-radius:10px;
 box-shadow:0 5px 20px rgba(0,0,0,0.1);
 }
 .bin-card{
-.bin-card{
 background:white;
 padding:25px;
+width:250px;
 border-radius:15px;
-width:220px;
 text-align:center;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+transition:0.3s;
 }
 
 .bin-btn{
@@ -52,10 +52,10 @@ font-size:16px;
 cursor:pointer;
 }
 
-.bin-btn:hover{
-background:#4CAF50;
-color:white;
+.bin-card:hover{
+transform:translateY(-5px);
 }
+
 
 .bin-btn:hover{
 background:#4CAF50;
@@ -103,24 +103,45 @@ margin-bottom:30px;
 .dashboard{
 display:flex;
 justify-content:center;
-gap:30px;
-flex-wrap:wrap;
+gap:40px;
 margin-top:40px;
+flex-wrap:wrap;
 }
 
 .progress{
 background:#eee;
-border-radius:20px;
+height:15px;
+border-radius:10px;
+margin:15px 0;
 overflow:hidden;
-height:20px;
+}
+.half{
+width:50%;
+background:#ffc107;
+}
+.empty{
+width:10%;
+background:#4CAF50;
+}
+.status{
+font-weight:bold;
+}
+
+.red{
+color:#ff4d4d;
+}
+
+.yellow{
+color:#ffc107;
+}
+
+.green{
+color:#4CAF50;
 }
 
 .progress-bar{
-background:#4CAF50;
 height:100%;
-text-align:center;
-color:white;
-font-size:12px;
+border-radius:10px;
 }
 .full{background:#ff6b6b;}
 .medium{background:#ffd93d;}
