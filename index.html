@@ -181,19 +181,15 @@ It improves garbage collection efficiency and keeps cities clean.
 
 
 
+
 <div class="bin-card">
+    <h2>Bin 101</h2>
 
-<h2>Bin 101</h2>
+    <button class="bin-btn" onclick="showStatus('full')">Bin Full</button>
+    <button class="bin-btn" onclick="showStatus('half')">Half Full</button>
+    <button class="bin-btn" onclick="showStatus('empty')">Empty</button>
 
-<button onclick="binStatus('full')" class="bin-btn">Bin Full</button>
-
-<button onclick="binStatus('half')" class="bin-btn">Half Full</button>
-
-<button onclick="binStatus('empty')" class="bin-btn">Empty</button>
-
-<p id="aiReply"></p>
-
-</div>
+    <div id="aiReply" class="ai-reply"></div>
 </div>
 <div class="cards">
 
@@ -306,26 +302,25 @@ It improves garbage collection efficiency and keeps cities clean.
 
 </footer>
 
-
 <script>
 
-function binStatus(status){
+function showStatus(status){
 
-let reply=""
+let message=""
 
-if(status=="full"){
-reply="AI Alert: The bin is full. Collection truck will be scheduled soon."
+if(status==="full"){
+message="AI Alert: Bin 101 is full. Waste collection truck has been notified."
 }
 
-else if(status=="half"){
-reply="AI Notice: The bin is half full. Monitoring waste level."
+else if(status==="half"){
+message="AI Update: Bin 101 is half full. Monitoring waste level."
 }
 
-else{
-reply="AI Update: The bin is empty. No action required."
+else if(status==="empty"){
+message="AI Update: Bin 101 is empty. No action required."
 }
 
-document.getElementById("aiReply").innerHTML=reply
+document.getElementById("aiReply").innerHTML = message
 
 }
 
