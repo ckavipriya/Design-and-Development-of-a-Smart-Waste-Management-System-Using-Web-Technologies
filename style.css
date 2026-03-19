@@ -30,6 +30,38 @@ margin:auto;
 border-radius:10px;
 box-shadow:0 5px 20px rgba(0,0,0,0.1);
 }
+.bin-card{
+background:white;
+padding:30px;
+width:250px;
+border-radius:15px;
+text-align:center;
+box-shadow:0 8px 20px rgba(0,0,0,0.1);
+}
+
+.bin-btn{
+display:block;
+width:100%;
+margin:10px 0;
+padding:12px;
+border:none;
+border-radius:10px;
+background:#f1f1f1;
+font-size:16px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.bin-btn:hover{
+background:#4CAF50;
+color:white;
+}
+
+#aiReply{
+margin-top:15px;
+font-weight:bold;
+color:#333;
+}
 
 .ai-box input{
 width:70%;
