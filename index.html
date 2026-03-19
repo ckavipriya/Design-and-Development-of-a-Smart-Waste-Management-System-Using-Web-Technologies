@@ -1,178 +1,139 @@
+```html
 <!DOCTYPE html>
-<html lang="en">
-  <!-- Header -->
-  <header>
-    <div class="container header-container">
-      <h1>Smart Waste Management System</h1>
-      <nav>
-        <a href="#home">Home</a>
-        <a href="#about">About</a>
-        <a href="#dashboard">Dashboard</a>
-        <a href="#report">Report</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
+<html>
+<head>
 
-  <!-- Home Section -->
-  <section id="home" class="section home-section">
-    <div class="container home-container">
-      <h2>Smart Waste Management in Action</h2>
-      <p>Efficiently manage waste in your community with intelligent solutions.</p>
-      <a href="#about" class="btn-home">Learn More</a>
-      <img src="https://i.ibb.co/N2b3s8M/smart-waste.jpg" alt="Smart Waste Management" class="home-img">
-    </div>
-  </section>
+<title>Smart Waste Management System</title>
 
-  <!-- About Section -->
-  <section id="about" class="section">
-    <div class="container">
-      <h2>About Our System</h2>
-      <p>Our Smart Waste Management System uses IoT sensors and real-time data analytics to optimize waste collection, reduce costs, and protect the environment.</p>
-      
-      <div class="features-cards">
-        <div class="feature-card">
-          <h3>Real-time Monitoring</h3>
-          <p>Track bin status instantly with IoT sensors.</p>
-        </div>
-        <div class="feature-card">
-          <h3>Optimized Routes</h3>
-          <p>Reduce costs and time for collection trucks.</p>
-        </div>
-        <div class="feature-card">
-          <h3>Alerts & Notifications</h3>
-          <p>Get notified for full bins or malfunctions.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<link rel="stylesheet" href="style.css">
 
-  <!-- Dashboard Section -->
-  <section id="dashboard" class="section dashboard-section">
-    <div class="container">
-      <h2>Dashboard Overview</h2>
-      <div class="dashboard-cards">
-        <div class="card" style="background:#e8f5e9;">
-          <h3>Bins Full</h3>
-          <p>15</p>
-        </div>
-        <div class="card" style="background:#e3f2fd;">
-          <h3>Collections Today</h3>
-          <p>8</p>
-        </div>
-        <div class="card" style="background:#fff3e0;">
-          <h3>Alerts</h3>
-          <p>2</p>
-        </div>
-        <div class="card" style="background:#f3e5f5;">
-          <h3>Total Bins</h3>
-          <p>50</p>
-        </div>
-      </div>
-    </div>
-  </section>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
-  <!-- Report Section -->
-  <section id="report" class="section">
-    <div class="container">
-      <h2>Reports</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Bin ID</th>
-            <th>Location</th>
-            <th>Status</th>
-            <th>Last Collected</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>101</td>
-            <td>Main Street</td>
-            <td>Full</td>
-            <td>10:00 AM</td>
-          </tr>
-          <tr>
-            <td>102</td>
-            <td>Park Avenue</td>
-            <td>Empty</td>
-            <td>09:30 AM</td>
-          </tr>
-          <tr>
-            <td>103</td>
-            <td>City Square</td>
-            <td>Almost Full</td>
-            <td>08:45 AM</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+</head>
 
-  <!-- Contact Section -->
-  <section id="contact" class="section">
-    <div class="container">
-      <h2>Contact Us</h2>
-      <form id="contactForm" class="contact-form">
-        <div class="form-group">
-          <input type="text" id="name" name="name" required>
-          <label for="name">Your Name</label>
-        </div>
+<body>
 
-        <div class="form-group">
-          <input type="email" id="email" name="email" required>
-          <label for="email">Your Email</label>
-        </div>
+<header>
 
-        <div class="form-group">
-          <textarea id="problem" name="problem" rows="5" required></textarea>
-          <label for="problem">Your Problem / Message</label>
-        </div>
+<h1>Smart Waste Management System</h1>
 
-        <button type="submit" class="btn-submit">Send Message</button>
-      </form>
+<nav>
+<a href="#">Home</a>
+<a href="#about">About</a>
+<a href="#dashboard">Dashboard</a>
+<a href="#report">Report</a>
+<a href="#contact">Contact</a>
+</nav>
 
-      <!-- AI Assistant Reply Box -->
-<div id="aiReply" class="ai-reply" style="display:none;"></div>
-      <!-- AI Assistant Reply Box -->
-      <div id="aiReply" class="ai-reply"></div>
-    </div>
-  </section>
+</header>
 
-  <!-- Footer -->
-  <footer>
-    <div class="container">
-      <p>&copy; 2026 Smart Waste Management System. All rights reserved.</p>
-    </div>
-  </footer>
 
-  <!-- JavaScript for AI Reply -->
-<script>
-const form = document.getElementById('contactForm');
-const aiReply = document.getElementById('aiReply');
+<section class="hero">
 
-form.addEventListener('submit', function(e) {
-  e.preventDefault(); // Prevent page reload
+<div class="hero-content">
 
-  const name = document.getElementById('name').value;
-  const problem = document.getElementById('problem').value;
+<h1>Smart Waste Management in Action</h1>
 
-  // Hide the form completely
-  form.style.display = 'none';
+<p>
+Efficiently manage waste in your community with intelligent solutions.
+</p>
 
-  // Show AI reply box with thank-you message
-  aiReply.style.display = 'block';
-  aiReply.innerHTML = `
-    <h3>Thank You, ${name}!</h3>
-    <p>Your message has been received:</p>
-    <blockquote>"${problem}"</blockquote>
-    <p>Our AI assistant will get back to you shortly.</p>
-  `;
+<button class="btn">Learn More</button>
 
-  // Scroll smoothly to the AI reply box
-  aiReply.scrollIntoView({ behavior: "smooth", block: "start" });
-});
-</script>
+<div class="hero-image">
+
+<img src="https://images.unsplash.com/photo-1604187351574-c75ca79f5807"
+alt="Smart Waste Management">
+
+</div>
+
+</div>
+
+</section>
+
+
+<section id="about">
+
+<h2>About the Project</h2>
+
+<p>
+The Smart Waste Management System is designed to improve waste
+collection efficiency using modern web technologies. It helps monitor
+bin levels, track waste collection schedules, and provide better
+waste management solutions for smart cities.
+</p>
+
+</section>
+
+
+<section id="dashboard">
+
+<h2>Dashboard</h2>
+
+<div class="card-container">
+
+<div class="card">
+<h3>Bin Monitoring</h3>
+<p>Check whether waste bins are full or empty.</p>
+</div>
+
+<div class="card">
+<h3>Collection Status</h3>
+<p>Track waste collection schedules.</p>
+</div>
+
+<div class="card">
+<h3>Smart Alerts</h3>
+<p>Receive alerts when bins reach capacity.</p>
+</div>
+
+</div>
+
+</section>
+
+
+<section id="report">
+
+<h2>Waste Reports</h2>
+
+<div class="card-container">
+
+<div class="card">
+<h3>Daily Waste Data</h3>
+<p>View daily waste generation reports.</p>
+</div>
+
+<div class="card">
+<h3>Recycling Analysis</h3>
+<p>Analyze recycling efficiency.</p>
+</div>
+
+<div class="card">
+<h3>City Statistics</h3>
+<p>Visualize waste management performance.</p>
+</div>
+
+</div>
+
+</section>
+
+
+<section id="contact">
+
+<h2>Contact Us</h2>
+
+<p>Email: smartwaste@gmail.com</p>
+<p>Phone: +91 9876543210</p>
+
+</section>
+
+
+<footer>
+
+<p>© 2026 Smart Waste Management System</p>
+
+</footer>
 
 </body>
 </html>
+```
