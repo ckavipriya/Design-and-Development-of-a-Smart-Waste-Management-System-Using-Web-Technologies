@@ -1,43 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>AI Assistant</title>
+<style>
 
-<link rel="stylesheet" href="style.css">
+body{
+font-family: Arial;
+background:#f4f6f9;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
 
+.chat-box{
+background:white;
+width:400px;
+padding:30px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+input{
+width:90%;
+padding:10px;
+margin-top:15px;
+}
+
+button{
+padding:10px 20px;
+margin-top:10px;
+background:#2c7a7b;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+#answer{
+margin-top:20px;
+font-weight:bold;
+}
+
+</style>
 </head>
 
 <body>
 
-<nav class="navbar">
-
-<h2>Smart Waste</h2>
-
-<ul>
-
-<li><a href="index.html">Home</a></li>
-<li><a href="about.html">About</a></li>
-<li><a href="status.html">Bin Status</a></li>
-<li><a href="report.html">Report</a></li>
-<li><a href="contact.html">Contact</a></li>
-
-</ul>
-
-</nav>
-
-
-<section class="ai-section">
-
-<div class="ai-box">
+<div class="chat-box">
 
 <h2>AI Waste Assistant</h2>
 
-<p>Ask questions about waste management</p>
+<p>Ask about waste management</p>
 
-<input type="text" id="question" placeholder="Ask your question...">
+<input id="question" placeholder="Ask question...">
+
+<br>
 
 <button onclick="askAI()">Ask</button>
 
@@ -45,10 +65,35 @@
 
 </div>
 
-</section>
+<script>
 
+function askAI(){
 
-<script src="script.js"></script>
+let q=document.getElementById("question").value.toLowerCase()
+
+let reply=""
+
+if(q.includes("bin")){
+reply="Check the bin status page."
+}
+
+else if(q.includes("collection")){
+reply="Waste collection is between 6AM and 10AM."
+}
+
+else if(q.includes("recycle")){
+reply="Separate recyclable waste into recycling bins."
+}
+
+else{
+reply="Thank you for your question."
+}
+
+document.getElementById("answer").innerText=reply
+
+}
+
+</script>
 
 </body>
 </html>
