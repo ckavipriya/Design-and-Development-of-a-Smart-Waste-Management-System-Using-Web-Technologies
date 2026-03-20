@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Report - Smart Waste Management System</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Report - Smart Waste Management System</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <nav>
-  <ul>
+  <div class="nav-logo">Smart Waste</div>
+  <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="status.html">Status</a></li>
@@ -18,18 +19,34 @@
   </ul>
 </nav>
 
-<header>
+<section class="page-header">
   <h1>Reports</h1>
-</header>
+  <p>View collection and recycling reports.</p>
+</section>
 
-<section id="report-details">
-  <h2>Sample Reports</h2>
-  <ul>
-    <li>Daily Bin Status Report</li>
-    <li>Monthly Collection Summary</li>
-    <li>Recycling Efficiency Report</li>
-    <li>AI Assistance Query Log</li>
-  </ul>
+<section class="report-table">
+  <table>
+    <tr>
+      <th>Date</th>
+      <th>Bin</th>
+      <th>Status</th>
+    </tr>
+    <tr>
+      <td>2026-03-20</td>
+      <td>Bin 1</td>
+      <td>Collected</td>
+    </tr>
+    <tr>
+      <td>2026-03-20</td>
+      <td>Bin 2</td>
+      <td>Pending</td>
+    </tr>
+    <tr>
+      <td>2026-03-20</td>
+      <td>Bin 3</td>
+      <td>Full</td>
+    </tr>
+  </table>
 </section>
 
 <footer>
