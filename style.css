@@ -155,56 +155,180 @@ width:400px;
 text-align:center;
 box-shadow:0 5px 20px rgba(0,0,0,0.1);
 }
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>AI Assistant - Smart Waste Management</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<h2 class="logo">Smart Waste</h2>
+
+<ul class="nav-links">
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="status.html">Status</a></li>
+<li><a href="report.html">Report</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+
+</nav>
+
+
+<section class="ai-page">
+
+<div class="ai-container">
+
+<h2>Smart Waste AI Assistant</h2>
+<p>Ask questions about waste management</p>
+
+<div class="chat-box" id="chatBox">
+
+<div class="ai-message">
+Hello! I am your Waste Management Assistant. Ask me anything.
+</div>
+
+</div>
+
+
+<div class="chat-input">
+
+<input id="question" placeholder="Type your question">
+
+<button onclick="askAI()">Send</button>
+
+</div>
+
+</div>
+
+</section>
+
+
+<script>
+
+function askAI(){
+
+let q=document.getElementById("question").value
+
+let reply=""
+
+if(q.toLowerCase().includes("bin")){
+reply="You can check the smart bin status in the Status page."
+}
+
+else if(q.toLowerCase().includes("collection")){
+reply="Waste collection usually happens between 6AM and 10AM."
+}
+
+else if(q.toLowerCase().includes("recycle")){
+reply="Separate recyclable waste like plastic, paper and glass."
+}
+
+else if(q.toLowerCase().includes("report")){
+reply="You can report waste issues in the Report page."
+}
+
+else{
+reply="Thank you for your question. Our Smart Waste Management system helps monitor bins and improve recycling."
+}
+
+let chat=document.getElementById("chatBox")
+
+chat.innerHTML += "<div class='user-message'>"+q+"</div>"
+chat.innerHTML += "<div class='ai-message'>"+reply+"</div>"
+
+document.getElementById("question").value=""
+
+}
+
+</script>
+
+</body>
+</html>
 .ai-page{
+
 height:90vh;
 display:flex;
 justify-content:center;
 align-items:center;
-background:#f4f6f9;
+background:linear-gradient(to right,#38b2ac,#4fd1c5);
+
 }
-.ai-container{
+ai-container{
+
 background:white;
-width:450px;
+width:500px;
 padding:30px;
-border-radius:10px;
-box-shadow:0 5px 20px rgba(0,0,0,0.1);
+border-radius:12px;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+text-align:center;
+
 }
 
 .chat-box{
+
 height:250px;
 overflow-y:auto;
 background:#f4f6f9;
-padding:10px;
-border-radius:6px;
+padding:15px;
+border-radius:8px;
+margin-top:20px;
+
 }
 
 .user-message{
+
 background:#38b2ac;
 color:white;
-padding:8px;
+padding:10px;
 margin:8px;
-border-radius:6px;
+border-radius:8px;
 text-align:right;
+
 }
 
 .ai-message{
+
 background:#e2e8f0;
-padding:8px;
+padding:10px;
 margin:8px;
-border-radius:6px;
+border-radius:8px;
+text-align:left;
+
 }
 
+.chat-input{
 
+display:flex;
+margin-top:15px;
+
+}
 .chat-input input{
+
 flex:1;
 padding:10px;
+border:1px solid #ccc;
+border-radius:5px;
+
 }
 
 .chat-input button{
-padding:10px;
+
+padding:10px 15px;
+margin-left:10px;
 background:#2c7a7b;
 color:white;
 border:none;
+border-radius:5px;
+cursor:pointer;
+
 }
 
 .ai-box input{
