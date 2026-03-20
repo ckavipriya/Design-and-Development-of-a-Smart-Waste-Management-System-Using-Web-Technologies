@@ -130,31 +130,25 @@ background:green;
 }
 
 .ai-box{
-
-margin-top:20px;
-
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+text-align:center;
 }
 
 .ai-box input{
-
-padding:12px;
-width:250px;
-border-radius:8px;
-border:1px solid #ccc;
-
+width:70%;
+padding:10px;
+font-size:16px;
+margin:10px;
 }
-
-.ai-box button{
-
-padding:12px;
-background:#3498db;
-color:white;
-border:none;
-border-radius:8px;
-cursor:pointer;
-
+.ai-box input{
+width:70%;
+padding:10px;
+font-size:16px;
+margin:10px;
 }
-
 .contact-form{
 
 background:white;
