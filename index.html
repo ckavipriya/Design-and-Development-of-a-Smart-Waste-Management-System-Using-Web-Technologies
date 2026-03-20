@@ -138,32 +138,6 @@
 </footer>
 
 
-<script>
-
-async function askAI(){
-
-let question=document.getElementById("question").value;
-
-let response=await fetch("https://smart-waste-backend.onrender.com/ask",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({question:question})
-
-});
-
-let data=await response.json();
-
-document.getElementById("answer").innerText=data.reply;
-
-}
-
-</script>
-
 </body>
 
 </html>
