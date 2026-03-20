@@ -1,42 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AI Assistant - Smart Waste Management System</title>
+
+<title>AI Assistant</title>
+
 <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
-<nav>
-  <div class="nav-logo">Smart Waste</div>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="status.html">Status</a></li>
-    <li><a href="report.html">Report</a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li><a href="ai-assistant.html">AI Assistant</a></li>
-  </ul>
+<nav class="navbar">
+
+<h2>Smart Waste</h2>
+
+<ul>
+
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="status.html">Bin Status</a></li>
+<li><a href="report.html">Report</a></li>
+<li><a href="contact.html">Contact</a></li>
+
+</ul>
+
 </nav>
 
-<section class="page-header">
-  <h1>AI Assistant</h1>
-  <p>Ask questions about waste management and get instant AI responses.</p>
+
+<section class="ai-section">
+
+<div class="ai-box">
+
+<h2>AI Waste Assistant</h2>
+
+<p>Ask questions about waste management</p>
+
+<input type="text" id="question" placeholder="Ask your question...">
+
+<button onclick="askAI()">Ask</button>
+
+<div id="answer"></div>
+
+</div>
+
 </section>
 
-<section class="chat-container">
-  <form id="aiForm" onsubmit="askAI(event)">
-    <input type="text" id="question" placeholder="Ask AI here..." required>
-    <button type="submit">Send</button>
-  </form>
-  <div id="answer" class="chat-bubble"></div>
-</section>
 
-<footer>
-  <p>&copy; 2026 Smart Waste Management System. All rights reserved.</p>
-</footer>
+<script src="script.js"></script>
 
-<script src="ai-script.js"></script>
 </body>
 </html>
