@@ -147,6 +147,24 @@ align-items:center;
 background:#f4f6f9;
 }
 
+ai-wrapper{
+height:90vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#f4f6f9;
+}
+
+.ai-card{
+width:420px;
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(0,0,0,0.15);
+text-align:center;
+}
+
+
 .ai-box{
 background:white;
 padding:40px;
@@ -302,6 +320,72 @@ margin:8px;
 border-radius:8px;
 text-align:left;
 
+}
+/* AI PAGE */
+
+.ai-wrapper{
+height:90vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#f4f6f9;
+}
+
+.ai-card{
+width:420px;
+background:white;
+padding:30px;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(0,0,0,0.15);
+text-align:center;
+}
+
+.chat-box{
+height:220px;
+overflow-y:auto;
+background:#f4f6f9;
+margin-top:20px;
+padding:10px;
+border-radius:6px;
+}
+
+.user-msg{
+background:#2c7a7b;
+color:white;
+padding:8px;
+margin:6px;
+border-radius:6px;
+text-align:right;
+}
+
+.ai-msg{
+background:#e2e8f0;
+padding:8px;
+margin:6px;
+border-radius:6px;
+text-align:left;
+}
+
+.chat-input{
+display:flex;
+margin-top:10px;
+}
+
+.chat-input input{
+flex:1;
+padding:10px;
+border:1px solid #ccc;
+border-radius:4px;
+}
+
+.chat-input button{
+padding:10px 15px;
+background:#2c7a7b;
+color:white;
+border:none;
+margin-left:5px;
+border-radius:4px;
+cursor:pointer;
 }
 
 .chat-input{
