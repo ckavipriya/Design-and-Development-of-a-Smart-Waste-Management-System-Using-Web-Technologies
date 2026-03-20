@@ -1,60 +1,32 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Contact</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - Smart Waste Management System</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
 <header>
-<div class="logo">♻ Smart Waste System</div>
-
-<nav>
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="status.html">Status</a>
-<a href="report.html">Report</a>
-<a href="contact.html">Contact</a>
-</nav>
+  <h1>Smart Waste Management System</h1>
 </header>
 
-
-<section class="features">
-
-<h2>Contact Us</h2>
-
-<p>If you have questions about the Smart Waste Management System, contact us.</p>
-
-<form style="max-width:500px; margin:auto">
-
-<input type="text" placeholder="Your Name" style="width:100%; padding:10px; margin:10px 0">
-
-<input type="email" placeholder="Your Email" style="width:100%; padding:10px; margin:10px 0">
-
-<textarea placeholder="Your Message" style="width:100%; padding:10px; margin:10px 0"></textarea>
-
-<button type="submit" class="btn">Send Message</button>
-  <form onsubmit="sendMessage(event)">
-<input type="text" id="name" placeholder="Your Name" required>
-
-<input type="email" id="email" placeholder="Your Email" required>
-
-<textarea id="message" placeholder="Your Message"></textarea>
-
-<button type="submit" class="btn">Send Message</button>
-</form>
-
-<p id="response"></p>
-
-</form>
-
+<section id="contact">
+  <h2>Contact & AI Assistant</h2>
+  <form id="aiForm" onsubmit="askAI(event)">
+    <input type="text" id="question" placeholder="Ask AI here..." required>
+    <button type="submit">Send</button>
+  </form>
+  <div id="answer"></div>
+  <div id="formMessage"></div>
 </section>
 
 <footer>
-<p>Email: smartwaste@email.com</p>
-<p>Phone: +91 9876543210</p>
+  <p>&copy; 2026 Smart Waste Management System. All rights reserved.</p>
 </footer>
 
+<script src="script.js"></script>
 </body>
 </html>
