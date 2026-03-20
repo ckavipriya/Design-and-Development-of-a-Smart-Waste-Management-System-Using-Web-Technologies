@@ -1,190 +1,42 @@
-body{
-font-family:'Poppins',sans-serif;
-margin:0;
-background:#f4f6f9;
-color:#333;
+function askAI(){
+
+let q=document.getElementById("question").value
+
+let reply=""
+
+if(q.toLowerCase().includes("bin")){
+reply="You can check the smart bin status in the Status page."
 }
 
-/* NAVBAR */
-
-nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-background:#2c7a7b;
-padding:15px 40px;
+else if(q.toLowerCase().includes("collection")){
+reply="Waste collection usually happens between 6AM and 10AM."
 }
 
-nav h2{
-color:white;
+else if(q.toLowerCase().includes("recycle")){
+reply="Separate recyclable materials like plastic, glass and paper."
 }
 
-nav ul{
-list-style:none;
-display:flex;
-gap:25px;
+else if(q.toLowerCase().includes("plastic")){
+reply="Plastic waste should be placed in recyclable waste bins."
 }
 
-nav ul li a{
-text-decoration:none;
-color:white;
-font-weight:500;
+else if(q.toLowerCase().includes("food")){
+reply="Food waste should go into organic waste bins."
 }
 
-/* HERO SECTION */
-
-.hero{
-text-align:center;
-padding:100px 20px;
-background:linear-gradient(to right,#38b2ac,#4fd1c5);
-color:white;
+else if(q.toLowerCase().includes("report")){
+reply="You can report waste issues using the Report page."
 }
 
-.hero h1{
-font-size:40px;
-margin-bottom:10px;
+else{
+reply="Thank you for your question. Our Smart Waste Management system helps monitor bins, improve recycling and manage waste efficiently."
 }
 
-.hero p{
-font-size:18px;
-margin-bottom:30px;
-}
+let chat=document.getElementById("chatBox")
 
-/* BUTTON */
+chat.innerHTML += "<div class='user-message'>"+q+"</div>"
+chat.innerHTML += "<div class='ai-message'>"+reply+"</div>"
 
-.btn{
-background:white;
-color:#2c7a7b;
-padding:12px 25px;
-border-radius:6px;
-text-decoration:none;
-font-weight:600;
-}
+document.getElementById("question").value=""
 
-/* FEATURES */
-
-.features{
-padding:60px 40px;
-text-align:center;
-}
-
-.feature-box{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:30px;
-margin-top:40px;
-}
-
-.card{
-background:white;
-padding:25px;
-border-radius:10px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-
-/* CONTACT PAGE */
-
-.contact-section{
-padding:80px 20px;
-background:#f4f6f9;
-}
-
-.contact-container{
-max-width:1000px;
-margin:auto;
-display:grid;
-grid-template-columns:1fr 1fr;
-background:white;
-border-radius:10px;
-overflow:hidden;
-box-shadow:0 5px 20px rgba(0,0,0,0.1);
-}
-
-.contact-image img{
-width:100%;
-height:100%;
-object-fit:cover;
-}
-
-.contact-form{
-padding:40px;
-}
-
-.contact-form h2{
-margin-bottom:10px;
-}
-
-.contact-form input,
-.contact-form textarea{
-width:100%;
-padding:12px;
-margin-top:15px;
-border:1px solid #ccc;
-border-radius:5px;
-}
-
-.contact-form textarea{
-height:120px;
-}
-
-.contact-form button{
-margin-top:20px;
-padding:12px;
-background:#2c7a7b;
-color:white;
-border:none;
-border-radius:5px;
-cursor:pointer;
-}
-
-/* AI ASSISTANT */
-
-.ai-section{
-height:90vh;
-display:flex;
-justify-content:center;
-align-items:center;
-background:#f4f6f9;
-}
-
-.ai-box{
-background:white;
-padding:40px;
-border-radius:10px;
-width:400px;
-text-align:center;
-box-shadow:0 5px 20px rgba(0,0,0,0.1);
-}
-
-.ai-box input{
-width:90%;
-padding:10px;
-margin-top:15px;
-border:1px solid #ccc;
-border-radius:5px;
-}
-
-.ai-box button{
-margin-top:15px;
-padding:10px 20px;
-background:#2c7a7b;
-color:white;
-border:none;
-border-radius:5px;
-cursor:pointer;
-}
-
-#answer{
-margin-top:20px;
-font-weight:500;
-}
-
-/* FOOTER */
-
-footer{
-background:#2c7a7b;
-color:white;
-text-align:center;
-padding:15px;
-margin-top:50px;
 }
