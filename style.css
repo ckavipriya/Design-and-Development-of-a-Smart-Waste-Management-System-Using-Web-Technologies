@@ -3,104 +3,66 @@ body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f7f9;
+  background: #f4f7f9;
   color: #333;
+}
+
+/* Navigation */
+nav {
+  background: #66a6ff;
+  padding: 10px 0;
+}
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  gap: 20px;
+}
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+}
+nav ul li a:hover {
+  text-decoration: underline;
 }
 
 /* Header */
 header {
-  background-color: #4CAF50;
-  color: white;
   text-align: center;
-  padding: 30px 20px;
+  padding: 40px 20px;
+  background: linear-gradient(90deg, #a1c4fd, #c2e9fb);
+  color: #333;
+  border-bottom: 3px solid #ccc;
+  border-radius: 0 0 15px 15px;
 }
-
-header h1 {
-  margin: 0;
-  font-size: 2.5rem;
-}
-
-header p {
-  margin-top: 10px;
-  font-size: 1.2rem;
-}
+header h1 { margin: 0; font-size: 2.5rem; }
+header p { margin-top: 10px; font-size: 1.2rem; }
 
 /* Hero Section */
 #hero {
   text-align: center;
   padding: 50px 20px;
+  background: linear-gradient(135deg, #d4fc79, #96e6a1);
+  border-radius: 15px;
+  margin: 20px auto;
+  max-width: 90%;
 }
+#hero h2 { font-size: 2rem; margin-bottom: 10px; }
+#hero p { font-size: 1rem; }
 
-#hero h2 {
-  font-size: 2rem;
-  margin-bottom: 10px;
-}
-
-#hero p {
-  font-size: 1rem;
-}
-
-/* Contact / AI Section */
-#contact {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 20px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-#contact h2 {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-#contact form {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 15px;
-}
-
-#contact input {
-  flex: 1;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-}
-
-#contact button {
-  padding: 10px 15px;
-  border-radius: 5px;
-  border: none;
-  background-color: #4CAF50;
-  color: white;
-  cursor: pointer;
-}
-
-#contact button:hover {
-  background-color: #45a049;
-}
-
-#answer {
-  background: #f0f0f0;
-  padding: 10px;
-  border-radius: 5px;
-  min-height: 40px;
-  font-weight: 500;
-}
-
-#formMessage {
-  color: green;
-  text-align: center;
-  margin-top: 5px;
-}
+/* Features / sections */
+section { margin: 20px auto; padding: 20px; border-radius: 10px; background: #fdfbfb; }
 
 /* Footer */
 footer {
   text-align: center;
   padding: 15px;
-  background: #333;
+  background: linear-gradient(90deg, #89f7fe, #66a6ff);
   color: white;
   margin-top: 50px;
+  font-weight: bold;
+  border-radius: 15px 15px 0 0;
 }
