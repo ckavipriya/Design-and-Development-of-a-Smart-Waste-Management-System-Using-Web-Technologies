@@ -6,12 +6,14 @@
   <title>Smart Waste Management System</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
 <!-- Navigation -->
 <nav>
-  <ul>
+  <div class="nav-logo">Smart Waste</div>
+  <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="status.html">Status</a></li>
@@ -20,27 +22,40 @@
   </ul>
 </nav>
 
-<!-- Header -->
-<header>
-  <h1>Smart Waste Management System</h1>
-  <p>Efficiently monitor and manage your waste collection</p>
-</header>
-
 <!-- Hero Section -->
-<section id="hero">
-  <h2>Welcome to a Cleaner Future</h2>
-  <p>Use our system to track bins, collection schedules, and recycling guidelines.</p>
+<section class="hero">
+  <div class="hero-content">
+    <h1>Smart Waste Management System</h1>
+    <p>Track bins, collection schedules, and recycling efficiently.</p>
+    <a href="contact.html" class="btn">Ask AI Assistant</a>
+  </div>
 </section>
 
 <!-- Features Section -->
-<section id="features">
+<section class="features">
   <h2>Our Features</h2>
-  <ul>
-    <li>Real-time bin status monitoring</li>
-    <li>Automated waste collection schedule</li>
-    <li>Recycling guidance and waste segregation</li>
-    <li>AI-powered assistant for queries</li>
-  </ul>
+  <div class="feature-cards">
+    <div class="card">
+      <i class="fas fa-trash"></i>
+      <h3>Real-time Bin Status</h3>
+      <p>Monitor waste bins in real-time for efficient collection.</p>
+    </div>
+    <div class="card">
+      <i class="fas fa-calendar-check"></i>
+      <h3>Collection Schedule</h3>
+      <p>Automated schedules ensure timely waste pickup.</p>
+    </div>
+    <div class="card">
+      <i class="fas fa-recycle"></i>
+      <h3>Recycling Guidance</h3>
+      <p>Get tips for separating and recycling waste effectively.</p>
+    </div>
+    <div class="card">
+      <i class="fas fa-robot"></i>
+      <h3>AI Assistant</h3>
+      <p>Ask questions and get instant responses from our AI.</p>
+    </div>
+  </div>
 </section>
 
 <footer>
