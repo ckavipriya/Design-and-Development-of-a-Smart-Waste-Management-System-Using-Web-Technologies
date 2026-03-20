@@ -139,9 +139,9 @@
 
 async function askAI(){
 
-let question=document.getElementById("question").value
+let question=document.getElementById("question").value;
 
-let response=await fetch("http://localhost:3000/ask",{
+let response=await fetch("https://smart-waste-backend.onrender.com/ask",{
 
 method:"POST",
 
@@ -149,13 +149,13 @@ headers:{
 "Content-Type":"application/json"
 },
 
-body:JSON.stringify({question})
+body:JSON.stringify({question:question})
 
-})
+});
 
-let data=await response.json()
+let data=await response.json();
 
-document.getElementById("answer").innerText=data.reply
+document.getElementById("answer").innerText=data.reply;
 
 }
 
