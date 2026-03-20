@@ -1,37 +1,172 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>AI Assistant</title>
-<style>
-
 body{
-font-family: Arial;
-background:#f4f6f9;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
+font-family:'Poppins',sans-serif;
 margin:0;
+background:#f4f6f9;
+color:#333;
 }
 
-.chat-box{
+/* NAVBAR */
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#2c7a7b;
+padding:15px 40px;
+}
+
+nav h2{
+color:white;
+}
+
+nav ul{
+list-style:none;
+display:flex;
+gap:25px;
+}
+
+nav ul li a{
+text-decoration:none;
+color:white;
+font-weight:500;
+}
+
+/* HERO SECTION */
+
+.hero{
+text-align:center;
+padding:100px 20px;
+background:linear-gradient(to right,#38b2ac,#4fd1c5);
+color:white;
+}
+
+.hero h1{
+font-size:40px;
+margin-bottom:10px;
+}
+
+.hero p{
+font-size:18px;
+margin-bottom:30px;
+}
+
+/* BUTTON */
+
+.btn{
 background:white;
-width:400px;
-padding:30px;
-border-radius:10px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
+color:#2c7a7b;
+padding:12px 25px;
+border-radius:6px;
+text-decoration:none;
+font-weight:600;
+}
+
+/* FEATURES */
+
+.features{
+padding:60px 40px;
 text-align:center;
 }
 
-input{
+.feature-box{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:30px;
+margin-top:40px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* CONTACT PAGE */
+
+.contact-section{
+padding:80px 20px;
+background:#f4f6f9;
+}
+
+.contact-container{
+max-width:1000px;
+margin:auto;
+display:grid;
+grid-template-columns:1fr 1fr;
+background:white;
+border-radius:10px;
+overflow:hidden;
+box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+.contact-image img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.contact-form{
+padding:40px;
+}
+
+.contact-form h2{
+margin-bottom:10px;
+}
+
+.contact-form input,
+.contact-form textarea{
+width:100%;
+padding:12px;
+margin-top:15px;
+border:1px solid #ccc;
+border-radius:5px;
+}
+
+.contact-form textarea{
+height:120px;
+}
+
+.contact-form button{
+margin-top:20px;
+padding:12px;
+background:#2c7a7b;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+/* AI ASSISTANT */
+
+.ai-section{
+height:90vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#f4f6f9;
+}
+
+.ai-box{
+background:white;
+padding:40px;
+border-radius:10px;
+width:400px;
+text-align:center;
+box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+.ai-box input{
 width:90%;
 padding:10px;
 margin-top:15px;
+border:1px solid #ccc;
+border-radius:5px;
 }
 
-button{
+.ai-box button{
+margin-top:15px;
 padding:10px 20px;
-margin-top:10px;
 background:#2c7a7b;
 color:white;
 border:none;
@@ -41,59 +176,15 @@ cursor:pointer;
 
 #answer{
 margin-top:20px;
-font-weight:bold;
+font-weight:500;
 }
 
-</style>
-</head>
+/* FOOTER */
 
-<body>
-
-<div class="chat-box">
-
-<h2>AI Waste Assistant</h2>
-
-<p>Ask about waste management</p>
-
-<input id="question" placeholder="Ask question...">
-
-<br>
-
-<button onclick="askAI()">Ask</button>
-
-<div id="answer"></div>
-
-</div>
-
-<script>
-
-function askAI(){
-
-let q=document.getElementById("question").value.toLowerCase()
-
-let reply=""
-
-if(q.includes("bin")){
-reply="Check the bin status page."
+footer{
+background:#2c7a7b;
+color:white;
+text-align:center;
+padding:15px;
+margin-top:50px;
 }
-
-else if(q.includes("collection")){
-reply="Waste collection is between 6AM and 10AM."
-}
-
-else if(q.includes("recycle")){
-reply="Separate recyclable waste into recycling bins."
-}
-
-else{
-reply="Thank you for your question."
-}
-
-document.getElementById("answer").innerText=reply
-
-}
-
-</script>
-
-</body>
-</html>
