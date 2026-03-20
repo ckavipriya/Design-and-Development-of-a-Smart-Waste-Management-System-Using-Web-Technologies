@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Status - Smart Waste Management System</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Status - Smart Waste Management System</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <nav>
-  <ul>
+  <div class="nav-logo">Smart Waste</div>
+  <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="status.html">Status</a></li>
@@ -18,18 +19,16 @@
   </ul>
 </nav>
 
-<header>
+<section class="page-header">
   <h1>Current Bin Status</h1>
-</header>
+  <p>Monitor all waste bins in real-time.</p>
+</section>
 
-<section id="status-details">
-  <h2>Bin Status</h2>
-  <ul>
-    <li>Bin 1: 75% full</li>
-    <li>Bin 2: 40% full</li>
-    <li>Bin 3: 100% full — needs collection</li>
-    <li>Bin 4: 20% full</li>
-  </ul>
+<section class="status-cards">
+  <div class="card status-green">Bin 1: 30% full</div>
+  <div class="card status-yellow">Bin 2: 60% full</div>
+  <div class="card status-red">Bin 3: 100% full</div>
+  <div class="card status-green">Bin 4: 20% full</div>
 </section>
 
 <footer>
