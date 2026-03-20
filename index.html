@@ -1,58 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Smart Waste | AI Assistant</title>
-    
-    <link rel="stylesheet" href="style.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Waste Management System</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="logo">
-            <i class="fas fa-recycle"></i> SmartWaste
-        </div>
-        <div class="nav-links">
-            <a href="#home">Home</a>
-            <a href="#about">About</a>
-            <a href="#status">Status</a>
-            <a href="#report">Report</a>
-            <a href="#contact" class="active">Contact</a>
-        </div>
-    </nav>
+<!-- Navigation -->
+<nav>
+  <div class="nav-logo">Smart Waste</div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="status.html">Status</a></li>
+    <li><a href="report.html">Report</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
 
-    <main class="main-container">
-        <div class="glass-card">
-            <div class="card-header">
-                <i class="fas fa-robot"></i>
-                <h1>Contact & AI Assistant</h1>
-                <p>How can I help you manage waste today?</p>
-            </div>
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Smart Waste Management System</h1>
+    <p>Track bins, collection schedules, and recycling efficiently.</p>
+    <a href="contact.html" class="btn">Ask AI Assistant</a>
+  </div>
+</section>
 
-            <div class="chat-display" id="chatWindow">
-                <div class="message ai-message">
-                    Hello! I'm your Smart Waste Assistant. Ask me about pickup schedules or recycling tips!
-                </div>
-            </div>
+<!-- Features Section -->
+<section class="features">
+  <h2>Our Features</h2>
+  <div class="feature-cards">
+    <div class="card">
+      <i class="fas fa-trash"></i>
+      <h3>Real-time Bin Status</h3>
+      <p>Monitor waste bins in real-time for efficient collection.</p>
+    </div>
+    <div class="card">
+      <i class="fas fa-calendar-check"></i>
+      <h3>Collection Schedule</h3>
+      <p>Automated schedules ensure timely waste pickup.</p>
+    </div>
+    <div class="card">
+      <i class="fas fa-recycle"></i>
+      <h3>Recycling Guidance</h3>
+      <p>Get tips for separating and recycling waste effectively.</p>
+    </div>
+  </div>
+</section>
 
-            <div class="input-area">
-                <input type="text" id="userInput" placeholder="Type your message here...">
-                <button type="button" class="send-btn">
-                    <span>Send</span>
-                    <i class="fas fa-paper-plane"></i>
-                </button>
-            </div>
-        </div>
-    </main>
-
-    <footer class="footer">
-        <p>&copy; 2026 <strong>Smart Waste Management System</strong>. All rights reserved.</p>
-    </footer>
+<footer>
+  <p>&copy; 2026 Smart Waste Management System. All rights reserved.</p>
+</footer>
 
 </body>
 </html>
