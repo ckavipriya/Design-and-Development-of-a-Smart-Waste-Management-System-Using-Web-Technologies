@@ -16,26 +16,36 @@
     <li><a href="status.html">Status</a></li>
     <li><a href="report.html">Report</a></li>
     <li><a href="contact.html">Contact</a></li>
+    <li><a href="ai-assistant.html">AI Assistant</a></li>
   </ul>
 </nav>
 
 <section class="page-header">
-  <h1>Contact & AI Assistant</h1>
-  <p>Ask questions about waste management and get instant AI responses.</p>
+  <h1>Contact Us</h1>
+  <p>Fill the form below to get in touch with us.</p>
 </section>
 
-<section class="chat-container">
-  <form id="aiForm" onsubmit="askAI(event)">
-    <input type="text" id="question" placeholder="Ask AI here..." required>
-    <button type="submit">Send</button>
+<section class="contact-form-container">
+  <form id="contactForm">
+    <input type="text" placeholder="Your Name" required>
+    <input type="email" placeholder="Your Email" required>
+    <textarea placeholder="Your Message" rows="5" required></textarea>
+    <button type="submit">Send Message</button>
   </form>
-  <div id="answer" class="chat-bubble"></div>
+  <div id="formMessage" class="chat-bubble"></div>
 </section>
 
 <footer>
   <p>&copy; 2026 Smart Waste Management System. All rights reserved.</p>
 </footer>
 
-<script src="script.js"></script>
+<script>
+document.getElementById("contactForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  document.getElementById("formMessage").innerText = "Your message has been sent successfully!";
+  this.reset();
+});
+</script>
+
 </body>
 </html>
