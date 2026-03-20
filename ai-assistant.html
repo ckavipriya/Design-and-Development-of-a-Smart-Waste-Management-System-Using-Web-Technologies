@@ -1,91 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<title>AI Assistant - Smart Waste Management</title>
-
+<title>AI Assistant</title>
 <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
 
-<nav class="navbar">
-
-<h2 class="logo">Smart Waste</h2>
-
-<ul class="nav-links">
+<nav>
+<h2>Smart Waste</h2>
+<ul>
 <li><a href="index.html">Home</a></li>
-<li><a href="about.html">About</a></li>
-<li><a href="status.html">Status</a></li>
-<li><a href="report.html">Report</a></li>
 <li><a href="contact.html">Contact</a></li>
 </ul>
-
 </nav>
 
+<div class="ai-wrapper">
 
-<section class="ai-page">
+<div class="ai-card">
 
-<div class="ai-container">
-
-<h2>Smart Waste AI Assistant</h2>
+<h2>AI Waste Assistant</h2>
 <p>Ask questions about waste management</p>
 
-<div class="chat-box" id="chatBox">
-
-<div class="ai-message">
-Hello! I am your Waste Management Assistant. Ask me anything.
+<div id="chatBox" class="chat-box">
+<div class="ai-msg">Hello! Ask me about recycling, bins or waste collection.</div>
 </div>
-
-</div>
-
 
 <div class="chat-input">
-
-<input id="question" placeholder="Type your question">
-
+<input id="question" type="text" placeholder="Type your question">
 <button onclick="askAI()">Send</button>
-
 </div>
 
 </div>
 
-</section>
-
+</div>
 
 <script>
 
 function askAI(){
 
-let q=document.getElementById("question").value
-
+let q=document.getElementById("question").value.toLowerCase()
 let reply=""
 
-if(q.toLowerCase().includes("bin")){
-reply="You can check the smart bin status in the Status page."
+if(q.includes("bin")){
+reply="You can check bin status in the Status page."
 }
-
-else if(q.toLowerCase().includes("collection")){
+else if(q.includes("collection")){
 reply="Waste collection usually happens between 6AM and 10AM."
 }
-
-else if(q.toLowerCase().includes("recycle")){
+else if(q.includes("recycle")){
 reply="Separate recyclable waste like plastic, paper and glass."
 }
-
-else if(q.toLowerCase().includes("report")){
-reply="You can report waste issues in the Report page."
-}
-
 else{
-reply="Thank you for your question. Our Smart Waste Management system helps monitor bins and improve recycling."
+reply="Our Smart Waste Management system helps monitor bins and improve recycling."
 }
 
 let chat=document.getElementById("chatBox")
 
-chat.innerHTML += "<div class='user-message'>"+q+"</div>"
-chat.innerHTML += "<div class='ai-message'>"+reply+"</div>"
+chat.innerHTML += "<div class='user-msg'>"+q+"</div>"
+chat.innerHTML += "<div class='ai-msg'>"+reply+"</div>"
 
 document.getElementById("question").value=""
 
