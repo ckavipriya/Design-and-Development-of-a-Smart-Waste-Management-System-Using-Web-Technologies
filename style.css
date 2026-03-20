@@ -160,9 +160,51 @@ height:90vh;
 display:flex;
 justify-content:center;
 align-items:center;
-background-image:url("https://images.unsplash.com/photo-1621451537084-482c73073a0f");
-background-size:cover;
-background-position:center;
+background:#f4f6f9;
+}
+.ai-container{
+background:white;
+width:450px;
+padding:30px;
+border-radius:10px;
+box-shadow:0 5px 20px rgba(0,0,0,0.1);
+}
+
+.chat-box{
+height:250px;
+overflow-y:auto;
+background:#f4f6f9;
+padding:10px;
+border-radius:6px;
+}
+
+.user-message{
+background:#38b2ac;
+color:white;
+padding:8px;
+margin:8px;
+border-radius:6px;
+text-align:right;
+}
+
+.ai-message{
+background:#e2e8f0;
+padding:8px;
+margin:8px;
+border-radius:6px;
+}
+
+
+.chat-input input{
+flex:1;
+padding:10px;
+}
+
+.chat-input button{
+padding:10px;
+background:#2c7a7b;
+color:white;
+border:none;
 }
 
 .ai-box input{
