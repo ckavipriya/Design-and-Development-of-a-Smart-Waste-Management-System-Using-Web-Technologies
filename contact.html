@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact - Smart Waste Management System</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact - Smart Waste Management System</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <nav>
-  <ul>
+  <div class="nav-logo">Smart Waste</div>
+  <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="status.html">Status</a></li>
@@ -18,17 +19,17 @@
   </ul>
 </nav>
 
-<header>
+<section class="page-header">
   <h1>Contact & AI Assistant</h1>
-</header>
+  <p>Ask questions about waste management and get instant AI responses.</p>
+</section>
 
-<section id="contact">
+<section class="chat-container">
   <form id="aiForm" onsubmit="askAI(event)">
     <input type="text" id="question" placeholder="Ask AI here..." required>
     <button type="submit">Send</button>
   </form>
-  <div id="answer"></div>
-  <div id="formMessage"></div>
+  <div id="answer" class="chat-bubble"></div>
 </section>
 
 <footer>
