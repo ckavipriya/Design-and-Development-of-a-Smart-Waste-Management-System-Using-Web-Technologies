@@ -1,56 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>AI Assistant</title>
+
+<title>AI Assistant - Smart Waste Management</title>
+
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-<nav>
-<h2>Smart Waste</h2>
-<ul>
+<nav class="navbar">
+
+<h2 class="logo">Smart Waste</h2>
+
+<ul class="nav-links">
 <li><a href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="status.html">Status</a></li>
+<li><a href="report.html">Report</a></li>
 <li><a href="contact.html">Contact</a></li>
 </ul>
+
 </nav>
+
 
 <section class="ai-page">
 
 <div class="ai-container">
 
 <h2>Smart Waste AI Assistant</h2>
+<p>Ask questions about waste management</p>
 
 <div class="chat-box" id="chatBox">
-<div class="ai-message">Hello! Ask me about waste management.</div>
+
+<div class="ai-message">
+Hello! I am your Waste Management Assistant. Ask me anything.
 </div>
 
+</div>
+
+
 <div class="chat-input">
-<input type="text" id="question" placeholder="Ask question...">
+
+<input id="question" placeholder="Type your question">
+
 <button onclick="askAI()">Send</button>
+
 </div>
 
 </div>
 
 </section>
 
+
 <script>
 
 function askAI(){
 
 let q=document.getElementById("question").value
+
 let reply=""
 
 if(q.toLowerCase().includes("bin")){
-reply="Check the bin status page."
+reply="You can check the smart bin status in the Status page."
 }
 
 else if(q.toLowerCase().includes("collection")){
-reply="Waste collection happens between 6AM and 10AM."
+reply="Waste collection usually happens between 6AM and 10AM."
+}
+
+else if(q.toLowerCase().includes("recycle")){
+reply="Separate recyclable waste like plastic, paper and glass."
+}
+
+else if(q.toLowerCase().includes("report")){
+reply="You can report waste issues in the Report page."
 }
 
 else{
-reply="Thank you for your question."
+reply="Thank you for your question. Our Smart Waste Management system helps monitor bins and improve recycling."
 }
 
 let chat=document.getElementById("chatBox")
