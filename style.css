@@ -1,132 +1,108 @@
-body{
-
-font-family:'Poppins',sans-serif;
-font-size:18px;
-margin:0;
-
-background: linear-gradient(
-90deg,
-#ff9a9e,
-#fad0c4,
-#fbc2eb,
-#a6c1ee,
-#f6d365
-);
-
-background-size:300% 300%;
-animation:rainbow 12s ease infinite;
-
+/* General Styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f7f9;
+  color: #333;
 }
 
-@keyframes rainbow{
-
-0%{background-position:0% 50%;}
-50%{background-position:100% 50%;}
-100%{background-position:0% 50%;}
-
+/* Header */
+header {
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  padding: 30px 20px;
 }
 
-nav{
-
-background:#2c3e50;
-color:white;
-padding:15px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-
+header h1 {
+  margin: 0;
+  font-size: 2.5rem;
 }
 
-.menu a{
-
-color:white;
-margin:0 15px;
-text-decoration:none;
-
+header p {
+  margin-top: 10px;
+  font-size: 1.2rem;
 }
 
-section{
-
-padding:60px 20px;
-text-align:center;
-
+/* Hero Section */
+#hero {
+  text-align: center;
+  padding: 50px 20px;
 }
 
-.features{
-
-display:flex;
-justify-content:center;
-gap:30px;
-margin-top:30px;
-flex-wrap:wrap;
-
+#hero h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
 }
 
-.feature{
-
-background:white;
-padding:20px;
-border-radius:10px;
-width:200px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-
+#hero p {
+  font-size: 1rem;
 }
 
-.dashboard{
-
-display:flex;
-justify-content:center;
-gap:30px;
-flex-wrap:wrap;
-margin-top:30px;
-
+/* Contact / AI Section */
+#contact {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
-.bin-card{
-
-background:white;
-padding:25px;
-width:220px;
-border-radius:12px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-
+#contact h2 {
+  text-align: center;
+  margin-bottom: 20px;
 }
 
-.progress{
-
-background:#eee;
-height:15px;
-border-radius:10px;
-overflow:hidden;
-margin:10px 0;
-
+#contact form {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 15px;
 }
 
-.progress-bar{
-
-height:100%;
-
+#contact input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
 
-.full{
-
-width:90%;
-background:red;
-
+#contact button {
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
 }
 
-.half{
-
-width:50%;
-background:orange;
-
+#contact button:hover {
+  background-color: #45a049;
 }
 
-.empty{
+#answer {
+  background: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  min-height: 40px;
+  font-weight: 500;
+}
 
-width:10%;
-background:green;
+#formMessage {
+  color: green;
+  text-align: center;
+  margin-top: 5px;
+}
 
+/* Footer */
+footer {
+  text-align: center;
+  padding: 15px;
+  background: #333;
+  color: white;
+  margin-top: 50px;
 }
 
 .ai-box{
