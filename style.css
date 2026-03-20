@@ -3,41 +3,51 @@ body {
   font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f7f9;
-  color: #333;
+  background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8f00ff);
+  background-attachment: fixed; /* stays same when scrolling */
+  color: #fff;
 }
 
 /* Header */
 header {
-  background-color: #4CAF50;
-  color: white;
   text-align: center;
-  padding: 30px 20px;
+  padding: 40px 20px;
+  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+  color: white;
+  border-bottom: 5px solid #fff;
 }
 
 header h1 {
   margin: 0;
   font-size: 2.5rem;
+  text-shadow: 2px 2px #00000050;
 }
 
 header p {
   margin-top: 10px;
   font-size: 1.2rem;
+  text-shadow: 1px 1px #00000050;
 }
 
 /* Hero Section */
 #hero {
   text-align: center;
   padding: 50px 20px;
+  background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
+  border-radius: 15px;
+  margin: 20px auto;
+  max-width: 90%;
 }
 
 #hero h2 {
   font-size: 2rem;
   margin-bottom: 10px;
+  text-shadow: 1px 1px #00000050;
 }
 
 #hero p {
   font-size: 1rem;
+  text-shadow: 1px 1px #00000050;
 }
 
 /* Contact / AI Section */
@@ -45,14 +55,16 @@ header p {
   max-width: 600px;
   margin: 40px auto;
   padding: 20px;
-  background: white;
+  background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
   border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  color: white;
 }
 
 #contact h2 {
   text-align: center;
   margin-bottom: 20px;
+  text-shadow: 1px 1px #00000050;
 }
 
 #contact form {
@@ -66,104 +78,47 @@ header p {
   flex: 1;
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: none;
+  outline: none;
+  font-weight: 500;
 }
 
 #contact button {
   padding: 10px 15px;
   border-radius: 5px;
   border: none;
-  background-color: #4CAF50;
+  background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
   color: white;
+  font-weight: bold;
   cursor: pointer;
 }
 
 #contact button:hover {
-  background-color: #45a049;
+  opacity: 0.85;
 }
 
 #answer {
-  background: #f0f0f0;
+  background: #00000050;
   padding: 10px;
   border-radius: 5px;
   min-height: 40px;
   font-weight: 500;
+  text-align: center;
 }
 
 #formMessage {
-  color: green;
+  color: #00ff00;
   text-align: center;
   margin-top: 5px;
+  font-weight: bold;
 }
 
 /* Footer */
 footer {
   text-align: center;
   padding: 15px;
-  background: #333;
+  background: linear-gradient(to right, violet, indigo, blue, green, yellow, orange, red);
   color: white;
   margin-top: 50px;
-}
-
-.ai-box{
-background:white;
-padding:25px;
-border-radius:12px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-text-align:center;
-}
-
-.ai-box input{
-width:70%;
-padding:10px;
-font-size:16px;
-margin:10px;
-}
-.ai-box input{
-width:70%;
-padding:10px;
-font-size:16px;
-margin:10px;
-}
-.contact-form{
-
-background:white;
-padding:30px;
-border-radius:12px;
-max-width:400px;
-margin:auto;
-display:flex;
-flex-direction:column;
-gap:15px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-
-}
-
-.contact-form input,
-.contact-form textarea{
-
-padding:12px;
-border-radius:8px;
-border:1px solid #ccc;
-
-}
-
-.contact-form button{
-
-padding:12px;
-background:#27ae60;
-color:white;
-border:none;
-border-radius:8px;
-cursor:pointer;
-
-}
-
-footer{
-
-background:#2c3e50;
-color:white;
-padding:20px;
-text-align:center;
-
+  font-weight: bold;
 }
