@@ -1,55 +1,61 @@
 <!DOCTYPE html>
-<html lan="en" and dir="Itr">
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title> Admin Portal</title>
-    <link rel="stylesheet" href="style.css">
-    <script src ="login.js"> </script>
-    <div class = "banner">  
-        <center>
-            <marquee> SMART WASTE MANAGEMENT </marquee> 
-    
-        </center>
-    </div>
-
-   
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Waste Management System</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-
 <body>
 
-<form class="form-container" onsubmit="return validate()"> <br>
-    <h3>Login</h3>
-    <div class="form-grp">
-        <label for="username">Username</label><br>
-        <input type="text" name="username" placeholder="Username" id="user">
-        <i class="fa fa-times u-times"></i>
-        <i class="fa fa-check u-check"></i>
+<!-- Navigation -->
+<nav>
+  <div class="nav-logo">Smart Waste</div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="status.html">Status</a></li>
+    <li><a href="report.html">Report</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Smart Waste Management System</h1>
+    <p>Track bins, collection schedules, and recycling efficiently.</p>
+    <a href="contact.html" class="btn">Ask AI Assistant</a>
+  </div>
+</section>
+
+<!-- Features Section -->
+<section class="features">
+  <h2>Our Features</h2>
+  <div class="feature-cards">
+    <div class="card">
+      <i class="fas fa-trash"></i>
+      <h3>Real-time Bin Status</h3>
+      <p>Monitor waste bins in real-time for efficient collection.</p>
     </div>
-
-    <div class="form-grp">
-        <label for="password">Password</label><br>
-        <input type="password" name="password" placeholder="password" id="pass">
-        <i class="fa fa-times p-times"></i>
-        <i class="fa fa-check p-check"></i>
-    </div> 
-
-<div class="form-grp">
-    <center>
-        <!-- An element to toggle between password visibility -->
-        <input type="checkbox" onclick="myFunction()">Show Password
-        
-        </center>
-</div>
-
-
-
-
-    <div class="form-grp">
-        <input type="submit" name="login-btn" value="Login">
+    <div class="card">
+      <i class="fas fa-calendar-check"></i>
+      <h3>Collection Schedule</h3>
+      <p>Automated schedules ensure timely waste pickup.</p>
     </div>
+    <div class="card">
+      <i class="fas fa-recycle"></i>
+      <h3>Recycling Guidance</h3>
+      <p>Get tips for separating and recycling waste effectively.</p>
+    </div>
+  </div>
+</section>
 
-</form>
+<footer>
+  <p>&copy; 2026 Smart Waste Management System. All rights reserved.</p>
+</footer>
 
 </body>
-
 </html>
