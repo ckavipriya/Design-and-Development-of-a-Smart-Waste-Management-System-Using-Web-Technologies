@@ -1,35 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Assistant</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav>
+<h2>Smart Waste</h2>
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="contact.html">Contact</a></li>
+</ul>
+</nav>
+
+<section class="ai-page">
+
+<div class="ai-container">
+
+<h2>Smart Waste AI Assistant</h2>
+
+<div class="chat-box" id="chatBox">
+<div class="ai-message">Hello! Ask me about waste management.</div>
+</div>
+
+<div class="chat-input">
+<input type="text" id="question" placeholder="Ask question...">
+<button onclick="askAI()">Send</button>
+</div>
+
+</div>
+
+</section>
+
+<script>
+
 function askAI(){
 
 let q=document.getElementById("question").value
-
 let reply=""
 
 if(q.toLowerCase().includes("bin")){
-reply="You can check the smart bin status in the Status page."
+reply="Check the bin status page."
 }
 
 else if(q.toLowerCase().includes("collection")){
-reply="Waste collection usually happens between 6AM and 10AM."
-}
-
-else if(q.toLowerCase().includes("recycle")){
-reply="Separate recyclable materials like plastic, glass and paper."
-}
-
-else if(q.toLowerCase().includes("plastic")){
-reply="Plastic waste should be placed in recyclable waste bins."
-}
-
-else if(q.toLowerCase().includes("food")){
-reply="Food waste should go into organic waste bins."
-}
-
-else if(q.toLowerCase().includes("report")){
-reply="You can report waste issues using the Report page."
+reply="Waste collection happens between 6AM and 10AM."
 }
 
 else{
-reply="Thank you for your question. Our Smart Waste Management system helps monitor bins, improve recycling and manage waste efficiently."
+reply="Thank you for your question."
 }
 
 let chat=document.getElementById("chatBox")
@@ -40,3 +61,8 @@ chat.innerHTML += "<div class='ai-message'>"+reply+"</div>"
 document.getElementById("question").value=""
 
 }
+
+</script>
+
+</body>
+</html>
