@@ -1,139 +1,44 @@
-```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-
-<title>Smart Waste Management System</title>
-
-<link rel="stylesheet" href="style.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Waste Management System</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-<header>
+  <!-- Header Section -->
+  <header>
+    <h1>Smart Waste Management System</h1>
+    <p>Efficiently monitor and manage your waste collection</p>
+  </header>
 
-<h1>Smart Waste Management System</h1>
+  <!-- Hero Section -->
+  <section id="hero">
+    <h2>Welcome to a Cleaner Future</h2>
+    <p>Use our system to track bins, collection schedules, and recycling guidelines.</p>
+  </section>
 
-<nav>
-<a href="#">Home</a>
-<a href="#about">About</a>
-<a href="#dashboard">Dashboard</a>
-<a href="#report">Report</a>
-<a href="#contact">Contact</a>
-</nav>
+  <!-- AI Contact Section -->
+  <section id="contact">
+    <h2>Contact & AI Assistant</h2>
 
-</header>
+    <form id="aiForm" onsubmit="askAI(event)">
+      <input type="text" id="question" placeholder="Ask AI here..." required>
+      <button type="submit">Send</button>
+    </form>
 
+    <div id="answer"></div>
+    <div id="formMessage"></div>
+  </section>
 
-<section class="hero">
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Smart Waste Management System. All rights reserved.</p>
+  </footer>
 
-<div class="hero-content">
-
-<h1>Smart Waste Management in Action</h1>
-
-<p>
-Efficiently manage waste in your community with intelligent solutions.
-</p>
-
-<button class="btn">Learn More</button>
-
-<div class="hero-image">
-
-<img src="https://images.unsplash.com/photo-1604187351574-c75ca79f5807"
-alt="Smart Waste Management">
-
-</div>
-
-</div>
-
-</section>
-
-
-<section id="about">
-
-<h2>About the Project</h2>
-
-<p>
-The Smart Waste Management System is designed to improve waste
-collection efficiency using modern web technologies. It helps monitor
-bin levels, track waste collection schedules, and provide better
-waste management solutions for smart cities.
-</p>
-
-</section>
-
-
-<section id="dashboard">
-
-<h2>Dashboard</h2>
-
-<div class="card-container">
-
-<div class="card">
-<h3>Bin Monitoring</h3>
-<p>Check whether waste bins are full or empty.</p>
-</div>
-
-<div class="card">
-<h3>Collection Status</h3>
-<p>Track waste collection schedules.</p>
-</div>
-
-<div class="card">
-<h3>Smart Alerts</h3>
-<p>Receive alerts when bins reach capacity.</p>
-</div>
-
-</div>
-
-</section>
-
-
-<section id="report">
-
-<h2>Waste Reports</h2>
-
-<div class="card-container">
-
-<div class="card">
-<h3>Daily Waste Data</h3>
-<p>View daily waste generation reports.</p>
-</div>
-
-<div class="card">
-<h3>Recycling Analysis</h3>
-<p>Analyze recycling efficiency.</p>
-</div>
-
-<div class="card">
-<h3>City Statistics</h3>
-<p>Visualize waste management performance.</p>
-</div>
-
-</div>
-
-</section>
-
-
-<section id="contact">
-
-<h2>Contact Us</h2>
-
-<p>Email: smartwaste@gmail.com</p>
-<p>Phone: +91 9876543210</p>
-
-</section>
-
-
-<footer>
-
-<p>© 2026 Smart Waste Management System</p>
-
-</footer>
-
+  <script src="script.js"></script>
 </body>
 </html>
-```
