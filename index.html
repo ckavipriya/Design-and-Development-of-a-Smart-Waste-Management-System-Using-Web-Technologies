@@ -1,181 +1,44 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-
-<title>Smart Waste Management System</title>
-
-<link rel="stylesheet" href="style.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Waste Management System</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-<nav>
+  <!-- Header Section -->
+  <header>
+    <h1>Smart Waste Management System</h1>
+    <p>Efficiently monitor and manage your waste collection</p>
+  </header>
 
-<h1>Smart Waste Management</h1>
+  <!-- Hero Section -->
+  <section id="hero">
+    <h2>Welcome to a Cleaner Future</h2>
+    <p>Use our system to track bins, collection schedules, and recycling guidelines.</p>
+  </section>
 
-<div class="menu">
-<a href="#home">Home</a>
-<a href="#dashboard">Dashboard</a>
-<a href="#ai">AI Assistant</a>
-<a href="#contact">Contact</a>
-</div>
+  <!-- AI Contact Section -->
+  <section id="contact">
+    <h2>Contact & AI Assistant</h2>
 
-</nav>
+    <form id="aiForm" onsubmit="askAI(event)">
+      <input type="text" id="question" placeholder="Ask AI here..." required>
+      <button type="submit">Send</button>
+    </form>
 
+    <div id="answer"></div>
+    <div id="formMessage"></div>
+  </section>
 
-<section id="home">
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Smart Waste Management System. All rights reserved.</p>
+  </footer>
 
-<h2>Smart Waste Management System</h2>
-
-<p>Using modern web technologies and AI to monitor waste levels and keep cities clean.</p>
-
-<div class="features">
-
-<div class="feature">
-<h3>Smart Monitoring</h3>
-<p>Track bin levels in real time.</p>
-</div>
-
-<div class="feature">
-<h3>AI Assistant</h3>
-<p>Get help with waste management questions.</p>
-</div>
-
-<div class="feature">
-<h3>Cleaner Cities</h3>
-<p>Improve waste collection efficiency.</p>
-</div>
-
-</div>
-
-</section>
-
-
-<section id="dashboard">
-
-<h2>Waste Bin Dashboard</h2>
-
-<div class="dashboard">
-
-<div class="bin-card">
-<h3>Bin 101</h3>
-<div class="progress">
-<div class="progress-bar full"></div>
-</div>
-<p>Status : Full</p>
-</div>
-
-<div class="bin-card">
-<h3>Bin 102</h3>
-<div class="progress">
-<div class="progress-bar half"></div>
-</div>
-<p>Status : Half Full</p>
-</div>
-
-<div class="bin-card">
-<h3>Bin 103</h3>
-<div class="progress">
-<div class="progress-bar empty"></div>
-</div>
-<p>Status : Empty</p>
-</div>
-
-</div>
-
-</section>
-
-
-<section id="ai">
-
-<h2>AI Waste Assistant</h2>
-<div class="ai-box">
-
-<h2>AI Waste Assistant</h2>
-
-<input type="text" id="question" placeholder="Ask about waste management">
-
-<button onclick="askAI()">Ask AI</button>
-
-<p id="answer"></p>
-
-</div>
-
-<p id="answer"></p>
-
-</section>
-
-
-<!-- Contact & AI Assistant Section -->
-<section id="contact">
-  <h2>Contact Us</h2>
-  
-  <form id="aiForm" onsubmit="askAI(event)">
-    <input type="text" id="question" placeholder="Ask AI here..." required>
-    <button type="submit">Send</button>
-  </form>
-
-  <div id="answer" style="margin-top:10px; font-weight:bold;"></div>
-  <div id="formMessage" style="margin-top:5px; color:green;"></div>
-</section>
-
-<script>
-// AI Assistant Function
-async function askAI(e) {
-  e.preventDefault(); // prevent page reload
-
-  const question = document.getElementById("question").value;
-  const q = question.toLowerCase();
-
-  let reply = "";
-
-  // Simple AI responses for common questions
-  if (q.includes("bin")) {
-    reply = "AI: Please check the dashboard to see the current bin status.";
-  } else if (q.includes("collection")) {
-    reply = "AI: Waste collection happens every morning between 6AM and 10AM.";
-  } else if (q.includes("recycle")) {
-    reply = "AI: Please separate recyclable waste into recycling bins.";
-  } else {
-    reply = "AI: Thank you for your question. Our waste management system will assist you.";
-  }
-
-  // Show immediate local reply
-  document.getElementById("answer").innerText = reply;
-
-  // Send to backend AI (if you have a server setup)
-  try {
-    const response = await fetch("http://localhost:3000/ask", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question })
-    });
-
-    const data = await response.json();
-
-    if (data.reply) {
-      document.getElementById("answer").innerText = data.reply;
-    }
-
-    document.getElementById("formMessage").innerText = "Your message has been sent successfully!";
-  } catch (err) {
-    console.error("AI request failed:", err);
-    document.getElementById("answer").innerText = "AI is not responding. Please try again later.";
-  }
-}
-</script>
-
-<footer>
-
-<p>© 2026 Smart Waste Management System</p>
-
-</footer>
-
-
+  <script src="script.js"></script>
 </body>
-
 </html>
