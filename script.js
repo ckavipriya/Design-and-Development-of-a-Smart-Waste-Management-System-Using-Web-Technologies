@@ -1,14 +1,15 @@
-// script.js or inside <script> in HTML
 async function askAI(e) {
-  if (e) e.preventDefault(); // prevent form submission if called on submit
+  e.preventDefault();
 
-  // Get user question
-  let question = document.getElementById("question").value;
-  let q = question.toLowerCase();
+  const question = document.getElementById("question").value.trim();
+  if (!question) return;
 
+  const answerDiv = document.getElementById("answer");
+  const formMessage = document.getElementById("formMessage");
+
+  // Local AI fallback
   let reply = "";
-
-  // Simple local AI responses (optional)
+  const q = question.toLowerCase();
   if (q.includes("bin")) {
     reply = "AI: Please check the dashboard to see the current bin status.";
   } else if (q.includes("collection")) {
@@ -19,10 +20,10 @@ async function askAI(e) {
     reply = "AI: Thank you for your question. Our waste management system will assist you.";
   }
 
-  // Display local reply immediately
-  document.getElementById("answer").innerText = reply;
+  answerDiv.innerText = reply;
+  formMessage.innerText = "";
 
-  // Send question to backend AI server
+  // Optional: send to backend AI
   try {
     const response = await fetch("http://localhost:3000/ask", {
       method: "POST",
@@ -31,16 +32,13 @@ async function askAI(e) {
     });
 
     const data = await response.json();
-
-    // Update answer with backend AI reply (if any)
     if (data.reply) {
-      document.getElementById("answer").innerText = data.reply;
+      answerDiv.innerText = data.reply;
     }
 
-    // Show form success message
-    document.getElementById("formMessage").innerText = "Your message has been sent successfully!";
+    formMessage.innerText = "Your message has been sent successfully!";
   } catch (err) {
     console.error("AI request failed:", err);
-    document.getElementById("answer").innerText = "AI is not responding. Please try again later.";
+    answerDiv.innerText = reply + " (Backend AI not responding)";
   }
 }
