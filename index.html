@@ -137,37 +137,25 @@
 
 <script>
 
-function askAI(){
+async function askAI(){
 
-let q=document.getElementById("question").value.toLowerCase()
+let question=document.getElementById("question").value
 
-let reply=""
+let response=await fetch("http://localhost:3000/ask",{
 
-if(q.includes("bin")){
-reply="AI: Please check the dashboard to see the current bin status."
-}
+method:"POST",
 
-else if(q.includes("collection")){
-reply="AI: Waste collection happens every morning between 6AM and 10AM."
-}
+headers:{
+"Content-Type":"application/json"
+},
 
-else if(q.includes("recycle")){
-reply="AI: Please separate recyclable waste into recycling bins."
-}
+body:JSON.stringify({question})
 
-else{
-reply="AI: Thank you for your question. Our waste management system will assist you."
-}
+})
 
-document.getElementById("answer").innerText=reply
+let data=await response.json()
 
-}
-
-function sendMessage(e){
-
-e.preventDefault()
-
-document.getElementById("formMessage").innerText="Your message has been sent successfully!"
+document.getElementById("answer").innerText=data.reply
 
 }
 
