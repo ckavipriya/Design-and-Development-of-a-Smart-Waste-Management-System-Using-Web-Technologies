@@ -1,51 +1,66 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact - Smart Waste Management System</title>
+
+<title>Contact - Smart Waste Management</title>
+
 <link rel="stylesheet" href="style.css">
+
 </head>
+
 <body>
 
 <nav>
-  <div class="nav-logo">Smart Waste</div>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="status.html">Status</a></li>
-    <li><a href="report.html">Report</a></li>
-    <li><a href="contact.html">Contact</a></li>
-    <li><a href="ai-assistant.html">AI Assistant</a></li>
-  </ul>
+<h2>Smart Waste</h2>
+
+<ul>
+<li><a href="index.html">Home</a></li>
+<li><a href="about.html">About</a></li>
+<li><a href="status.html">Status</a></li>
+<li><a href="report.html">Report</a></li>
+<li><a href="contact.html">Contact</a></li>
+<li><a href="ai-assistant.html">AI Assistant</a></li>
+</ul>
 </nav>
 
-<section class="page-header">
-  <h1>Contact Us</h1>
-  <p>Fill the form below to get in touch with us.</p>
+
+<section class="contact-section">
+
+<div class="contact-container">
+
+<div class="contact-image">
+
+<img src="https://images.unsplash.com/photo-1604187351574-c75ca79f5807" alt="waste management">
+
+</div>
+
+
+<div class="contact-form">
+
+<h2>Contact Us</h2>
+
+<p>Have questions about waste management? Send us a message.</p>
+
+<input type="text" placeholder="Your Name">
+
+<input type="email" placeholder="Your Email">
+
+<textarea placeholder="Your Message"></textarea>
+
+<button>Send Message</button>
+
+</div>
+
+</div>
+
 </section>
 
-<section class="contact-form-container">
-  <form id="contactForm">
-    <input type="text" placeholder="Your Name" required>
-    <input type="email" placeholder="Your Email" required>
-    <textarea placeholder="Your Message" rows="5" required></textarea>
-    <button type="submit">Send Message</button>
-  </form>
-  <div id="formMessage" class="chat-bubble"></div>
-</section>
 
 <footer>
-  <p>&copy; 2026 Smart Waste Management System. All rights reserved.</p>
-</footer>
 
-<script>
-document.getElementById("contactForm").addEventListener("submit", function(e){
-  e.preventDefault();
-  document.getElementById("formMessage").innerText = "Your message has been sent successfully!";
-  this.reset();
-});
-</script>
+<p>© 2026 Smart Waste Management System</p>
+
+</footer>
 
 </body>
 </html>
