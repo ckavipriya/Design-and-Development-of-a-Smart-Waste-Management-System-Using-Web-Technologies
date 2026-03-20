@@ -22,23 +22,4 @@ async function askAI(e) {
 
   answerDiv.innerText = reply;
   formMessage.innerText = "";
-
-  // Optional: send to backend AI
-  try {
-    const response = await fetch("http://localhost:3000/ask", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ question })
-    });
-
-    const data = await response.json();
-    if (data.reply) {
-      answerDiv.innerText = data.reply;
-    }
-
-    formMessage.innerText = "Your message has been sent successfully!";
-  } catch (err) {
-    console.error("AI request failed:", err);
-    answerDiv.innerText = reply + " (Backend AI not responding)";
-  }
 }
