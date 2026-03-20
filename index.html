@@ -1,163 +1,59 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
 <title>Smart Waste Management System</title>
 
+<link rel="stylesheet" href="style.css">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
-<style>
-
-body{
-font-family:'Poppins',sans-serif;
-margin:0;
-background:#f4f6f8;
-}
-
-/* Navbar */
-
-nav{
-background:#2c3e50;
-padding:15px;
-text-align:center;
-}
-
-nav a{
-color:white;
-margin:0 20px;
-text-decoration:none;
-font-weight:500;
-}
-
-/* Sections */
-
-section{
-padding:60px 20px;
-text-align:center;
-}
-
-/* Dashboard */
-
-.dashboard{
-display:flex;
-justify-content:center;
-gap:30px;
-flex-wrap:wrap;
-margin-top:30px;
-}
-
-.bin-card{
-background:white;
-padding:25px;
-width:250px;
-border-radius:12px;
-box-shadow:0 5px 15px rgba(0,0,0,0.1);
-}
-
-.progress{
-background:#eee;
-height:15px;
-border-radius:10px;
-margin:15px 0;
-overflow:hidden;
-}
-
-.progress-bar{
-height:100%;
-}
-
-.full{
-width:90%;
-background:#e74c3c;
-}
-
-.half{
-width:50%;
-background:#f1c40f;
-}
-
-.empty{
-width:10%;
-background:#2ecc71;
-}
-
-/* AI Assistant */
-
-.ai-box{
-margin-top:20px;
-}
-
-.ai-box input{
-padding:12px;
-width:250px;
-border-radius:8px;
-border:1px solid #ccc;
-}
-
-.ai-box button{
-padding:12px;
-background:#3498db;
-color:white;
-border:none;
-border-radius:8px;
-cursor:pointer;
-}
-
-/* Contact */
-
-.contact-form{
-max-width:400px;
-margin:auto;
-display:flex;
-flex-direction:column;
-gap:15px;
-}
-
-.contact-form input,
-.contact-form textarea{
-padding:12px;
-border-radius:8px;
-border:1px solid #ccc;
-}
-
-.contact-form button{
-padding:12px;
-background:#27ae60;
-color:white;
-border:none;
-border-radius:8px;
-cursor:pointer;
-}
-
-/* Footer */
-
-footer{
-background:#2c3e50;
-color:white;
-padding:20px;
-text-align:center;
-}
-
-</style>
 
 </head>
 
 <body>
 
 <nav>
+
+<h1>Smart Waste Management</h1>
+
+<div class="menu">
 <a href="#home">Home</a>
 <a href="#dashboard">Dashboard</a>
 <a href="#ai">AI Assistant</a>
 <a href="#contact">Contact</a>
+</div>
+
 </nav>
+
 
 <section id="home">
 
-<h1>Smart Waste Management System</h1>
+<h2>Smart Waste Management System</h2>
 
-<p>Using technology and AI to improve waste collection and build cleaner cities.</p>
+<p>Using modern web technologies and AI to monitor waste levels and keep cities clean.</p>
+
+<div class="features">
+
+<div class="feature">
+<h3>Smart Monitoring</h3>
+<p>Track bin levels in real time.</p>
+</div>
+
+<div class="feature">
+<h3>AI Assistant</h3>
+<p>Get help with waste management questions.</p>
+</div>
+
+<div class="feature">
+<h3>Cleaner Cities</h3>
+<p>Improve waste collection efficiency.</p>
+</div>
+
+</div>
 
 </section>
+
 
 <section id="dashboard">
 
@@ -170,7 +66,7 @@ text-align:center;
 <div class="progress">
 <div class="progress-bar full"></div>
 </div>
-<p>Status: Full</p>
+<p>Status : Full</p>
 </div>
 
 <div class="bin-card">
@@ -178,7 +74,7 @@ text-align:center;
 <div class="progress">
 <div class="progress-bar half"></div>
 </div>
-<p>Status: Half Full</p>
+<p>Status : Half Full</p>
 </div>
 
 <div class="bin-card">
@@ -186,12 +82,13 @@ text-align:center;
 <div class="progress">
 <div class="progress-bar empty"></div>
 </div>
-<p>Status: Empty</p>
+<p>Status : Empty</p>
 </div>
 
 </div>
 
 </section>
+
 
 <section id="ai">
 
@@ -201,27 +98,28 @@ text-align:center;
 
 <input type="text" id="question" placeholder="Ask about waste collection...">
 
-<button onclick="askAI()">Ask</button>
-
-<p id="answer"></p>
+<button onclick="askAI()">Ask AI</button>
 
 </div>
 
+<p id="answer"></p>
+
 </section>
+
 
 <section id="contact">
 
 <h2>Contact Us</h2>
 
-<form class="contact-form" onsubmit="submitForm(event)">
+<form class="contact-form" onsubmit="sendMessage(event)">
 
-<input type="text" placeholder="Name" required>
+<input type="text" placeholder="Your Name" required>
 
-<input type="email" placeholder="Email" required>
+<input type="email" placeholder="Your Email" required>
 
-<textarea placeholder="Your message" required></textarea>
+<textarea placeholder="Your Message" required></textarea>
 
-<button type="submit">Send</button>
+<button type="submit">Send Message</button>
 
 </form>
 
@@ -229,11 +127,13 @@ text-align:center;
 
 </section>
 
+
 <footer>
 
 <p>© 2026 Smart Waste Management System</p>
 
 </footer>
+
 
 <script>
 
@@ -244,15 +144,15 @@ let q=document.getElementById("question").value.toLowerCase()
 let reply=""
 
 if(q.includes("bin")){
-reply="AI: Please check the dashboard for current bin status."
+reply="AI: Please check the dashboard to see the current bin status."
 }
 
 else if(q.includes("collection")){
-reply="AI: Waste collection trucks operate every morning."
+reply="AI: Waste collection happens every morning between 6AM and 10AM."
 }
 
 else if(q.includes("recycle")){
-reply="AI: Please separate recyclable waste into the blue bin."
+reply="AI: Please separate recyclable waste into recycling bins."
 }
 
 else{
@@ -263,11 +163,11 @@ document.getElementById("answer").innerText=reply
 
 }
 
-function submitForm(e){
+function sendMessage(e){
 
 e.preventDefault()
 
-document.getElementById("formMessage").innerText="Your message has been sent successfully."
+document.getElementById("formMessage").innerText="Your message has been sent successfully!"
 
 }
 
