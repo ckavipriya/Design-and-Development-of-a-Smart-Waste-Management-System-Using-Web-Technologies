@@ -155,6 +155,15 @@ width:400px;
 text-align:center;
 box-shadow:0 5px 20px rgba(0,0,0,0.1);
 }
+.ai-page{
+height:90vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background-image:url("https://images.unsplash.com/photo-1621451537084-482c73073a0f");
+background-size:cover;
+background-position:center;
+}
 
 .ai-box input{
 width:90%;
