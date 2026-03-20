@@ -114,17 +114,13 @@
 
 <h2>Contact Us</h2>
 
-<form class="contact-form" onsubmit="sendMessage(event)">
-
-<input type="text" placeholder="Your Name" required>
-
-<input type="email" placeholder="Your Email" required>
-
-<textarea placeholder="Your Message" required></textarea>
-
-<button type="submit">Send Message</button>
-
+<form id="aiForm" onsubmit="askAI(event)">
+  <input type="text" id="question" placeholder="Ask AI here">
+  <button type="submit">Send</button>
 </form>
+
+<div id="answer"></div>
+<div id="formMessage"></div>
 
 <p id="formMessage"></p>
 
