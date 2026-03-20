@@ -1,107 +1,36 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Status</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Status - Smart Waste Management System</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
 <header>
-<div class="logo">♻ Smart Waste System</div>
-
-<nav>
-<a href="index.html">Home</a>
-<a href="about.html">About</a>
-<a href="status.html">Status</a>
-<a href="report.html">Report</a>
-<a href="contact.html">Contact</a>
-</nav>
+  <h1>Smart Waste Management System</h1>
 </header>
 
-
-<section class="dashboard">
-
-<h2>Live Waste Bin Dashboard</h2>
-
-<div class="bins">
-
-<div class="bin">
-<h3>Bin 1</h3>
-<div class="bar"><div class="level level70"></div></div>
-<p>Location: Main Street</p>
-<p>Status: 70% Full</p>
-</div>
-
-<div class="bin">
-<h3>Bin 2</h3>
-<div class="bar"><div class="level level40"></div></div>
-<p>Location: Bus Stand</p>
-<p>Status: 40% Full</p>
-</div>
-
-<div class="bin">
-<h3>Bin 3</h3>
-<div class="bar"><div class="level level90"></div></div>
-<p>Location: Market Area</p>
-<p>Status: 90% Full</p>
-</div>
-<section class="dashboard">
-
-<h2>Waste Collection Statistics</h2>
-
-<canvas id="wasteChart"></canvas>
-
-</section>
-</div>
-
+<section id="hero">
+  <h2>Current Bin Status</h2>
+  <p>Monitor the real-time status of all waste bins in your area.</p>
 </section>
 
-<section class="features">
-
-<h2>Collection Alerts</h2>
-
-<div class="cards">
-
-<div class="card">
-<h3>⚠ Bin 3</h3>
-<p>Almost full. Collection required.</p>
-</div>
-
-<div class="card">
-<h3>✔ Bin 2</h3>
-<p>Normal waste level.</p>
-</div>
-
-<div class="card">
-<h3>✔ Bin 1</h3>
-<p>Collection scheduled tomorrow.</p>
-</div>
-
-</div>
-
+<section id="status-details" style="max-width:800px; margin:20px auto; padding:20px; background:#fdfbfb; border-radius:10px;">
+  <h3>Bin Status</h3>
+  <ul>
+    <li>Bin 1: 75% full</li>
+    <li>Bin 2: 40% full</li>
+    <li>Bin 3: 100% full — needs collection</li>
+    <li>Bin 4: 20% full</li>
+  </ul>
 </section>
 
 <footer>
-<p>© 2026 Smart Waste Management System</p>
+  <p>&copy; 2026 Smart Waste Management System. All rights reserved.</p>
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
 
-const ctx=document.getElementById('wasteChart');
-
-new Chart(ctx,{
-type:'bar',
-data:{
-labels:['Organic','Plastic','Metal','Other'],
-datasets:[{
-label:'Waste Collected',
-data:[45,30,15,10],
-backgroundColor:['green','blue','orange','gray']
-}]
-}
-});
-
-</script>
 </body>
 </html>
