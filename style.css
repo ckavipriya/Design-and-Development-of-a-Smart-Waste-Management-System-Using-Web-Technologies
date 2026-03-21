@@ -7,7 +7,52 @@ background:#f4f6f9;
 color:#333;
 line-height:1.6;
 }
+body{
+font-family: Arial;
+margin:0;
+background:#f4f6f9;
+}
 
+nav{
+background:#2c7a7b;
+padding:15px;
+text-align:center;
+}
+
+nav a{
+color:white;
+margin:15px;
+text-decoration:none;
+font-weight:bold;
+}
+
+section{
+padding:50px;
+text-align:center;
+}
+
+.box{
+background:white;
+padding:30px;
+margin:20px auto;
+width:400px;
+border-radius:8px;
+box-shadow:0 3px 10px rgba(0,0,0,0.2);
+}
+
+input,textarea{
+width:90%;
+padding:10px;
+margin:10px;
+}
+
+button{
+background:#2c7a7b;
+color:white;
+border:none;
+padding:10px 20px;
+border-radius:5px;
+}
 /* NAVBAR */
 
 nav{
