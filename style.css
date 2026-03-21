@@ -1,15 +1,14 @@
-.logo-container{
-display:flex;
-align-items:center;
-gap:10px;
-}
 body{
 font-family:'Poppins',sans-serif;
 margin:0;
 background:#f4f6f9;
 color:#333;
 }
-
+.logo-container{
+display:flex;
+align-items:center;
+gap:10px;
+}
 /* NAVBAR */
 
 nav{
