@@ -1,39 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Status - Smart Waste Management System</title>
+<title>Bin Status</title>
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<nav>
-  <div class="nav-logo">Smart Waste</div>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="status.html">Status</a></li>
-    <li><a href="report.html">Report</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</nav>
+<h1 style="text-align:center;">Smart Bin Monitoring Dashboard</h1>
 
-<section class="page-header">
-  <h1>Current Bin Status</h1>
-  <p>Monitor all waste bins in real-time.</p>
-</section>
+<div class="status-container">
 
-<section class="status-cards">
-  <div class="card status-green">Bin 1: 30% full</div>
-  <div class="card status-yellow">Bin 2: 60% full</div>
-  <div class="card status-red">Bin 3: 100% full</div>
-  <div class="card status-green">Bin 4: 20% full</div>
-</section>
+<div class="bin-card green">
+<h2>Bin 1</h2>
+<p>Location: City Park</p>
+<p>Status: 40% Full</p>
+</div>
 
-<footer>
-  <p>&copy; 2026 Smart Waste Management System. All rights reserved.</p>
-</footer>
+<div class="bin-card yellow">
+<h2>Bin 2</h2>
+<p>Location: Bus Stand</p>
+<p>Status: 65% Full</p>
+</div>
+
+<div class="bin-card red">
+<h2>Bin 3</h2>
+<p>Location: Market Area</p>
+<p>Status: 90% Full</p>
+</div>
+
+</div>
 
 </body>
 </html>
