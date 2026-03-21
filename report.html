@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Report Waste Issue</title>
+<title>Bin Status</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1 style="text-align:center;">Report Waste Problem</h1>
+<h1 style="text-align:center;">Smart Bin Monitoring Dashboard</h1>
 
-<div class="report-box">
+<div class="status-container">
 
-<form>
+<div class="bin-card green">
+<h2>Bin 1</h2>
+<p>Location: City Park</p>
+<p>Status: 40% Full</p>
+</div>
 
-<input type="text" placeholder="Your Name" required>
+<div class="bin-card yellow">
+<h2>Bin 2</h2>
+<p>Location: Bus Stand</p>
+<p>Status: 65% Full</p>
+</div>
 
-<input type="text" placeholder="Location" required>
-
-<select>
-<option>Select Issue</option>
-<option>Overflowing Bin</option>
-<option>Illegal Dumping</option>
-<option>Collection Delay</option>
-</select>
-
-<textarea placeholder="Describe the problem"></textarea>
-
-<button type="submit">Submit Report</button>
-
-</form>
+<div class="bin-card red">
+<h2>Bin 3</h2>
+<p>Location: Market Area</p>
+<p>Status: 90% Full</p>
+</div>
 
 </div>
 
