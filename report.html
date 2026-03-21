@@ -1,57 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Report - Smart Waste Management System</title>
+<title>Report Waste Issue</title>
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<nav>
-  <div class="nav-logo">Smart Waste</div>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="status.html">Status</a></li>
-    <li><a href="report.html">Report</a></li>
-    <li><a href="contact.html">Contact</a></li>
-  </ul>
-</nav>
+<h1 style="text-align:center;">Report Waste Problem</h1>
 
-<section class="page-header">
-  <h1>Reports</h1>
-  <p>View collection and recycling reports.</p>
-</section>
+<div class="report-box">
 
-<section class="report-table">
-  <table>
-    <tr>
-      <th>Date</th>
-      <th>Bin</th>
-      <th>Status</th>
-    </tr>
-    <tr>
-      <td>2026-03-20</td>
-      <td>Bin 1</td>
-      <td>Collected</td>
-    </tr>
-    <tr>
-      <td>2026-03-20</td>
-      <td>Bin 2</td>
-      <td>Pending</td>
-    </tr>
-    <tr>
-      <td>2026-03-20</td>
-      <td>Bin 3</td>
-      <td>Full</td>
-    </tr>
-  </table>
-</section>
+<form>
 
-<footer>
-  <p>&copy; 2026 Smart Waste Management System. All rights reserved.</p>
-</footer>
+<input type="text" placeholder="Your Name" required>
+
+<input type="text" placeholder="Location" required>
+
+<select>
+<option>Select Issue</option>
+<option>Overflowing Bin</option>
+<option>Illegal Dumping</option>
+<option>Collection Delay</option>
+</select>
+
+<textarea placeholder="Describe the problem"></textarea>
+
+<button type="submit">Submit Report</button>
+
+</form>
+
+</div>
 
 </body>
 </html>
