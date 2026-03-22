@@ -1,7 +1,7 @@
 body{
 font-family:Arial;
 margin:0;
-background:#f5f7fb;
+background:#f4f6f9;
 }
 
 header{
@@ -18,9 +18,28 @@ text-decoration:none;
 font-weight:bold;
 }
 
-.page{
+section{
 padding:40px;
 text-align:center;
+}
+
+.hero{
+background:#ccfbf1;
+}
+
+.cards{
+display:flex;
+justify-content:center;
+gap:30px;
+margin-top:30px;
+}
+
+.card{
+background:white;
+padding:20px;
+width:200px;
+border-radius:10px;
+box-shadow:0 5px 10px rgba(0,0,0,0.1);
 }
 
 .bin-container{
@@ -28,13 +47,12 @@ display:flex;
 justify-content:center;
 gap:30px;
 flex-wrap:wrap;
-margin-top:30px;
 }
 
-.bin-card{
+.bin{
 background:white;
 padding:20px;
-width:250px;
+width:220px;
 border-radius:10px;
 box-shadow:0 5px 10px rgba(0,0,0,0.1);
 }
@@ -44,58 +62,66 @@ height:15px;
 background:#ddd;
 border-radius:20px;
 overflow:hidden;
-margin:10px 0;
 }
 
 .level{
 height:100%;
 }
 
-.red{
+.full{
 width:90%;
 background:red;
 }
 
-.orange{
+.medium{
 width:60%;
 background:orange;
 }
 
-.green{
-width:25%;
+.low{
+width:20%;
 background:green;
 }
 
-.report-form{
+.form{
 display:flex;
 flex-direction:column;
-width:350px;
+width:300px;
 margin:auto;
 }
 
 input,textarea{
-margin:10px 0;
+margin:10px;
 padding:10px;
 border-radius:5px;
 border:1px solid #ccc;
 }
 
 button{
+padding:10px;
 background:#0f766e;
 color:white;
 border:none;
-padding:10px;
 border-radius:5px;
 cursor:pointer;
 }
 
-.contact-box{
+.contact{
 background:white;
 padding:20px;
-margin:20px auto;
 width:300px;
+margin:auto;
 border-radius:10px;
 box-shadow:0 5px 10px rgba(0,0,0,0.1);
+}
+
+.chatbox{
+height:200px;
+border:1px solid #ccc;
+overflow:auto;
+padding:10px;
+margin-bottom:10px;
+background:white;
 }
 
 footer{
@@ -103,5 +129,5 @@ background:#111;
 color:white;
 text-align:center;
 padding:10px;
-margin-top:40px;
+margin-top:30px;
 }
