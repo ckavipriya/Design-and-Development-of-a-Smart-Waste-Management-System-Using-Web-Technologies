@@ -1,64 +1,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<title>Bin Status</title>
-
+<title>Smart Bin Status</title>
 <link rel="stylesheet" href="style.css">
-
 </head>
 
 <body>
 
 <header>
-<h1>Smart Waste Management System</h1>
-
+<h1>Smart Waste Management</h1>
 <nav>
 <a href="index.html">Home</a>
 <a href="status.html">Bin Status</a>
-<a href="report.html">Report</a>
+<a href="report.html">Report Waste</a>
 <a href="contact.html">Contact</a>
 </nav>
-
 </header>
 
-<section>
+<section class="page">
 
-<h2>Smart Bin Status</h2>
+<h2>Live Smart Bin Monitoring</h2>
+<p>These bins are monitored using smart sensors that detect garbage levels.</p>
 
-<div class="bin">
+<div class="bin-container">
 
+<div class="bin-card">
 <h3>Bin 1</h3>
-<div class="progress">
-<div class="level full"></div>
-</div>
-<p>90% Full</p>
-
+<p>Location: City Park</p>
+<div class="bar"><div class="level red"></div></div>
+<p>Status: Almost Full (90%)</p>
 </div>
 
-
-<div class="bin">
-
+<div class="bin-card">
 <h3>Bin 2</h3>
-<div class="progress">
-<div class="level medium"></div>
-</div>
-<p>60% Full</p>
-
+<p>Location: Bus Stand</p>
+<div class="bar"><div class="level orange"></div></div>
+<p>Status: Medium (60%)</p>
 </div>
 
-
-<div class="bin">
-
+<div class="bin-card">
 <h3>Bin 3</h3>
-<div class="progress">
-<div class="level low"></div>
+<p>Location: Shopping Area</p>
+<div class="bar"><div class="level green"></div></div>
+<p>Status: Low (25%)</p>
 </div>
-<p>20% Full</p>
 
 </div>
 
 </section>
+
+<footer>
+<p>Smart Waste Monitoring System</p>
+</footer>
 
 </body>
 </html>
