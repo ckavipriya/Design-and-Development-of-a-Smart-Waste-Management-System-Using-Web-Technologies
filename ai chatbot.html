@@ -1,60 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-
-<title>AI Waste Assistant</title>
+<title>AI Chatbot</title>
 <link rel="stylesheet" href="style.css">
-
-<style>
-
-.chat-container{
-width:400px;
-margin:50px auto;
-background:white;
-padding:20px;
-border-radius:10px;
-box-shadow:0 5px 10px rgba(0,0,0,0.1);
-}
-
-#chatbox{
-height:300px;
-overflow-y:auto;
-border:1px solid #ccc;
-padding:10px;
-margin-bottom:10px;
-}
-
-input{
-width:70%;
-padding:10px;
-}
-
-button{
-padding:10px;
-background:#0f766e;
-color:white;
-border:none;
-}
-
-.user{
-color:blue;
-margin:5px 0;
-}
-
-.bot{
-color:green;
-margin:5px 0;
-}
-
-</style>
-
 </head>
 
 <body>
 
 <header>
-
-<h1>Smart Waste Management</h1>
+<h1>AI Waste Assistant</h1>
 
 <nav>
 <a href="index.html">Home</a>
@@ -66,45 +20,43 @@ margin:5px 0;
 
 </header>
 
-<div class="chat-container">
+<section>
 
-<h2>AI Waste Assistant</h2>
+<h2>Ask Waste Assistant</h2>
 
-<div id="chatbox"></div>
+<div class="chatbox" id="chatbox"></div>
 
-<input type="text" id="userInput" placeholder="Ask about waste management">
+<input id="userInput" placeholder="Ask something about waste">
+<button onclick="send()">Send</button>
 
-<button onclick="sendMessage()">Send</button>
-
-</div>
+</section>
 
 <script>
 
-function sendMessage(){
+function send(){
 
-var input = document.getElementById("userInput").value;
-var chatbox = document.getElementById("chatbox");
+let input=document.getElementById("userInput").value
+let box=document.getElementById("chatbox")
 
-chatbox.innerHTML += "<div class='user'>You: " + input + "</div>";
+box.innerHTML+="<p><b>You:</b> "+input+"</p>"
 
-var reply = "I can help with waste reporting and smart bin information.";
+let reply="I can help with waste management information."
 
-if(input.toLowerCase().includes("bin"))
-reply="Smart bins use sensors to detect garbage levels.";
+if(input.includes("bin")) reply="Smart bins detect garbage levels using sensors."
+if(input.includes("report")) reply="You can report waste problems in the report page."
+if(input.includes("contact")) reply="Please check the contact page."
 
-if(input.toLowerCase().includes("report"))
-reply="You can report waste problems using the Report page.";
+box.innerHTML+="<p><b>Bot:</b> "+reply+"</p>"
 
-if(input.toLowerCase().includes("contact"))
-reply="Please check the contact page for support.";
-
-chatbox.innerHTML += "<div class='bot'>Bot: " + reply + "</div>";
-
-document.getElementById("userInput").value="";
+document.getElementById("userInput").value=""
 
 }
 
 </script>
+
+<footer>
+<p>Smart Waste AI Assistant</p>
+</footer>
 
 </body>
 </html>
