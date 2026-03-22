@@ -23,36 +23,28 @@ padding:40px;
 text-align:center;
 }
 
-.hero{
-background:#ccfbf1;
-}
-
 .cards{
 display:flex;
 justify-content:center;
-gap:30px;
-margin-top:30px;
+gap:20px;
+flex-wrap:wrap;
 }
 
 .card{
 background:white;
 padding:20px;
-width:200px;
+width:220px;
 border-radius:10px;
 box-shadow:0 5px 10px rgba(0,0,0,0.1);
 }
 
-.bin-container{
-display:flex;
-justify-content:center;
-gap:30px;
-flex-wrap:wrap;
-}
+/* BIN STATUS */
 
 .bin{
 background:white;
 padding:20px;
 width:220px;
+margin:15px auto;
 border-radius:10px;
 box-shadow:0 5px 10px rgba(0,0,0,0.1);
 }
@@ -68,22 +60,13 @@ overflow:hidden;
 height:100%;
 }
 
-.full{
-width:90%;
-background:red;
-}
+.full{width:90%;background:red;}
+.medium{width:60%;background:orange;}
+.low{width:20%;background:green;}
 
-.medium{
-width:60%;
-background:orange;
-}
+/* FORM */
 
-.low{
-width:20%;
-background:green;
-}
-
-.form{
+form{
 display:flex;
 flex-direction:column;
 width:300px;
@@ -93,18 +76,8 @@ margin:auto;
 input,textarea{
 margin:10px;
 padding:10px;
-border-radius:5px;
-border:1px solid #ccc;
 }
 
-button{
-padding:10px;
-background:#0f766e;
-color:white;
-border:none;
-border-radius:5px;
-cursor:pointer;
-}
 /* CHATBOT */
 
 .chatbot-btn{
@@ -115,8 +88,8 @@ background:#0f766e;
 color:white;
 padding:15px;
 border-radius:50%;
-cursor:pointer;
 font-size:20px;
+cursor:pointer;
 }
 
 .chat-window{
@@ -127,7 +100,7 @@ right:20px;
 width:300px;
 background:white;
 border-radius:10px;
-box-shadow:0 5px 10px rgba(0,0,0,0.2);
+box-shadow:0 5px 10px rgba(0,0,0,0.3);
 }
 
 .chat-header{
@@ -151,8 +124,6 @@ display:flex;
 .chat-input input{
 flex:1;
 padding:10px;
-border:none;
-border-top:1px solid #ccc;
 }
 
 .chat-input button{
@@ -162,28 +133,10 @@ border:none;
 padding:10px;
 }
 
-.contact{
-background:white;
-padding:20px;
-width:300px;
-margin:auto;
-border-radius:10px;
-box-shadow:0 5px 10px rgba(0,0,0,0.1);
-}
-
-.chatbox{
-height:200px;
-border:1px solid #ccc;
-overflow:auto;
-padding:10px;
-margin-bottom:10px;
-background:white;
-}
-
 footer{
 background:#111;
 color:white;
 text-align:center;
 padding:10px;
-margin-top:30px;
+margin-top:40px;
 }
