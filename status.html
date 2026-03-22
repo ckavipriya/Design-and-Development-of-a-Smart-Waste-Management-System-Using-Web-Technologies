@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Smart Bin Status</title>
+<title>Bin Status</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -9,40 +9,42 @@
 
 <header>
 <h1>Smart Waste Management</h1>
+
 <nav>
 <a href="index.html">Home</a>
 <a href="status.html">Bin Status</a>
 <a href="report.html">Report Waste</a>
 <a href="contact.html">Contact</a>
+<a href="chatbot.html">AI Chatbot</a>
 </nav>
+
 </header>
 
-<section class="page">
+<section>
 
-<h2>Live Smart Bin Monitoring</h2>
-<p>These bins are monitored using smart sensors that detect garbage levels.</p>
+<h2>Smart Bin Monitoring</h2>
 
 <div class="bin-container">
 
-<div class="bin-card">
+<div class="bin">
 <h3>Bin 1</h3>
 <p>Location: City Park</p>
-<div class="bar"><div class="level red"></div></div>
-<p>Status: Almost Full (90%)</p>
+<div class="bar"><div class="level full"></div></div>
+<p>90% Full</p>
 </div>
 
-<div class="bin-card">
+<div class="bin">
 <h3>Bin 2</h3>
 <p>Location: Bus Stand</p>
-<div class="bar"><div class="level orange"></div></div>
-<p>Status: Medium (60%)</p>
+<div class="bar"><div class="level medium"></div></div>
+<p>60% Full</p>
 </div>
 
-<div class="bin-card">
+<div class="bin">
 <h3>Bin 3</h3>
-<p>Location: Shopping Area</p>
-<div class="bar"><div class="level green"></div></div>
-<p>Status: Low (25%)</p>
+<p>Location: Market</p>
+<div class="bar"><div class="level low"></div></div>
+<p>20% Full</p>
 </div>
 
 </div>
@@ -50,28 +52,8 @@
 </section>
 
 <footer>
-<p>Smart Waste Monitoring System</p>
+<p>Smart Waste Monitoring</p>
 </footer>
-<div class="chatbot">
 
-<div class="chat-header">
-AI Waste Assistant
-</div>
-
-<div class="chat-body" id="chatBody">
-<p>Hello! Ask me about waste management.</p>
-</div>
-
-<div class="chat-input">
-
-<input type="text" id="userInput" placeholder="Ask something...">
-
-<button onclick="sendMessage()">Send</button>
-
-</div>
-
-</div>
-
-<script src="chatbot.js"></script>
 </body>
 </html>
