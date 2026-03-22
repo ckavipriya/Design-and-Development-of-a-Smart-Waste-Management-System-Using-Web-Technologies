@@ -1,35 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Bin Status</title>
+
+<title>Report Waste</title>
+
 <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-<h1 style="text-align:center;">Smart Bin Monitoring Dashboard</h1>
+<header>
 
-<div class="status-container">
+<h1>Smart Waste Management System</h1>
 
-<div class="bin-card green">
-<h2>Bin 1</h2>
-<p>Location: City Park</p>
-<p>Status: 40% Full</p>
-</div>
+<nav>
+<a href="index.html">Home</a>
+<a href="status.html">Bin Status</a>
+<a href="report.html">Report</a>
+<a href="contact.html">Contact</a>
+</nav>
 
-<div class="bin-card yellow">
-<h2>Bin 2</h2>
-<p>Location: Bus Stand</p>
-<p>Status: 65% Full</p>
-</div>
+</header>
 
-<div class="bin-card red">
-<h2>Bin 3</h2>
-<p>Location: Market Area</p>
-<p>Status: 90% Full</p>
-</div>
+<section>
 
-</div>
+<h2>Report Waste Problem</h2>
+
+<form>
+
+<input type="text" placeholder="Your Name" required>
+
+<input type="email" placeholder="Email" required>
+
+<textarea placeholder="Describe waste problem"></textarea>
+
+<button type="submit">Submit Report</button>
+
+</form>
+
+</section>
 
 </body>
 </html>
