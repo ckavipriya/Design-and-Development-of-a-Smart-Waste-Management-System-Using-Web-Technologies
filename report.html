@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Report Waste Problem</title>
+<title>Report Waste</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
@@ -15,25 +15,23 @@
 <a href="status.html">Bin Status</a>
 <a href="report.html">Report Waste</a>
 <a href="contact.html">Contact</a>
+<a href="chatbot.html">AI Chatbot</a>
 </nav>
 
 </header>
 
-<section class="page">
+<section>
 
-<h2>Report Waste Issue</h2>
+<h2>Report Waste Problem</h2>
 
-<p>If you see overflowing garbage or waste problems in your area, report it here.</p>
+<p>If you notice overflowing garbage in your area, report it here.</p>
 
-<form class="report-form">
+<form class="form">
 
 <input type="text" placeholder="Your Name" required>
-
-<input type="email" placeholder="Email Address" required>
-
+<input type="email" placeholder="Email" required>
 <input type="text" placeholder="Location of Waste">
-
-<textarea placeholder="Describe the waste problem"></textarea>
+<textarea placeholder="Describe the waste issue"></textarea>
 
 <button>Submit Report</button>
 
@@ -42,29 +40,8 @@
 </section>
 
 <footer>
-<p>Your report helps keep the city clean.</p>
+<p>Help keep our city clean</p>
 </footer>
-<div class="chatbot">
 
-<div class="chat-header">
-AI Waste Assistant
-</div>
-
-<div class="chat-body" id="chatBody">
-<p>Hello! Ask me about waste management.</p>
-</div>
-
-<div class="chat-input">
-
-<input type="text" id="userInput" placeholder="Ask something...">
-
-<button onclick="sendMessage()">Send</button>
-
-</div>
-
-</div>
-
-<script src="chatbot.js"></script>
-  
 </body>
 </html>
