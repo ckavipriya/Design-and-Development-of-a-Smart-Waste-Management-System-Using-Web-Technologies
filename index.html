@@ -1,81 +1,283 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <title>Smart Waste Management System</title>
 
-<link rel="stylesheet" href="style.css">
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Poppins;
+}
+
+body{
+background:#f4f7fb;
+}
+
+/* NAVBAR */
+
+header{
+background:#0f766e;
+padding:15px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+color:white;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+margin:0 15px;
+font-weight:500;
+}
+
+/* HERO */
+
+.hero{
+height:80vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+background:linear-gradient(to right,#14b8a6,#0f766e);
+color:white;
+text-align:center;
+}
+
+.hero h1{
+font-size:40px;
+margin-bottom:10px;
+}
+
+.hero p{
+width:60%;
+margin-bottom:20px;
+}
+
+.hero button{
+padding:12px 25px;
+border:none;
+background:white;
+color:#0f766e;
+font-weight:bold;
+border-radius:6px;
+cursor:pointer;
+}
+
+/* FEATURES */
+
+.features{
+padding:60px;
+text-align:center;
+}
+
+.feature-container{
+display:flex;
+justify-content:center;
+gap:30px;
+margin-top:30px;
+}
+
+.card{
+background:white;
+padding:25px;
+border-radius:10px;
+width:250px;
+box-shadow:0 5px 10px rgba(0,0,0,0.1);
+}
+
+/* BIN STATUS */
+
+.bins{
+padding:60px;
+text-align:center;
+background:#ecfeff;
+}
+
+.bin{
+background:white;
+width:250px;
+margin:20px auto;
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 10px rgba(0,0,0,0.1);
+}
+
+.bar{
+height:15px;
+background:#ddd;
+border-radius:20px;
+overflow:hidden;
+margin-top:10px;
+}
+
+.level{
+height:100%;
+}
+
+.full{ width:90%; background:red;}
+.medium{ width:60%; background:orange;}
+.low{ width:20%; background:green;}
+
+/* CONTACT */
+
+.contact{
+padding:60px;
+text-align:center;
+}
+
+form{
+display:flex;
+flex-direction:column;
+width:300px;
+margin:auto;
+}
+
+input,textarea{
+margin:10px 0;
+padding:10px;
+border-radius:5px;
+border:1px solid #ccc;
+}
+
+button.submit{
+background:#0f766e;
+color:white;
+border:none;
+padding:10px;
+cursor:pointer;
+}
+
+/* FOOTER */
+
+footer{
+background:#111;
+color:white;
+text-align:center;
+padding:15px;
+}
+
+</style>
 
 </head>
 
 <body>
 
 <header>
-<h1>Smart Waste Management System</h1>
+
+<h2>Smart Waste System</h2>
+
 <nav>
-<a href="#home">Home</a>
-<a href="#about">About</a>
-<a href="#bins">Smart Bins</a>
-<a href="#contact">Contact</a>
+<a href="#">Home</a>
+<a href="#">Features</a>
+<a href="#">Bins</a>
+<a href="#">Contact</a>
 </nav>
+
 </header>
 
-<section id="home">
-<h2>Clean City Using Smart Technology</h2>
-<p>This system helps monitor waste levels in bins and keeps the city clean.</p>
-<button onclick="showMessage()">Check Bin Status</button>
-</section>
+<section class="hero">
 
-<section id="about">
-<h2>About the Project</h2>
+<h1>Smart Waste Management</h1>
+
 <p>
-The Smart Waste Management System uses sensors and web technology to monitor garbage bins.
-When bins are full, notifications are sent to waste collection authorities.
-This helps maintain hygiene and improve waste collection efficiency.
+Using IoT and smart monitoring to maintain a cleaner and healthier city.
+Real-time garbage monitoring helps waste collection teams respond faster.
 </p>
+
+<button onclick="alert('Smart Monitoring Activated')">
+Check System
+</button>
+
 </section>
 
-<section id="bins">
+<section class="features">
+
+<h2>System Features</h2>
+
+<div class="feature-container">
+
+<div class="card">
+<h3>Smart Sensors</h3>
+<p>Garbage bins use sensors to detect waste levels.</p>
+</div>
+
+<div class="card">
+<h3>Real-Time Monitoring</h3>
+<p>Authorities can monitor bins through the website.</p>
+</div>
+
+<div class="card">
+<h3>Cleaner City</h3>
+<p>Improves waste collection efficiency and hygiene.</p>
+</div>
+
+</div>
+
+</section>
+
+<section class="bins">
 
 <h2>Smart Bin Status</h2>
 
 <div class="bin">
 <h3>Bin 1</h3>
-<p>Status: <span class="full">Full</span></p>
+<div class="bar">
+<div class="level full"></div>
+</div>
+<p>90% Full</p>
 </div>
 
 <div class="bin">
 <h3>Bin 2</h3>
-<p>Status: <span class="medium">Medium</span></p>
+<div class="bar">
+<div class="level medium"></div>
+</div>
+<p>60% Full</p>
 </div>
 
 <div class="bin">
 <h3>Bin 3</h3>
-<p>Status: <span class="empty">Empty</span></p>
+<div class="bar">
+<div class="level low"></div>
+</div>
+<p>20% Full</p>
 </div>
 
 </section>
 
-<section id="contact">
+<section class="contact">
 
 <h2>Report Waste Issue</h2>
 
 <form>
-<input type="text" placeholder="Your Name" required>
-<input type="email" placeholder="Email" required>
-<textarea placeholder="Report Waste Problem"></textarea>
-<button type="submit">Submit</button>
+
+<input type="text" placeholder="Your Name">
+
+<input type="email" placeholder="Email">
+
+<textarea placeholder="Describe the waste issue"></textarea>
+
+<button class="submit">Submit</button>
+
 </form>
 
 </section>
 
 <footer>
+
 <p>© 2026 Smart Waste Management System</p>
+
 </footer>
 
-<script src="script.js"></script>
-
 </body>
+
 </html>
