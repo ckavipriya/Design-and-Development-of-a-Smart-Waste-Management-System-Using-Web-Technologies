@@ -1,55 +1,89 @@
 body{
 font-family:Poppins;
 margin:0;
-background:#f4f4f4;
+background:#f4f6f9;
 }
 
 header{
-background:#2c7a7b;
+background:#0f766e;
 color:white;
 padding:20px;
 text-align:center;
 }
 
 nav a{
-margin:10px;
 color:white;
+margin:10px;
 text-decoration:none;
 font-weight:bold;
 }
 
-section{
+.hero{
+background:#ccfbf1;
+padding:60px;
+text-align:center;
+}
+
+button{
+padding:10px 20px;
+background:#0f766e;
+color:white;
+border:none;
+border-radius:5px;
+cursor:pointer;
+}
+
+#status{
 padding:40px;
 text-align:center;
 }
 
-#home{
-background:#e6fffa;
+.bin-container{
+display:flex;
+justify-content:center;
+gap:30px;
+flex-wrap:wrap;
 }
 
 .bin{
 background:white;
 padding:20px;
-margin:20px;
-border-radius:10px;
-box-shadow:0 0 10px rgba(0,0,0,0.1);
-display:inline-block;
 width:200px;
+border-radius:10px;
+box-shadow:0 5px 10px rgba(0,0,0,0.1);
+}
+
+.progress{
+background:#ddd;
+height:15px;
+border-radius:20px;
+overflow:hidden;
+margin:10px 0;
+}
+
+.level{
+height:100%;
 }
 
 .full{
-color:red;
-font-weight:bold;
+width:90%;
+background:red;
 }
 
 .medium{
-color:orange;
-font-weight:bold;
+width:60%;
+background:orange;
 }
 
-.empty{
-color:green;
-font-weight:bold;
+.low{
+width:20%;
+background:green;
+}
+
+#report{
+padding:40px;
+text-align:center;
+background:#ecfeff;
 }
 
 form{
@@ -60,23 +94,14 @@ margin:auto;
 }
 
 input,textarea{
-margin:10px;
+margin:10px 0;
 padding:10px;
 border-radius:5px;
 border:1px solid #ccc;
 }
 
-button{
-padding:10px;
-background:#2c7a7b;
-color:white;
-border:none;
-border-radius:5px;
-cursor:pointer;
-}
-
 footer{
-background:#222;
+background:#111;
 color:white;
 text-align:center;
 padding:10px;
