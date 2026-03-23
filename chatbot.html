@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>AI Chatbot</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+<h1>AI Waste Assistant</h1>
+
+<nav>
+<a href="index.html">Home</a>
+<a href="status.html">Bin Status</a>
+<a href="report.html">Report Waste</a>
+<a href="contact.html">Contact</a>
+<a href="chatbot.html">AI Chatbot</a>
+</nav>
+
+</header>
+
+<section>
+
+<h2>Ask Waste Assistant</h2>
+
+<div class="chatbox" id="chatbox"></div>
+
+<input id="userInput" placeholder="Ask something about waste">
+<button onclick="send()">Send</button>
+
+</section>
+
+<script>
+
+function send(){
+
+let input=document.getElementById("userInput").value
+let box=document.getElementById("chatbox")
+
+box.innerHTML+="<p><b>You:</b> "+input+"</p>"
+
+let reply="I can help with waste management information."
+
+if(input.includes("bin")) reply="Smart bins detect garbage levels using sensors."
+if(input.includes("report")) reply="You can report waste problems in the report page."
+if(input.includes("contact")) reply="Please check the contact page."
+
+box.innerHTML+="<p><b>Bot:</b> "+reply+"</p>"
+
+document.getElementById("userInput").value=""
+<div class="chatbot-btn" onclick="openChat()">💬</div>
+
+<div class="chat-window" id="chatWindow">
+
+<div class="chat-header">
+<span>AI Waste Assistant</span>
+<span onclick="closeChat()" style="cursor:pointer">X</span>
+</div>
+
+<div class="chat-messages" id="chatMessages">
+<p><b>Bot:</b> Hello! Ask me about waste management.</p>
+</div>
+
+<div class="chat-input">
+<input id="chatInput" placeholder="Type message">
+<button onclick="sendMsg()">Send</button>
+</div>
+
+</div>
+
+<script src="chatbot.js"></script>
+}
+
+</script>
+
+<footer>
+<p>Smart Waste AI Assistant</p>
+</footer>
+
+</body>
+</html>
