@@ -13,68 +13,51 @@
 <nav>
 <a href="index.html">Home</a>
 <a href="status.html">Bin Status</a>
-<a href="report.html">Report</a>
+<a href="report.html">Report Waste</a>
 <a href="contact.html">Contact</a>
 </nav>
 
 </header>
 
-<section>
+<section class="hero">
 
-<h2>Clean City Using Smart Technology</h2>
+<h2>Clean City With Smart Waste Monitoring</h2>
 
-<div class="cards">
+<p>
+This system monitors garbage bins using smart sensors and helps
+citizens report waste issues quickly.
+</p>
+
+<button onclick="location.href='status.html'">
+View Bin Status
+</button>
+
+</section>
+
+<section class="features">
+
+<h2>System Features</h2>
 
 <div class="card">
 <h3>Smart Sensors</h3>
-<p>Bins detect garbage levels automatically.</p>
+<p>Detect garbage levels automatically.</p>
 </div>
 
 <div class="card">
-<h3>Real-time Monitoring</h3>
-<p>Authorities monitor bins using the website.</p>
+<h3>Real Time Monitoring</h3>
+<p>Authorities track bin status easily.</p>
 </div>
 
 <div class="card">
-<h3>Cleaner Environment</h3>
-<p>Helps reduce overflowing garbage.</p>
-</div>
-
+<h3>Waste Reporting</h3>
+<p>Citizens can report garbage problems.</p>
 </div>
 
 </section>
 
 <footer>
-<p>Smart Waste Management System</p>
+<p>Smart Waste Management Project</p>
 </footer>
-
-<div class="chatbot-btn" onclick="openChat()">💬</div>
-
-<div class="chat-window" id="chatWindow">
-
-<div class="chat-header">
-<span>AI Waste Assistant</span>
-<span onclick="closeChat()" style="cursor:pointer;">✖</span>
-</div>
-
-<div class="chat-messages" id="chatMessages">
-<p><b>Bot:</b> Hello! Ask me about waste management.</p>
-</div>
-
-<div class="chat-input">
-<input type="text" id="chatInput" placeholder="Type message">
-<button onclick="sendMsg()">Send</button>
-</div>
-
-</div>
-
-<script src="chatbot.js"></script>
-
-<script src="chatbot.js"></script>
-
-
-<div class="chatbot-btn">...</div>
-<div class="chat-window">...</div>
 
 </body>
 </html>
