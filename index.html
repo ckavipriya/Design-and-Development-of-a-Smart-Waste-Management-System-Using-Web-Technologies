@@ -13,37 +13,31 @@
 <nav>
 <a href="index.html">Home</a>
 <a href="status.html">Bin Status</a>
-<a href="report.html">Report Waste</a>
+<a href="report.html">Report</a>
 <a href="contact.html">Contact</a>
-
 </nav>
 
 </header>
 
-<section class="hero">
+<section>
 
 <h2>Clean City Using Smart Technology</h2>
-
-<p>
-Smart Waste Management System monitors garbage bins using sensors and alerts authorities when bins are full.
-This helps keep cities clean and improves waste collection efficiency.
-</p>
 
 <div class="cards">
 
 <div class="card">
 <h3>Smart Sensors</h3>
-<p>Bins use sensors to detect garbage levels automatically.</p>
+<p>Bins detect garbage levels automatically.</p>
 </div>
 
 <div class="card">
-<h3>Real-Time Monitoring</h3>
-<p>Authorities can monitor waste levels through the web system.</p>
+<h3>Real-time Monitoring</h3>
+<p>Authorities monitor bins using the website.</p>
 </div>
 
 <div class="card">
 <h3>Cleaner Environment</h3>
-<p>Reduces overflowing garbage and improves hygiene.</p>
+<p>Helps reduce overflowing garbage.</p>
 </div>
 
 </div>
@@ -51,10 +45,35 @@ This helps keep cities clean and improves waste collection efficiency.
 </section>
 
 <footer>
-<p>© 2026 Smart Waste Management</p>
+<p>Smart Waste Management System</p>
 </footer>
+
+<!-- CHATBOT -->
+<div class="chatbot-btn" onclick="openChat()">💬</div>
+
+<div class="chat-window" id="chatWindow">
+
+<div class="chat-header">
+<span>AI Waste Assistant</span>
+<span onclick="closeChat()" style="cursor:pointer">X</span>
+</div>
+
+<div class="chat-messages" id="chatMessages">
+<p><b>Bot:</b> Hello! Ask me about waste management.</p>
+</div>
+
+<div class="chat-input">
+<input id="chatInput" placeholder="Type message">
+<button onclick="sendMsg()">Send</button>
+</div>
+
+</div>
+
+<script src="chatbot.js"></script>
+
+
 <div class="chatbot-btn">...</div>
 <div class="chat-window">...</div>
-<script>...</script>
+
 </body>
 </html>
