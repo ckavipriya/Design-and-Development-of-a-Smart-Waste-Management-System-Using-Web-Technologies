@@ -2,69 +2,68 @@ body{
 font-family:Arial;
 margin:0;
 background:#f4f6f9;
+text-align:center;
 }
 
 header{
 background:#0f766e;
 color:white;
 padding:20px;
-text-align:center;
 }
 
 nav a{
+margin:15px;
 color:white;
-margin:10px;
 text-decoration:none;
 font-weight:bold;
 }
 
-section{
-padding:40px;
-text-align:center;
+.hero{
+padding:60px;
+background:#d1fae5;
 }
 
-.cards{
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
+.features{
+padding:40px;
 }
 
 .card{
 background:white;
 padding:20px;
-width:220px;
+margin:20px auto;
+width:250px;
 border-radius:10px;
-box-shadow:0 5px 10px rgba(0,0,0,0.1);
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
-
-/* BIN STATUS */
 
 .bin{
 background:white;
 padding:20px;
-width:220px;
-margin:15px auto;
+margin:20px auto;
+width:300px;
 border-radius:10px;
-box-shadow:0 5px 10px rgba(0,0,0,0.1);
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
 }
 
 .bar{
 height:15px;
-background:#ddd;
 border-radius:20px;
-overflow:hidden;
 }
 
-.level{
-height:100%;
+.full{
+background:red;
+width:90%;
 }
 
-.full{width:90%;background:red;}
-.medium{width:60%;background:orange;}
-.low{width:20%;background:green;}
+.medium{
+background:orange;
+width:60%;
+}
 
-/* FORM */
+.low{
+background:green;
+width:20%;
+}
 
 form{
 display:flex;
@@ -78,65 +77,17 @@ margin:10px;
 padding:10px;
 }
 
-/* CHATBOT */
-
-.chatbot-btn{
-position:fixed;
-bottom:20px;
-right:20px;
-background:#0f766e;
-color:white;
-padding:15px;
-border-radius:50%;
-font-size:20px;
-cursor:pointer;
-}
-
-.chat-window{
-display:none;
-position:fixed;
-bottom:80px;
-right:20px;
-width:300px;
-background:white;
-border-radius:10px;
-box-shadow:0 5px 10px rgba(0,0,0,0.3);
-}
-
-.chat-header{
-background:#0f766e;
-color:white;
-padding:10px;
-display:flex;
-justify-content:space-between;
-}
-
-.chat-messages{
-height:200px;
-overflow:auto;
-padding:10px;
-}
-
-.chat-input{
-display:flex;
-}
-
-.chat-input input{
-flex:1;
-padding:10px;
-}
-
-.chat-input button{
+button{
 background:#0f766e;
 color:white;
 border:none;
 padding:10px;
+cursor:pointer;
 }
 
 footer{
-background:#111;
+background:black;
 color:white;
-text-align:center;
 padding:10px;
 margin-top:40px;
 }
