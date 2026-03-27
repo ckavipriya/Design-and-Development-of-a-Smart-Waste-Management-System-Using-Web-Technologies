@@ -1,36 +1,75 @@
-// 🚀 SMART AI CHATBOT - Answers ANY Question
+// 🚀 SMART AI CHATBOT - YOUR WORKING KEY ✅
 class SmartWasteAI {
-  constructor(apiKey = 'gsk_your_groq_key_here') {  // Replace with YOUR key
-    this.apiKey = apiKey;
-    this.model = 'llama3-8b-8192'; // Groq free model (or 'gpt-3.5-turbo')
-    this.conversation = [{ role: 'system', content: 'You are WasteBot, expert AI assistant for Smart Waste Management System. Answer concisely about bins, waste sorting, schedules, routes, recycling, environmental impact. Be helpful, professional, use emojis. For non-waste topics, redirect politely to waste topics.' }];
+  constructor() {
+    this.apiKey = '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'; // ✅ YOUR KEY
+    this.model = 'llama3-8b-8192'; // Fastest free model
+    this.conversation = [{
+      role: 'system', 
+      content: `You are WasteBot 🤖, expert AI for Smart Waste Management System by Kavipriya (VSB College). 
+      Answer concisely about:
+      • 📊 Bin status, fill levels, locations
+      • 🗓️ Pickup schedules, routes
+      • ♻️ Waste sorting, recycling tips
+      • 🌍 Waste stats, environment
+      • 🚛 Collection optimization
+      
+      Use emojis, be professional, short answers. Example: "Ambattur bin 85% full 🚛 dispatched!"
+      For coding/placement questions: "Great question! For TCS prep, focus on DSA + Java."
+      
+      Keep replies under 150 words.`
+    }];
     this.init();
   }
   
   init() {
-    // ... existing toggle/UI code ...
-    this.apiUrl = this.apiKey.startsWith('gsk_') ? 'https://api.groq.com/openai/v1/chat/completions' : 'https://api.openai.com/v1/chat/completions';
-  }// Add conversation reset
-addClearButton() {
-  // Add X button to clear history
-}
-
-// Streaming responses (real-time typing)
-stream: true in API call + parse chunks
+    this.toggleBtn = document.getElementById('chatbot-toggle');
+    this.container = document.getElementById('chatbot-container');
+    this.messages = document.getElementById('chatbot-messages');
+    this.input = document.getElementById('chatbot-input');
+    this.sendBtn = document.getElementById('chatbot-send');
+    
+    this.toggleBtn?.addEventListener('click', () => this.toggle());
+    this.sendBtn?.addEventListener('click', () => this.sendMessage());
+    this.input?.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        this.sendMessage();
+      }
+    });
+    
+    // Welcome
+    setTimeout(() => this.addBotMessage('🤖 WasteBot online! Ask about bins, waste tips, or placements!'), 500);
+  }
+  
+  toggle() {
+    this.container.classList.toggle('open');
+  }
+  
+  addMessage(text, isUser = false) {
+    const div = document.createElement('div');
+    div.className = `message ${isUser ? 'user' : 'bot'}`;
+    div.innerHTML = text.replace(/\n/g, '<br>');
+    this.messages.appendChild(div);
+    this.messages.scrollTop = this.messages.scrollHeight;
+    this.container.scrollTop = this.container.scrollHeight;
+  }
   
   async sendMessage() {
     const text = this.input.value.trim();
     if (!text || this.sendBtn.disabled) return;
     
     this.sendBtn.disabled = true;
+    this.input.disabled = true;
     this.addMessage(text, true);
     this.input.value = '';
     
-    // Add to conversation
-    this.conversation.push({ role: 'user', content: text });
-    
     try {
-      const response = await fetch(this.apiUrl, {
+      this.conversation.push({ role: 'user', content: text });
+      
+      // Show typing indicator
+      const typingMsg = this.addTypingIndicator();
+      
+      const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${this.apiKey}`,
@@ -38,33 +77,50 @@ stream: true in API call + parse chunks
         },
         body: JSON.stringify({
           model: this.model,
-          messages: this.conversation,
-          max_tokens: 300,
+          messages: this.conversation.slice(-10), // Last 10 messages
+          max_tokens: 250,
           temperature: 0.7,
-          stream: false  // Set true for streaming later
+          stream: false
         })
       });
       
-      if (!response.ok) throw new Error(`API Error: ${response.status}`);
+      if (!response.ok) {
+        throw new Error(`API ${response.status}: ${response.statusText}`);
+      }
       
       const data = await response.json();
-      const aiReply = data.choices[0].message.content;
+      const aiReply = data.choices[0].message.content.trim();
       
-      // Add to conversation
+      // Remove typing + add reply
+      this.messages.removeChild(typingMsg);
       this.conversation.push({ role: 'assistant', content: aiReply });
-      
       this.addBotMessage(aiReply);
       
     } catch (error) {
-      console.error('AI Error:', error);
-      this.addBotMessage('❌ AI service temporarily unavailable. Try: "bin status" or "waste types" 😊');
+      console.error('Chatbot error:', error);
+      this.addBotMessage('❌ Network issue. Try again or ask: "bin status" 😊');
     } finally {
       this.sendBtn.disabled = false;
+      this.input.disabled = false;
+      this.input.focus();
     }
+  }
+  
+  addTypingIndicator() {
+    const div = document.createElement('div');
+    div.className = 'message bot';
+    div.innerHTML = '<div class="typing-indicator"><span></span><span></span><span></span></div>';
+    this.messages.appendChild(div);
+    this.messages.scrollTop = this.messages.scrollHeight;
+    return div;
   }
 }
 
-// Initialize (paste YOUR API KEY)
-document.addEventListener('DOMContentLoaded', () => {
-  window.wasteAI = new SmartWasteAI('gsk_YourGroqKeyHere');  // ← CHANGE THIS
-});
+// 🔥 INITIATE - WORKING WITH YOUR KEY
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    window.wasteAI = new SmartWasteAI();
+  });
+} else {
+  window.wasteAI = new SmartWasteAI();
+}
