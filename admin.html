@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - SmartWaste Pro</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dashboard">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <i class="fas fa-recycle"></i>
+      <span>SmartWaste Pro</span>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="admin.html" class="nav-item active">
+        <i class="fas fa-tachometer-alt"></i> Dashboard
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-map-marker-alt"></i> Bins
+      </a>
+      <a href="#" class="nav-item">
+        <i class="fas fa-users"></i> Users
+      </a>
+      <a href="login.html" class="nav-item" onclick="logout()">
+        <i class="fas fa-sign-out-alt"></i> Logout
+      </a>
+    </nav>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <header class="dashboard-header">
+      <h1>Admin Dashboard</h1>
+      <div class="user-info">
+        <span>Admin</span>
+        <i class="fas fa-user-circle"></i>
+      </div>
+    </header>
+
+    <div class="container">
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card primary">
+          <div class="stat-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="stat-content">
+            <h3>Total Bins</h3>
+            <div class="stat-number">127</div>
+          </div>
+        </div>
+        <div class="stat-card success">
+          <div class="stat-icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <div class="stat-content">
+            <h3>Collected Today</h3>
+            <div class="stat-number">24t</div>
+          </div>
+        </div>
+        <div class="stat-card warning">
+          <div class="stat-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <div class="stat-content">
+            <h3>Critical Bins</h3>
+            <div class="stat-number">8</div>
+          </div>
+        </div>
+        <div class="stat-card danger">
+          <div class="stat-icon">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="stat-content">
+            <h3>Pending Requests</h3>
+            <div class="stat-number">15</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Charts -->
+      <div class="charts-grid">
+        <div class="chart-card">
+          <h3>Waste Collection Trend</h3>
+          <canvas id="trendChart"></canvas>
+        </div>
+        <div class="chart-card">
+          <h3>Bin Fill Levels</h3>
+          <canvas id="fillChart"></canvas>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+  <script>
+    // Admin dashboard charts
+    document.addEventListener('DOMContentLoaded', function() {
+      // Trend Chart
+      new Chart(document.getElementById('trendChart'), {
+        type: 'line',
+        data: {
+          labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+          datasets: [{
+            label: 'Tons Collected',
+            data: [65, 59, 80, 81, 56, 55],
+            borderColor: '#4CAF50',
+            backgroundColor: 'rgba(76, 175, 80, 0.1)',
+            tension: 0.4
+          }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+      });
+
+      // Fill Level Chart
+      new Chart(document.getElementById('fillChart'), {
+        type: 'doughnut',
+        data: {
+          labels: ['Empty', 'Half', 'Full'],
+          datasets: [{
+            data: [45, 35, 20],
+            backgroundColor: ['#4CAF50', '#FF9800', '#F44336']
+          }]
+        },
+        options: { responsive: true, maintainAspectRatio: false }
+      });
+    });
+  </script>
+</body>
+</html>
