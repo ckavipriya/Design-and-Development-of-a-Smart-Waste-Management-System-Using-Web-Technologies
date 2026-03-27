@@ -18,6 +18,43 @@
       </div>
       <button id="voice-btn" class="fixed bottom-32 left-8 w-20 h-20 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full shadow-2xl border-4 border-white flex items-center justify-center text-2xl hover:scale-110 transition-all z-40">
   🎤
+        <!-- Add to <head> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- Export Button -->
+<button onclick="exportPDF()" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 px-8 rounded-2xl font-bold hover:shadow-2xl fixed top-8 left-8 z-30 transition-all">
+  📄 Export PDF
+</button>
+
+<script>
+async function exportPDF() {
+  try {
+    // Target dashboard content
+    const element = document.querySelector('main') || document.body;
+    const canvas = await html2canvas(element, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: '#0f172a',
+      logging: false
+    });
+    
+    const imgData = canvas.toDataURL('image/png');
+    const pdf = new jsPDF('landscape', 'mm', 'a4');
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+    
+    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+    pdf.save('SmartWaste-Dashboard.pdf');
+    
+    // Success toast
+    showNotification('✅ PDF Exported!', 'Dashboard saved as PDF');
+  } catch (error) {
+    console.error('PDF Error:', error);
+    alert('Export failed - try smaller section');
+  }
+}
+</script>
 </button>
 
 <script>
