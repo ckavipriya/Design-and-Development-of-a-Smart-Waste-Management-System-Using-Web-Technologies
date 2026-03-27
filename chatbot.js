@@ -9,6 +9,7 @@ function sendMsg() {
   const chatbox = document.querySelector('.chatbox');
   chatbox.innerHTML += `<li class="chat outgoing"><p>${msg}</p></li>`;
   input.value = '';
+  .chatbot { @apply fixed bottom-6 right-6 w-80 bg-white rounded-2xl shadow-2xl z-50 border border-gray-200; max-height: 500px; }
   setTimeout(() => {
     const responses = {
       'status': 'Bins: 2 full, 1 medium. Check status.html!',
