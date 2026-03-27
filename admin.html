@@ -5,7 +5,38 @@
   <script>tailwind.config = {darkMode: 'class'}</script>
 </head>
 <body class="bg-gradient-to-br from-slate-900 via-gray-900 to-slate-900 min-h-screen text-white overflow-hidden" x-data="{ sidebarOpen: false, darkMode: true }">
+  <!-- Add to <head> -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<!-- Add to admin dashboard (after KPIs) -->
+<div class="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 mb-12">
+  <h3 class="text-2xl font-bold mb-6 flex items-center"><i class="fas fa-map-marked-alt mr-3 text-blue-400"></i>Live Bin Locations</h3>
+  <div id="map" style="height: 400px; border-radius: 16px;"></div>
+</div>
+
+<script>
+// Initialize map after bins load
+setTimeout(() => {
+  const map = L.map('map').setView([13.08, 80.27], 11); // Chennai
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap'
+  }).addTo(map);
   
+  wm.bins.forEach(bin => {
+    const color = bin.status === 'full' ? 'red' : bin.status === 'medium' ? 'orange' : 'green';
+    L.circleMarker([bin.gps?.lat || 13.08, bin.gps?.lng || 80.27], {
+      radius: bin.level / 5,
+      fillColor: color,
+      color: '#fff',
+      weight: 3,
+      opacity: 0.8,
+      fillOpacity: 0.7
+    }).addTo(map)
+    .bindPopup(`<b>${bin.location}</b><br>Level: ${bin.level}%<br>Status: ${bin.status}`);
+  });
+}, 1000);
+</script>
   <!-- Mobile Sidebar Toggle -->
   <div x-show="sidebarOpen" class="fixed inset-0 bg-black/50 z-40 lg:hidden" @click="sidebarOpen=false"></div>
   
