@@ -1,19 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
-<head><!-- Same CDNs as index --></head>
-<body class="bg-gradient-to-br from-indigo-500 to-purple-600 min-h-screen flex items-center justify-center">
-  <div class="bg-white/20 backdrop-blur-xl rounded-3xl p-12 w-full max-w-md shadow-2xl">
-    <h2 class="text-3xl font-bold text-white mb-8 text-center"><i class="fas fa-sign-in-alt mr-2"></i>Secure Login</h2>
-    <div x-data="{ username: '', password: '', error: '', loading: false }">
-      <input x-model="username" type="text" placeholder="Username (admin/user)" class="w-full p-4 mb-4 bg-white/30 border border-white/50 rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-4 ring-white/30">
-      <input x-model="password" type="password" placeholder="Password" class="w-full p-4 mb-6 bg-white/30 border border-white/50 rounded-xl text-white placeholder-white/70 focus:outline-none focus:ring-4 ring-white/30">
-      <button @click="loading=true; wm.login(username, password).then(r => { loading=false; if(r.success) { localStorage.setItem('role', r.role); window.location.href = r.role+'.html'; } else error=r.error; })" :disabled="loading" class="w-full bg-white text-indigo-600 p-4 rounded-xl font-bold hover:shadow-xl transition-all disabled:opacity-50">
-        <span x-show="!loading">Login</span>
-        <i x-show="loading" class="fas fa-spinner fa-spin"></i>
-      </button>
-      <p x-show="error" class="text-red-200 mt-4 text-center">{{ error }}</p>
+<html lang="en" class="dark">
+<head>
+  <!-- Same CDNs: Tailwind, Alpine, FontAwesome -->
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen flex items-center justify-center p-8 dark">
+  <div class="w-full max-w-md bg-white/10 backdrop-blur-3xl rounded-3xl p-12 border border-white/20 shadow-2xl animate-pulse-slow">
+    <div class="text-center mb-12">
+      <i class="fas fa-shield-alt text-7xl bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent mb-6"></i>
+      <h2 class="text-4xl font-black text-white mb-4">Dashboard Access</h2>
+      <p class="text-white/80">Secure login for Admin & User panels</p>
     </div>
-    <p class="text-white/80 mt-8 text-center">Demo: admin/admin123 | user/user123</p>
+    <form x-data="{username:'', password:'', error:'', loading:false}" @submit.prevent="loading=true; setTimeout(async()=>{const r=await wm.login(username,password); loading=false; if(r.success){localStorage.setItem('role',r.role); window.location.href=r.role+'.html';}else error=r.error;},600)">
+      <input x-model="username" type="text" placeholder="👤 Username" required 
+             class="w-full p-5 mb-6 bg-white/20 border-2 border-white/30 rounded-2xl text-white placeholder-white/60 focus:border-emerald-400 focus:outline-none transition-all backdrop-blur-sm">
+      <input x-model="password" type="password" placeholder="🔒 Password" required 
+             class="w-full p-5 mb-8 bg-white/20 border-2 border-white/30 rounded-2xl text-white placeholder-white/60 focus:border-emerald-400 focus:outline-none transition-all backdrop-blur-sm">
+      <button type="submit" :disabled="loading" 
+              class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white p-6 rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed">
+        <span x-show="!loading">🚀 Launch Dashboard</span>
+        <i x-show="loading" class="fas fa-spinner fa-spin text-2xl"></i>
+      </button>
+      <div x-show="error" class="mt-6 p-4 bg-red-500/20 border border-red-500/50 rounded-xl text-red-200 text-center font-medium">{{error}}</div>
+    </form>
+    <div class="mt-10 pt-8 border-t border-white/20 text-center text-white/70 text-sm space-y-2">
+      <p>Demo: <strong>admin / admin123</strong> | <strong>user / user123</strong></p>
+      <p>Built for VSB Engineering College Placement 2026</p>
+    </div>
   </div>
   <script src="script.js"></script>
 </body>
