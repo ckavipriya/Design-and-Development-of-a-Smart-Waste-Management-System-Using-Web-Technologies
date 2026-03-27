@@ -1,63 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Smart Waste Management</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartWaste Pro - Intelligent Waste Management</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+  <!-- Preloader -->
+  <div class="preloader">
+    <div class="spinner"></div>
+  </div>
 
-<header>
-<h1>Smart Waste Management System</h1>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <i class="fas fa-recycle"></i> SmartWaste Pro
+      </div>
+      <div class="nav-menu" id="nav-menu">
+        <a href="index.html" class="nav-link active">Home</a>
+        <a href="login.html" class="nav-link">Login</a>
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#stats" class="nav-link">Stats</a>
+      </div>
+      <div class="hamburger" id="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
 
-<nav>
-<a href="index.html">Home</a>
-<a href="status.html">Bin Status</a>
-<a href="report.html">Report Waste</a>
-<a href="contact.html">Contact</a>
-</nav>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Intelligent Waste Management</h1>
+      <p class="hero-desc">Real-time monitoring, smart scheduling & analytics for sustainable waste management</p>
+      <div class="hero-buttons">
+        <a href="login.html" class="btn btn-primary">Get Started</a>
+        <a href="#features" class="btn btn-secondary">Learn More</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-number" data-target="98">0</div>
+        <div class="stat-label">% Efficiency</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" data-target="2500">0</div>
+        <div class="stat-label">Tons Recycled</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" data-target="120">0</div>
+        <div class="stat-label">Smart Bins</div>
+      </div>
+    </div>
+  </section>
 
-</header>
+  <!-- Features -->
+  <section id="features" class="features">
+    <div class="container">
+      <h2 class="section-title">Key Features</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h3>Real-time Monitoring</h3>
+          <p>Live fill-level tracking with IoT sensors</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-route"></i>
+          </div>
+          <h3>Smart Routing</h3>
+          <p>Optimized collection routes saving 30% fuel</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-mobile-alt"></i>
+          </div>
+          <h3>Mobile App</h3>
+          <p>Request pickup & track status on the go</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">
+            <i class="fas fa-chart-pie"></i>
+          </div>
+          <h3>Analytics</h3>
+          <p>Comprehensive reports & predictive analytics</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section class="hero">
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2026 SmartWaste Pro | Developed by Kavipriya Chakkaravarthi | V.S.B. Engineering College</p>
+    </div>
+  </footer>
 
-<h2>Clean City With Smart Waste Monitoring</h2>
-
-<p>
-This system monitors garbage bins using smart sensors and helps
-citizens report waste issues quickly.
-</p>
-
-<button onclick="location.href='status.html'">
-View Bin Status
-</button>
-
-</section>
-
-<section class="features">
-
-<h2>System Features</h2>
-
-<div class="card">
-<h3>Smart Sensors</h3>
-<p>Detect garbage levels automatically.</p>
-</div>
-
-<div class="card">
-<h3>Real Time Monitoring</h3>
-<p>Authorities track bin status easily.</p>
-</div>
-
-<div class="card">
-<h3>Waste Reporting</h3>
-<p>Citizens can report garbage problems.</p>
-</div>
-
-</section>
-
-<footer>
-<p>Smart Waste Management Project</p>
-</footer>
-
+  <script src="script.js"></script>
 </body>
 </html>
