@@ -20,5 +20,38 @@
     </div>
   </div>
   <script src="script.js"></script>
+  <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20">
+  <h3 class="text-2xl font-bold mb-6 flex items-center"><i class="fas fa-camera mr-3 text-purple-400"></i>AI Waste Classifier</h3>
+  <div x-data="{ image: null, result: '', loading: false }">
+    <input type="file" @change="image = $event.target.files[0]; classifyWaste()" accept="image/*" class="hidden" id="waste-upload">
+    <label for="waste-upload" class="cursor-pointer bg-gradient-to-r from-purple-500 to-pink-500 text-white py-6 px-12 rounded-2xl font-bold hover:shadow-xl hover:scale-105 mx-auto block text-center max-w-md">
+      📸 Upload Waste Image for Classification
+    </label>
+    <div x-show="loading" class="mt-6 text-center">
+      <i class="fas fa-spinner fa-spin text-3xl text-purple-400 mb-4"></i>
+      <p>AI analyzing... (demo)</p>
+    </div>
+    <div x-show="result" class="mt-8 p-6 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-2xl border-2 border-green-500/30">
+      <h4 class="text-2xl font-bold text-green-400 mb-4">✅ <span x-text="result.type"></span></h4>
+      <p class="text-green-200">Confidence: <span class="font-bold text-xl" x-text="result.confidence"></span></p>
+      <p class="text-green-100 mt-2">Tip: <span x-text="result.tip"></span></p>
+    </div>
+  </div>
+</div>
+
+<script>
+function classifyWaste() {
+  // Demo AI classification
+  const results = [
+    { type: 'Plastic Bottle', confidence: '94%', tip: 'Recycle in blue bin ♻️' },
+    { type: 'Organic Food', confidence: '88%', tip: 'Compost in green bin 🌱' },
+    { type: 'Paper', confidence: '91%', tip: 'Recycle in yellow bin 📄' }
+  ];
+  setTimeout(() => {
+    const result = results[Math.floor(Math.random() * results.length)];
+    window.classifyResult = result; // For Alpine
+  }, 2000);
+}
+</script>
 </body>
 </html>
