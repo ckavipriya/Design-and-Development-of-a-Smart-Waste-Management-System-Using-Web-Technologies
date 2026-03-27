@@ -3,64 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - SmartWaste Pro</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <title>Login</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="auth-page">
-  <div class="auth-container">
-    <div class="auth-card">
-      <div class="auth-header">
-        <i class="fas fa-recycle auth-icon"></i>
-        <h2>SmartWaste Pro</h2>
-        <p>Intelligent Waste Management System</p>
-      </div>
-      
-      <form class="auth-form" id="loginForm">
-        <div class="form-group">
-          <label><i class="fas fa-user"></i> Username</label>
-          <input type="text" id="username" required>
-        </div>
-        <div class="form-group">
-          <label><i class="fas fa-lock"></i> Password</label>
-          <input type="password" id="password" required>
-        </div>
-        <button type="submit" class="btn btn-primary full-width">
-          <i class="fas fa-sign-in-alt"></i> Login
-        </button>
-      </form>
-
-      <div class="auth-links">
-        <a href="#" onclick="demoLogin('admin')">Demo: Admin</a> | 
-        <a href="#" onclick="demoLogin('user')">Demo: User</a>
-      </div>
+<body>
+  <div class="container">
+    <div class="card">
+      <h2>Login</h2>
+      <input type="text" id="username" placeholder="Username (admin/user)" style="width:100%; padding:10px; margin:10px 0;">
+      <button class="btn" onclick="login()" style="width:100%;">Login</button>
+      <a href="index.html">Back</a>
     </div>
   </div>
-
-  <script>
-    function demoLogin(role) {
-      if (role === 'admin') {
-        localStorage.setItem('userRole', 'admin');
-        window.location.href = 'admin.html';
-      } else {
-        localStorage.setItem('userRole', 'user');
-        window.location.href = 'user.html';
-      }
-    }
-
-    document.getElementById('loginForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      // Simulate login
-      const role = Math.random() > 0.5 ? 'admin' : 'user';
-      localStorage.setItem('userRole', role);
-      localStorage.setItem('isLoggedIn', 'true');
-      
-      if (role === 'admin') {
-        window.location.href = 'admin.html';
-      } else {
-        window.location.href = 'user.html';
-      }
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
