@@ -14,6 +14,24 @@
   <h3 class="text-2xl font-bold mb-6 flex items-center"><i class="fas fa-map-marked-alt mr-3 text-blue-400"></i>Live Bin Locations</h3>
   <div id="map" style="height: 400px; border-radius: 16px;"></div>
 </div>
+  <div class="bg-gradient-to-r from-emerald-500/90 to-teal-600/90 backdrop-blur-xl rounded-3xl p-8 border border-white/20 text-center fixed top-8 right-8 shadow-2xl z-30">
+  <div class="flex items-center justify-center mb-4">
+    <i class="fas fa-broadcast-tower text-2xl mr-3 text-white"></i>
+    <span class="font-bold text-lg">IoT Live Feed</span>
+  </div>
+  <div class="space-y-2 text-sm">
+    <div><span class="font-mono text-xs">📡 Connected:</span> <span class="font-bold text-emerald-200" id="iot-status">3/3 bins</span></div>
+    <div><span class="font-mono text-xs">⚡ Last Update:</span> <span class="font-bold" id="iot-time"></span></div>
+    <div><span class="font-mono text-xs">📊 Data Rate:</span> <span class="font-bold text-blue-200">12s</span></div>
+  </div>
+</div>
+
+<script>
+// Simulate IoT updates
+setInterval(() => {
+  document.getElementById('iot-time').textContent = new Date().toLocaleTimeString();
+}, 1000);
+</script>
 
 <script>
 // Initialize map after bins load
