@@ -45,8 +45,13 @@ function toggleTheme() {
   localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
 }
 </script>
-      <a href="login.html" class="bg-emerald-500 text-white px-8 py-3 rounded-2xl font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 shadow-lg">Launch App <i class="fas fa-rocket ml-2"></i></a>
-    </div>
+<!-- Replace ALL login buttons with this -->
+<a href="login.html" class="group">
+  <button class="bg-white text-emerald-600 px-12 py-6 rounded-3xl font-bold text-xl hover:shadow-xl hover:scale-105 transition-all duration-500 shadow-lg inline-block">
+    🚀 Launch Dashboard
+    <span class="ml-2 group-hover:translate-x-2 transition-transform">→</span>
+  </button>
+</a>    </div>
   </nav>
 
   <!-- Hero Section -->
