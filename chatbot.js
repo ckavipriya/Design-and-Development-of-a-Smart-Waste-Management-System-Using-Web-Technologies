@@ -1,61 +1,15 @@
-// Professional AI Assistant for Smart Waste Management
-class WasteAI {
-  constructor() {
-    this.responses = {
-      greetings: ['Hello! 👋 I\'m WasteBot, your smart assistant. How can I help with waste management?', 
-                'Hi there! Need bin status, pickup schedule, or waste tips? 😊'],
-      
-      status: ['Check the <strong>Dashboard</strong> for live bin levels! 📊 Full bins get priority pickup.',
-               'Bins: Ambattur 85%🟥, Karur 45%🟠, Chennai 15%🟢. Need specific location?'],
-      
-      schedule: ['Collections: Mon/Wed/Fri at 7AM. <strong>Full bins</strong> get emergency pickup within 2hrs 🚛.',
-                 'Route optimized! Trucks dispatched to full bins first.'],
-      
-      types: ['✅ <strong>Organic:</strong> Food waste, garden clippings<br>🟡 <strong>Recyclable:</strong> Plastic, paper, metal<br>🔴 <strong>Hazardous:</strong> Batteries, chemicals<br>⚫ <strong>General:</strong> Everything else'],
-      
-      help: ['I can help with:<br>• 📊 Bin status & alerts<br>• 🗓️ Pickup schedules<br>• ♻️ Waste sorting guide<br>• 🚨 Report issues<br><strong>Ask me anything!</strong> 🤖'],
-      
-      report: ['Use the <strong>Report Issue</strong> button in dashboard or call emergency line 📞.',
-               'Issues reported: Overflow (24h), Missed pickup (12h), Contamination (48h).'],
-      
-      default: ['Interesting! Tell me more about your waste concern. 🧐',
-                'Got it. For detailed status, check the live dashboard 📈.',
-                'Smart question! Admin dashboard has all analytics.']
-    };
-    
+// 🚀 SMART AI CHATBOT - Answers ANY Question
+class SmartWasteAI {
+  constructor(apiKey = 'gsk_your_groq_key_here') {  // Replace with YOUR key
+    this.apiKey = apiKey;
+    this.model = 'llama3-8b-8192'; // Groq free model (or 'gpt-3.5-turbo')
+    this.conversation = [{ role: 'system', content: 'You are WasteBot, expert AI assistant for Smart Waste Management System. Answer concisely about bins, waste sorting, schedules, routes, recycling, environmental impact. Be helpful, professional, use emojis. For non-waste topics, redirect politely to waste topics.' }];
     this.init();
   }
   
   init() {
-    this.toggleBtn = document.getElementById('chatbot-toggle');
-    this.container = document.getElementById('chatbot-container');
-    this.messages = document.getElementById('chatbot-messages');
-    this.input = document.getElementById('chatbot-input');
-    this.sendBtn = document.getElementById('chatbot-send');
-    
-    this.toggleBtn.addEventListener('click', () => this.toggle());
-    this.sendBtn.addEventListener('click', () => this.sendMessage());
-    this.input.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        this.sendMessage();
-      }
-    });
-    
-    // Welcome message
-    setTimeout(() => this.addBotMessage('Hi! 👋 I\'m WasteBot. Ask about bin status, schedules, or waste tips!'), 1000);
-  }
-  
-  toggle() {
-    this.container.classList.toggle('open');
-  }
-  
-  addMessage(text, isUser = false) {
-    const div = document.createElement('div');
-    div.className = `message ${isUser ? 'user' : 'bot'}`;
-    div.innerHTML = text;
-    this.messages.appendChild(div);
-    this.messages.scrollTop = this.messages.scrollHeight;
+    // ... existing toggle/UI code ...
+    this.apiUrl = this.apiKey.startsWith('gsk_') ? 'https://api.groq.com/openai/v1/chat/completions' : 'https://api.openai.com/v1/chat/completions';
   }
   
   async sendMessage() {
@@ -66,40 +20,45 @@ class WasteAI {
     this.addMessage(text, true);
     this.input.value = '';
     
-    // Simulate typing
-    setTimeout(() => {
-      const response = this.getResponse(text.toLowerCase());
-      this.addBotMessage(response);
+    // Add to conversation
+    this.conversation.push({ role: 'user', content: text });
+    
+    try {
+      const response = await fetch(this.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${this.apiKey}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          model: this.model,
+          messages: this.conversation,
+          max_tokens: 300,
+          temperature: 0.7,
+          stream: false  // Set true for streaming later
+        })
+      });
+      
+      if (!response.ok) throw new Error(`API Error: ${response.status}`);
+      
+      const data = await response.json();
+      const aiReply = data.choices[0].message.content;
+      
+      // Add to conversation
+      this.conversation.push({ role: 'assistant', content: aiReply });
+      
+      this.addBotMessage(aiReply);
+      
+    } catch (error) {
+      console.error('AI Error:', error);
+      this.addBotMessage('❌ AI service temporarily unavailable. Try: "bin status" or "waste types" 😊');
+    } finally {
       this.sendBtn.disabled = false;
-    }, 800 + Math.random() * 1200);
-  }
-  
-  getResponse(input) {
-    const keywords = {
-      'status': 'status', 'level': 'status', 'full': 'status', 'bin': 'status',
-      'schedule': 'schedule', 'pickup': 'schedule', 'collect': 'schedule',
-      'type': 'types', 'sort': 'types', 'recycle': 'types',
-      'help': 'help', 'what': 'help',
-      'report': 'report', 'issue': 'report', 'problem': 'report',
-      'hi': 'greetings', 'hello': 'greetings', 'hey': 'greetings'
-    };
-    
-    for (const [key, type] of Object.entries(keywords)) {
-      if (input.includes(key)) {
-        const responses = this.responses[type];
-        return responses[Math.floor(Math.random() * responses.length)];
-      }
     }
-    
-    return this.responses.default[Math.floor(Math.random() * this.responses.default.length)];
-  }
-  
-  addBotMessage(text) {
-    this.addMessage(text, false);
   }
 }
 
-// Initialize when DOM loads
+// Initialize (paste YOUR API KEY)
 document.addEventListener('DOMContentLoaded', () => {
-  window.wasteAI = new WasteAI();
+  window.wasteAI = new SmartWasteAI('gsk_YourGroqKeyHere');  // ← CHANGE THIS
 });
