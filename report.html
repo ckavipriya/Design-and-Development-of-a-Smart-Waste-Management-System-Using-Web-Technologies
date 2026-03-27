@@ -1,33 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Report Waste Issue</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report - SmartWaste</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
+  <header>
+    <nav>
+      <div class="logo">🗑️ SmartWaste</div>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="status.html">Status</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<header>
-<h1>Report Waste Problem</h1>
-</header>
+  <section class="section">
+    <div class="container">
+      <h1>Waste Analytics Report</h1>
+      <div class="grid">
+        <div class="card">
+          <h3>📈 Total Requests</h3>
+          <h2 id="totalRequests">0</h2>
+          <p>Requests submitted this month</p>
+        </div>
+        <div class="card">
+          <h3>✅ Completed</h3>
+          <h2 id="completed">0</h2>
+          <p>Successfully collected</p>
+        </div>
+        <div class="card">
+          <h3>⏳ Pending</h3>
+          <h2 id="pending">0</h2>
+          <p>Awaiting collection</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-<section>
+  <script>
+    const requests = JSON.parse(localStorage.getItem('wasteRequests')) || [];
+    document.getElementById('totalRequests').textContent = requests.length;
+    document.getElementById('completed').textContent = requests.filter(r => r.status === 'completed').length;
+    document.getElementById('pending').textContent = requests.filter(r => r.status === 'pending').length;
+  </script>
 
-<h2>Submit Waste Complaint</h2>
-
-<form>
-
-<input type="text" placeholder="Your Name">
-
-<input type="text" placeholder="Location of Waste">
-
-<textarea placeholder="Describe the problem"></textarea>
-
-<button type="submit">Submit Report</button>
-
-</form>
-
-</section>
-
+  <footer>
+    <p>&copy; 2026 | Analytics Dashboard</p>
+  </footer>
 </body>
 </html>
