@@ -10,7 +10,13 @@ class SmartWasteAI {
   init() {
     // ... existing toggle/UI code ...
     this.apiUrl = this.apiKey.startsWith('gsk_') ? 'https://api.groq.com/openai/v1/chat/completions' : 'https://api.openai.com/v1/chat/completions';
-  }
+  }// Add conversation reset
+addClearButton() {
+  // Add X button to clear history
+}
+
+// Streaming responses (real-time typing)
+stream: true in API call + parse chunks
   
   async sendMessage() {
     const text = this.input.value.trim();
