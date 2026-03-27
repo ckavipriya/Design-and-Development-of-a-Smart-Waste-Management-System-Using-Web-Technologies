@@ -55,6 +55,12 @@ setInterval(() => {
   if (Math.random() > 0.7) {
     showNotification('🚛 Alert', 'Bin #2 in Ambattur is FULL - Truck dispatched!');
   }
+  // Perfect role redirect
+if (response.success) {
+  localStorage.setItem('role', response.role);
+  const url = response.role === 'admin' ? 'admin.html' : 'user.html';
+  window.location.replace(url); // Force redirect
+}
 }, 15000);
       }
     }, 1200); // Realistic API delay
