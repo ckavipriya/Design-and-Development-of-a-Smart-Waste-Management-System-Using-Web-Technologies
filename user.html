@@ -3,90 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>User Dashboard - SmartWaste Pro</title>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <title>User Dashboard</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="dashboard">
-  <!-- Same sidebar as admin but user version -->
-  <aside class="sidebar">
-    <div class="sidebar-header">
-      <i class="fas fa-user"></i>
-      <span>User Panel</span>
+<body>
+  <header>
+    <h1>User Panel - Welcome, ${localStorage.getItem('user') || 'User'}</h1>
+    <a href="index.html">Logout</a>
+  </header>
+  <div class="container">
+    <div class="card">
+      <h2>Quick Actions</h2>
+      <a href="status.html" class="btn">View Status</a>
+      <a href="report.html" class="btn">Report Issue</a>
+      <a href="contact.html" class="btn">Contact</a>
     </div>
-    <nav class="sidebar-nav">
-      <a href="user.html" class="nav-item active">
-        <i class="fas fa-home"></i> Dashboard
-      </a>
-      <a href="#" class="nav-item">
-        <i class="fas fa-plus-circle"></i> New Request
-      </a>
-      <a href="#" class="nav-item">
-        <i class="fas fa-history"></i> History
-      </a>
-      <a href="login.html" class="nav-item" onclick="logout()">
-        <i class="fas fa-sign-out-alt"></i> Logout
-      </a>
-    </nav>
-  </aside>
-
-  <main class="main-content">
-    <header class="dashboard-header">
-      <h1>My Requests</h1>
-      <div class="user-info">
-        <span>Kavipriya</span>
-        <i class="fas fa-user-circle"></i>
-      </div>
-    </header>
-
-    <div class="container">
-      <!-- Request Form -->
-      <div class="form-card">
-        <h3><i class="fas fa-plus"></i> New Waste Request</h3>
-        <form id="requestForm">
-          <div class="form-row">
-            <div class="form-group">
-              <label>Location</label>
-              <input type="text" id="location" placeholder="e.g., Block A, House 12">
-            </div>
-            <div class="form-group">
-              <label>Waste Type</label>
-              <select id="wasteType">
-                <option value="organic">Organic Waste</option>
-                <option value="plastic">Plastic</option>
-                <option value="paper">Paper</option>
-                <option value="metal">Metal</option>
-              </select>
-            </div>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit Request</button>
-        </form>
-      </div>
-
-      <!-- Requests Table -->
-      <div class="table-card">
-        <h3><i class="fas fa-list"></i> Request History</h3>
-        <div class="table-responsive">
-          <table>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Date</th>
-                <th>Location</th>
-                <th>Type</th>
-                <th>Status</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody id="requestsTable">
-              <!-- Dynamic content -->
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </main>
-
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
