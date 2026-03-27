@@ -1,27 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <h1>Admin Panel</h1>
-    <a href="index.html">Logout</a>
+<head><!-- CDNs + Chart.js --></head>
+<body class="bg-gray-50 min-h-screen p-8" x-data="{ tab: 'bins' }">
+  <header class="bg-white shadow-lg mb-8 rounded-xl p-6 flex justify-between items-center">
+    <h1 class="text-3xl font-bold text-gray-800"><i class="fas fa-user-shield mr-2 text-emerald-500"></i>Admin Dashboard</h1>
+    <a href="index.html" class="bg-red-500 text-white px-6 py-2 rounded-xl hover:bg-red-600 transition">Logout</a>
   </header>
-  <div class="container">
-    <div class="card">
-      <h2>Manage Bins</h2>
-      <table>
-        <thead><tr><th>ID</th><th>Location</th><th>Level</th><th>Status</th><th>Action</th></tr></thead>
-        <tbody id="statusTable"></tbody>
-      </table>
+  <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-4 gap-8 mb-8">
+    <div class="bg-white p-8 rounded-2xl shadow-xl" x-data>
+      <h3 class="font-bold text-xl mb-4">Full Bins</h3>
+      <p class="text-4xl font-bold text-red-500" x-text="wm.getStats().full"></p>
     </div>
-    <div class="card">
-      <h2>Add Bin</h2>
-      <input id="loc" placeholder="Location"><button class="btn" onclick="bins.push({id:bins.length+1,location:document.getElementById('loc').value,level:0,status:'Empty'});updateStatus();">Add</button>
+    <div class="bg-white p-8 rounded-2xl shadow-xl" x-data>
+      <h3 class="font-bold text-xl mb-4">Avg Fill</h3>
+      <p class="text-4xl font-bold text-orange-500" x-text="wm.getStats().avg + '%'"></p>
+    </div>
+    <!-- More stats -->
+  </div>
+  <div class="bg-white rounded-2xl shadow-xl overflow-hidden">
+    <div class="border-b border-gray-200">
+      <button @click="tab='bins'" :class="tab=='bins' ? 'bg-emerald-500 text-white' : 'hover:bg-gray-50'" class="px-8 py-4 font-semibold">Bins</button>
+      <button @click="tab='routes'" :class="tab=='routes' ? 'bg-emerald-500 text-white' : 'hover:bg-gray-50'" class="px-8 py-4 font-semibold">Routes</button>
+    </div>
+    <div x-show="tab=='bins'" class="p-8">
+      <div class="flex gap-4 mb-6">
+        <input id="newLoc" placeholder="New bin location..." class="flex-1 p-4 border border-gray-300 rounded-xl">
+        <button @click="wm.addBin(document.getElementById('newLoc').value); document.getElementById('newLoc').value=''" class="bg-emerald-500 text-white px-8 py-4 rounded-xl font-bold hover:shadow-lg">Add Bin</button>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full">
+          <thead class="bg-gray-50">
+            <tr><th class="p-4 text-left font-bold">ID</th><th>Location</th><th>Level</th><th>Status</th><th>Last Update</th><th>Action</th></tr>
+          </thead>
+          <tbody>
+            <template x-for="bin in wm.bins" :key="bin.id">
+              <tr class="border-b hover:bg-gray-50">
+                <td class="p-4 font-semibold" x-text="bin.id"></td>
+                <td x-text="bin.location"></td>
+                <td><div class="w-24 bg-gray-200 rounded-full h-4"><div :style="'width: '+bin.level+'%; background: '+ (bin.status=='full'?'red':bin.status=='medium'?'orange':'green') +'; height:100%; border-radius:999px;'"></div></div> <span x-text="bin.level + '%'"></span></td>
+                <td><span :class="bin.status=='full'?'text-red-500':'text-orange-500 text-green-500'" x-text="bin.status.toUpperCase()"></span></td>
+                <td x-text="new Date(bin.lastUpdate).toLocaleString()"></td>
+                <td><button class="text-emerald-500 hover:underline">Edit</button></td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   <script src="script.js"></script>
