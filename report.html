@@ -3,53 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Report - SmartWaste</title>
+  <title>Reports</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <nav>
-      <div class="logo">🗑️ SmartWaste</div>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="status.html">Status</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <section class="section">
-    <div class="container">
-      <h1>Waste Analytics Report</h1>
-      <div class="grid">
-        <div class="card">
-          <h3>📈 Total Requests</h3>
-          <h2 id="totalRequests">0</h2>
-          <p>Requests submitted this month</p>
-        </div>
-        <div class="card">
-          <h3>✅ Completed</h3>
-          <h2 id="completed">0</h2>
-          <p>Successfully collected</p>
-        </div>
-        <div class="card">
-          <h3>⏳ Pending</h3>
-          <h2 id="pending">0</h2>
-          <p>Awaiting collection</p>
-        </div>
-      </div>
+  <header><h1>Generate Report</h1><a href="index.html">Home</a></header>
+  <div class="container">
+    <div class="card">
+      <h2>Summary</h2>
+      <p>Full Bins: <span id="fullCount">0</span> | Avg Level: <span id="avgLevel">0</span>%</p>
+      <button class="btn" onclick="alert('Report emailed to admin!')">Export PDF</button>
     </div>
-  </section>
-
+  </div>
+  <script src="script.js"></script>
   <script>
-    const requests = JSON.parse(localStorage.getItem('wasteRequests')) || [];
-    document.getElementById('totalRequests').textContent = requests.length;
-    document.getElementById('completed').textContent = requests.filter(r => r.status === 'completed').length;
-    document.getElementById('pending').textContent = requests.filter(r => r.status === 'pending').length;
+    document.getElementById('fullCount').textContent = bins.filter(b=>b.status==='Full').length;
+    document.getElementById('avgLevel').textContent = Math.round(bins.reduce((a,b)=>a+b.level,0)/bins.length);
   </script>
-
-  <footer>
-    <p>&copy; 2026 | Analytics Dashboard</p>
-  </footer>
 </body>
 </html>
