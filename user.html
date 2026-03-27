@@ -1,57 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Same head as admin.html -->
   <title>User Dashboard</title>
-  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <header>
-    <h1>User Panel - Welcome, ${localStorage.getItem('user') || 'User'}</h1>
-    <a href="index.html">Logout</a>
-  </header>
-  <div class="container">
-    <div class="card">
-      <h2>Quick Actions</h2>
-      <a href="status.html" class="btn">View Status</a>
-      <a href="report.html" class="btn">Report Issue</a>
-      <a href="contact.html" class="btn">Contact</a>
+<body class="bg-gradient-to-br from-slate-900 min-h-screen">
+  <!-- Simplified sidebar for user -->
+  <aside class="fixed left-0 top-0 h-full w-72 bg-white/10 backdrop-blur-xl z-50">
+    <div class="p-8">
+      <h2 class="text-2xl font-bold">User Panel</h2>
+      <p>Bin Status & Reports</p>
+    </div>
+    <nav class="p-8 space-y-2">
+      <a href="status.html" class="p-4 rounded-2xl bg-white/20 flex items-center gap-4">
+        <i class="fas fa-trash-alt"></i> Bin Status
+      </a>
+      <a href="report.html" class="p-4 rounded-2xl hover:bg-white/20 flex items-center gap-4">
+        <i class="fas fa-chart-bar"></i> My Reports
+      </a>
+    </nav>
+  </aside>
+  
+  <div class="ml-72 p-8">
+    <header class="mb-12">
+      <h1 class="text-4xl font-black">Welcome User!</h1>
+      <p>Monitor your local bins</p>
+    </header>
+    
+    <!-- User-specific content -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <!-- Bin status table (read-only) -->
+      <!-- Quick report form -->
     </div>
   </div>
+  
+  <!-- Include chatbot + export -->
   <script src="script.js"></script>
-  <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20">
-  <h3 class="text-2xl font-bold mb-6 flex items-center"><i class="fas fa-camera mr-3 text-purple-400"></i>AI Waste Classifier</h3>
-  <div x-data="{ image: null, result: '', loading: false }">
-    <input type="file" @change="image = $event.target.files[0]; classifyWaste()" accept="image/*" class="hidden" id="waste-upload">
-    <label for="waste-upload" class="cursor-pointer bg-gradient-to-r from-purple-500 to-pink-500 text-white py-6 px-12 rounded-2xl font-bold hover:shadow-xl hover:scale-105 mx-auto block text-center max-w-md">
-      📸 Upload Waste Image for Classification
-    </label>
-    <div x-show="loading" class="mt-6 text-center">
-      <i class="fas fa-spinner fa-spin text-3xl text-purple-400 mb-4"></i>
-      <p>AI analyzing... (demo)</p>
-    </div>
-    <div x-show="result" class="mt-8 p-6 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-2xl border-2 border-green-500/30">
-      <h4 class="text-2xl font-bold text-green-400 mb-4">✅ <span x-text="result.type"></span></h4>
-      <p class="text-green-200">Confidence: <span class="font-bold text-xl" x-text="result.confidence"></span></p>
-      <p class="text-green-100 mt-2">Tip: <span x-text="result.tip"></span></p>
-    </div>
-  </div>
-</div>
-
-<script>
-function classifyWaste() {
-  // Demo AI classification
-  const results = [
-    { type: 'Plastic Bottle', confidence: '94%', tip: 'Recycle in blue bin ♻️' },
-    { type: 'Organic Food', confidence: '88%', tip: 'Compost in green bin 🌱' },
-    { type: 'Paper', confidence: '91%', tip: 'Recycle in yellow bin 📄' }
-  ];
-  setTimeout(() => {
-    const result = results[Math.floor(Math.random() * results.length)];
-    window.classifyResult = result; // For Alpine
-  }, 2000);
-}
-</script>
+  <script src="chatbot.js"></script>
 </body>
 </html>
