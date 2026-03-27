@@ -1,32 +1,158 @@
 <!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
-  <!-- Same CDNs: Tailwind, Alpine, FontAwesome -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartWaste Pro - Secure Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
 </head>
-<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen flex items-center justify-center p-8 dark">
-  <div class="w-full max-w-md bg-white/10 backdrop-blur-3xl rounded-3xl p-12 border border-white/20 shadow-2xl animate-pulse-slow">
-    <div class="text-center mb-12">
-      <i class="fas fa-shield-alt text-7xl bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent mb-6"></i>
-      <h2 class="text-4xl font-black text-white mb-4">Dashboard Access</h2>
-      <p class="text-white/80">Secure login for Admin & User panels</p>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen flex items-center justify-center p-8">
+  
+  <div class="w-full max-w-md bg-white/10 backdrop-blur-3xl rounded-3xl p-12 border border-white/20 shadow-2xl relative overflow-hidden">
+    <!-- Background Pattern -->
+    <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/10 via-transparent to-teal-500/10"></div>
+    
+    <!-- Logo/Brand -->
+    <div class="text-center mb-12 relative z-10">
+      <div class="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-3xl shadow-2xl mb-6 mx-auto">
+        <i class="fas fa-shield-alt text-3xl text-white"></i>
+      </div>
+      <h2 class="text-4xl font-black bg-gradient-to-r from-white via-gray-100 to-gray-300 bg-clip-text mb-4">Secure Access</h2>
+      <p class="text-white/70 text-lg">Dashboard for SmartWaste Pro</p>
     </div>
-    <form x-data="{username:'', password:'', error:'', loading:false}" @submit.prevent="loading=true; setTimeout(async()=>{const r=await wm.login(username,password); loading=false; if(r.success){localStorage.setItem('role',r.role); window.location.href=r.role+'.html';}else error=r.error;},600)">
-      <input x-model="username" type="text" placeholder="👤 Username" required 
-             class="w-full p-5 mb-6 bg-white/20 border-2 border-white/30 rounded-2xl text-white placeholder-white/60 focus:border-emerald-400 focus:outline-none transition-all backdrop-blur-sm">
-      <input x-model="password" type="password" placeholder="🔒 Password" required 
-             class="w-full p-5 mb-8 bg-white/20 border-2 border-white/30 rounded-2xl text-white placeholder-white/60 focus:border-emerald-400 focus:outline-none transition-all backdrop-blur-sm">
-      <button type="submit" :disabled="loading" 
-              class="w-full bg-gradient-to-r from-emerald-500 to-teal-600 text-white p-6 rounded-2xl font-bold text-xl shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all disabled:opacity-50 disabled:cursor-not-allowed">
-        <span x-show="!loading">🚀 Launch Dashboard</span>
-        <i x-show="loading" class="fas fa-spinner fa-spin text-2xl"></i>
+
+    <!-- Login Form -->
+    <div x-data="loginForm()" class="relative z-10 space-y-6">
+      
+      <!-- Username -->
+      <div>
+        <label class="block text-white/80 font-semibold mb-3 flex items-center">
+          <i class="fas fa-user mr-3 text-emerald-400"></i>Username
+        </label>
+        <input 
+          x-model="username" 
+          type="text" 
+          placeholder="admin or user" 
+          required
+          class="w-full p-5 pl-12 bg-white/20 border-2 border-white/30 rounded-2xl text-white placeholder-white/50 
+                 focus:border-emerald-400 focus:outline-none focus:ring-4 focus:ring-emerald-400/30 
+                 transition-all duration-300 hover:border-white/50 backdrop-blur-sm"
+          @focus="error=''"
+        />
+      </div>
+
+      <!-- Password -->
+      <div>
+        <label class="block text-white/80 font-semibold mb-3 flex items-center">
+          <i class="fas fa-lock mr-3 text-emerald-400"></i>Password
+        </label>
+        <input 
+          x-model="password" 
+          type="password" 
+          placeholder="••••••••" 
+          required
+          class="w-full p-5 pl-12 bg-white/20 border-2 border-white/30 rounded-2xl text-white placeholder-white/50 
+                 focus:border-emerald-400 focus:outline-none focus:ring-4 focus:ring-emerald-400/30 
+                 transition-all duration-300 hover:border-white/50 backdrop-blur-sm"
+          @focus="error=''"
+        />
+      </div>
+
+      <!-- Error Display -->
+      <div x-show="error" x-transition 
+           class="p-4 bg-red-500/20 border-2 border-red-500/40 rounded-2xl backdrop-blur-sm text-red-100 font-medium text-center animate-pulse">
+        <i class="fas fa-exclamation-triangle mr-2"></i>
+        <span x-text="error"></span>
+      </div>
+
+      <!-- Login Button -->
+      <button 
+        type="button"
+        @click="handleLogin()"
+        :disabled="loading"
+        class="w-full bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 
+                 hover:from-emerald-600 hover:via-teal-600 hover:to-emerald-700 
+                 text-white py-6 px-8 rounded-3xl font-black text-xl shadow-2xl hover:shadow-3xl 
+                 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 transform
+                 disabled:opacity-50 disabled:cursor-not-allowed disabled:shadow-none"
+      >
+        <span x-show="!loading">
+          <i class="fas fa-rocket mr-3"></i>
+          Launch Dashboard
+        </span>
+        <span x-show="loading">
+          <i class="fas fa-spinner fa-spin mr-3"></i>
+          Authenticating...
+        </span>
       </button>
-      <div x-show="error" class="mt-6 p-4 bg-red-500/20 border border-red-500/50 rounded-xl text-red-200 text-center font-medium">{{error}}</div>
-    </form>
-    <div class="mt-10 pt-8 border-t border-white/20 text-center text-white/70 text-sm space-y-2">
-      <p>Demo: <strong>admin / admin123</strong> | <strong>user / user123</strong></p>
-      <p>Built for VSB Engineering College Placement 2026</p>
+    </div>
+
+    <!-- Demo Credentials -->
+    <div class="mt-12 pt-10 border-t border-white/20 text-center relative z-10">
+      <p class="text-emerald-300 font-bold text-lg mb-4">🔑 Quick Demo Access</p>
+      <div class="grid grid-cols-2 gap-6 text-sm bg-white/5 p-6 rounded-2xl backdrop-blur-sm border border-white/10">
+        <div>
+          <span class="block text-white/80 mb-1">Admin</span>
+          <code class="bg-gray-800/50 px-3 py-1 rounded-lg text-emerald-300 font-mono">admin123</code>
+        </div>
+        <div>
+          <span class="block text-white/80 mb-1">User</span>
+          <code class="bg-gray-800/50 px-3 py-1 rounded-lg text-emerald-300 font-mono">user123</code>
+        </div>
+      </div>
+      <p class="text-white/50 mt-6 text-xs">By Kavipriya Chakkaravarthi | VSB Engineering College 2026</p>
     </div>
   </div>
+
   <script src="script.js"></script>
+  <script>
+    function loginForm() {
+      return {
+        username: '',
+        password: '',
+        error: '',
+        loading: false,
+        
+        async handleLogin() {
+          if (!this.username || !this.password) {
+            this.error = 'Please enter both username and password';
+            return;
+          }
+          
+          this.loading = true;
+          this.error = '';
+          
+          try {
+            // Simulate secure API call
+            const response = await wm.login(this.username, this.password);
+            
+            if (response.success) {
+              // Store secure token
+              localStorage.setItem('authToken', btoa(`${this.username}:${this.password}`));
+              localStorage.setItem('userRole', response.role);
+              localStorage.setItem('loginTime', Date.now());
+              
+              // Smooth redirect with success message
+              wm.notify('✅ Dashboard access granted!', 'success');
+              
+              // Delay for UX + redirect
+              setTimeout(() => {
+                window.location.href = response.role === 'admin' ? 'admin.html' : 'user.html';
+              }, 800);
+              
+            } else {
+              this.error = response.error || 'Login failed. Please try again.';
+            }
+          } catch (err) {
+            this.error = 'Network error. Please check connection.';
+          } finally {
+            this.loading = false;
+          }
+        }
+      }
+    }
+  </script>
 </body>
 </html>
