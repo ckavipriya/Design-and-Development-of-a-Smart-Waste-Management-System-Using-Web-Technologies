@@ -35,6 +35,16 @@ if ('serviceWorker' in navigator) {
         <a href="#stats" class="text-gray-700 hover:text-emerald-500 font-medium transition">Stats</a>
         <a href="#demo" class="text-gray-700 hover:text-emerald-500 font-medium transition">Demo</a>
       </div>
+      <button onclick="toggleTheme()" class="p-3 rounded-xl bg-white/10 hover:bg-white/20 transition-all">
+  <i class="fas" :class="darkMode ? 'fa-sun' : 'fa-moon'"></i>
+</button>
+
+<script>
+function toggleTheme() {
+  document.documentElement.classList.toggle('dark');
+  localStorage.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+}
+</script>
       <a href="login.html" class="bg-emerald-500 text-white px-8 py-3 rounded-2xl font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 shadow-lg">Launch App <i class="fas fa-rocket ml-2"></i></a>
     </div>
   </nav>
@@ -111,6 +121,22 @@ if ('serviceWorker' in navigator) {
       <div class="text-center mb-24">
         <h2 class="text-6xl font-black text-white mb-6">Everything You Need</h2>
         <p class="text-2xl text-white/90 max-w-2xl mx-auto">From sensors to dashboards—complete waste management platform</p>
+        <button onclick="exportDashboard()" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 px-8 rounded-xl font-bold hover:shadow-xl">
+  📊 Export Report (PDF)
+</button>
+
+<script>
+function exportDashboard() {
+  html2canvas(document.querySelector('.dashboard-content')).then(canvas => {
+    const img = canvas.toDataURL('image/png');
+    const pdf = new jsPDF();
+    pdf.addImage(img, 'PNG', 10, 10, 190, 100);
+    pdf.save('waste-dashboard.pdf');
+  });
+}
+<!-- Add: <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> -->
+</script>
       </div>
       <div class="grid md:grid-cols-3 gap-8">
         <div data-gsap="feature" class="group bg-white/20 backdrop-blur-xl rounded-3xl p-10 hover:bg-white/40 hover:shadow-2xl transition-all duration-500 hover:-translate-y-4">
