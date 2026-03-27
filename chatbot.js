@@ -1,141 +1,216 @@
-<!-- Chatbot Button -->
-<div id="chatbot-button">💬</div>
-
-<!-- Chatbot Window -->
-<div id="chatbot-container">
-  <div id="chatbot-header">
-    Smart Waste Assistant
-    <span id="close-chat">✖</span>
-  </div>
-
-  <div id="chatbot-messages">
-    <div class="bot-msg">Hello 👋 I am your Waste Assistant. Ask me anything.</div>
-  </div>
-
-  <div id="chatbot-input">
-    <input type="text" id="user-input" placeholder="Ask about bins, report, contact..." />
-    <button onclick="sendMessage()">Send</button>
-  </div>
-</div>
-
-<style>
-#chatbot-button{
-position:fixed;
-bottom:25px;
-right:25px;
-background:#16a34a;
-color:white;
-font-size:24px;
-padding:15px;
-border-radius:50%;
-cursor:pointer;
-box-shadow:0 4px 10px rgba(0,0,0,0.3);
-z-index:999;
+// chatbot.js - Professional Waste Management AI Assistant
+class WasteChatbot {
+  constructor() {
+    this.chatContainer = null;
+    this.messagesContainer = document.querySelector('.chatbot-messages') || null;
+    this.input = null;
+    this.toggleBtn = null;
+    this.isOpen = false;
+    
+    this.responses = {
+      greetings: [
+        "Hello! 👋 I'm WasteBot, your Smart Waste Management assistant.",
+        "Hi there! How can I help with your waste management needs?",
+        "Hey! Ready to manage waste smarter? 😊"
+      ],
+      wasteTypes: [
+        "We handle: 🟢 Organic, 🔵 Plastic, 🟡 Paper, ⚫ Metal, 🟠 E-waste",
+        "Types: Organic (food waste), Recyclables (plastic/paper/metal), Hazardous, E-waste"
+      ],
+      schedule: [
+        "Collections: Mon/Wed/Fri mornings. Submit request via dashboard!",
+        "Schedule pickup through 'New Request' in your dashboard 🚚"
+      ],
+      status: [
+        "Check real-time status in your dashboard 📊",
+        "Live bin status available in Status page"
+      ],
+      help: [
+        "I can help with: waste types, schedules, status, requests",
+        "Need help? Try: 'what waste types', 'pickup schedule', 'check status'"
+      ],
+      default: [
+        "For waste requests, use the dashboard. For status, check Status page 📱",
+        "Submit requests via User Dashboard → New Request button",
+        "Try asking: 'pickup schedule', 'waste types', or 'how to request'"
+      ]
+    };
+    
+    this.init();
+  }
+  
+  init() {
+    this.createChatbot();
+    this.bindEvents();
+  }
+  
+  createChatbot() {
+    // Toggle button
+    this.toggleBtn = document.createElement('div');
+    this.toggleBtn.className = 'chatbot-toggle';
+    this.toggleBtn.innerHTML = '<i class="fas fa-comments"></i>';
+    document.body.appendChild(this.toggleBtn);
+    
+    // Container
+    this.chatContainer = document.createElement('div');
+    this.chatContainer.className = 'chatbot-container';
+    this.chatContainer.innerHTML = `
+      <div class="chatbot-header">
+        <div>
+          <div class="chatbot-title">WasteBot AI <span style="font-size:0.8rem">🤖</span></div>
+        </div>
+        <button class="chatbot-close">&times;</button>
+      </div>
+      <div class="chatbot-messages">
+        <div class="message bot">
+          <div class="message-bubble">
+            Hello! 👋 I'm WasteBot, your AI assistant for Smart Waste Management. 
+            <br><br>
+            Ask me about: waste types, pickup schedules, status, or how to submit requests! 🚮
+          </div>
+        </div>
+      </div>
+      <div class="chatbot-typing">
+        <div class="typing-dots">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+      <div class="chatbot-input">
+        <input type="text" placeholder="Ask about waste management..." maxlength="200">
+        <button class="chatbot-send">
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </div>
+    `;
+    document.body.appendChild(this.chatContainer);
+    
+    // Elements
+    this.messagesContainer = this.chatContainer.querySelector('.chatbot-messages');
+    this.input = this.chatContainer.querySelector('.chatbot-input input');
+    this.typingIndicator = this.chatContainer.querySelector('.chatbot-typing');
+    this.sendBtn = this.chatContainer.querySelector('.chatbot-send');
+    this.closeBtn = this.chatContainer.querySelector('.chatbot-close');
+  }
+  
+  bindEvents() {
+    this.toggleBtn.addEventListener('click', () => this.toggle());
+    this.closeBtn.addEventListener('click', () => this.close());
+    this.sendBtn.addEventListener('click', () => this.sendMessage());
+    this.input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') this.sendMessage();
+    });
+    
+    // Auto-close on outside click
+    document.addEventListener('click', (e) => {
+      if (!this.chatContainer.contains(e.target) && !this.toggleBtn.contains(e.target)) {
+        this.close();
+      }
+    });
+  }
+  
+  toggle() {
+    this.isOpen = !this.isOpen;
+    this.chatContainer.classList.toggle('open', this.isOpen);
+    this.toggleBtn.innerHTML = this.isOpen ? 
+      '<i class="fas fa-minus"></i>' : '<i class="fas fa-comments"></i>';
+    
+    if (this.isOpen) {
+      this.input.focus();
+      setTimeout(() => this.scrollToBottom(), 100);
+    }
+  }
+  
+  open() {
+    this.isOpen = true;
+    this.chatContainer.classList.add('open');
+    this.toggleBtn.innerHTML = '<i class="fas fa-minus"></i>';
+    this.input.focus();
+  }
+  
+  close() {
+    this.isOpen = false;
+    this.chatContainer.classList.remove('open');
+    this.toggleBtn.innerHTML = '<i class="fas fa-comments"></i>';
+  }
+  
+  sendMessage() {
+    const message = this.input.value.trim();
+    if (!message) return;
+    
+    // Add user message
+    this.addMessage(message, 'user');
+    this.input.value = '';
+    
+    // Show typing
+    this.showTyping();
+    
+    // Simulate AI response (with waste-specific intelligence)
+    setTimeout(() => {
+      this.hideTyping();
+      const response = this.generateResponse(message.toLowerCase());
+      this.addMessage(response, 'bot');
+    }, 800 + Math.random() * 1200);
+  }
+  
+  addMessage(text, sender) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `message ${sender}`;
+    messageDiv.innerHTML = `
+      <div class="message-bubble">${this.formatMessage(text)}</div>
+    `;
+    this.messagesContainer.appendChild(messageDiv);
+    this.scrollToBottom();
+  }
+  
+  generateResponse(message) {
+    // Smart waste management responses
+    if (message.includes('hello') || message.includes('hi') || message.includes('hey')) {
+      return this.getRandom(this.responses.greetings);
+    }
+    if (message.includes('waste type') || message.includes('types')) {
+      return this.getRandom(this.responses.wasteTypes);
+    }
+    if (message.includes('schedule') || message.includes('pickup') || message.includes('collect')) {
+      return this.getRandom(this.responses.schedule);
+    }
+    if (message.includes('status') || message.includes('check')) {
+      return this.getRandom(this.responses.status);
+    }
+    if (message.includes('help') || message.includes('how')) {
+      return this.getRandom(this.responses.help);
+    }
+    return this.getRandom(this.responses.default);
+  }
+  
+  formatMessage(text) {
+    // Add emojis and links intelligently
+    if (text.includes('request')) return text.replace('request', '<strong>📋 REQUEST</strong>');
+    if (text.includes('status')) return text.replace('status', '<strong>📊 STATUS</strong>');
+    if (text.includes('schedule')) return text.replace('schedule', '<strong>📅 SCHEDULE</strong>');
+    return text;
+  }
+  
+  getRandom(array) {
+    return array[Math.floor(Math.random() * array.length)];
+  }
+  
+  showTyping() {
+    this.typingIndicator.style.display = 'block';
+    this.scrollToBottom();
+  }
+  
+  hideTyping() {
+    this.typingIndicator.style.display = 'none';
+  }
+  
+  scrollToBottom() {
+    this.messagesContainer.scrollTop = this.messagesContainer.scrollHeight;
+  }
 }
 
-#chatbot-container{
-position:fixed;
-bottom:90px;
-right:25px;
-width:320px;
-background:white;
-border-radius:10px;
-box-shadow:0 5px 20px rgba(0,0,0,0.3);
-display:none;
-flex-direction:column;
-overflow:hidden;
-font-family:Arial;
-z-index:999;
+// Initialize chatbot when page loads
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => new WasteChatbot());
+} else {
+  new WasteChatbot();
 }
-
-#chatbot-header{
-background:#16a34a;
-color:white;
-padding:12px;
-font-weight:bold;
-display:flex;
-justify-content:space-between;
-}
-
-#chatbot-messages{
-height:220px;
-overflow-y:auto;
-padding:10px;
-background:#f3f4f6;
-}
-
-.bot-msg{
-background:#e5e7eb;
-padding:8px;
-border-radius:6px;
-margin-bottom:6px;
-}
-
-.user-msg{
-background:#16a34a;
-color:white;
-padding:8px;
-border-radius:6px;
-margin-bottom:6px;
-text-align:right;
-}
-
-#chatbot-input{
-display:flex;
-border-top:1px solid #ddd;
-}
-
-#chatbot-input input{
-flex:1;
-border:none;
-padding:10px;
-outline:none;
-}
-
-#chatbot-input button{
-background:#16a34a;
-color:white;
-border:none;
-padding:10px 15px;
-cursor:pointer;
-}
-</style>
-
-<script>
-const button = document.getElementById("chatbot-button");
-const container = document.getElementById("chatbot-container");
-const closeBtn = document.getElementById("close-chat");
-
-button.onclick = () => container.style.display="flex";
-closeBtn.onclick = () => container.style.display="none";
-
-function sendMessage(){
-
-let input = document.getElementById("user-input");
-let msg = input.value.trim();
-if(msg==="") return;
-
-let chat = document.getElementById("chatbot-messages");
-
-chat.innerHTML += `<div class="user-msg">${msg}</div>`;
-
-let reply="I can help with smart waste management.";
-
-if(msg.toLowerCase().includes("bin"))
-reply="Smart bins detect garbage level using sensors.";
-
-else if(msg.toLowerCase().includes("report"))
-reply="Go to the Report page and submit the waste issue.";
-
-else if(msg.toLowerCase().includes("contact"))
-reply="Visit the Contact page for phone and email details.";
-
-else if(msg.toLowerCase().includes("location"))
-reply="Bins are located in public places like parks, bus stands and markets.";
-
-chat.innerHTML += `<div class="bot-msg">${reply}</div>`;
-
-input.value="";
-chat.scrollTop = chat.scrollHeight;
-}
-</script>
