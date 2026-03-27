@@ -1,93 +1,200 @@
-body{
-font-family:Arial;
-margin:0;
-background:#f4f6f9;
-text-align:center;
+/* style.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-header{
-background:#0f766e;
-color:white;
-padding:20px;
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  color: #333;
 }
 
-nav a{
-margin:15px;
-color:white;
-text-decoration:none;
-font-weight:bold;
+header {
+  background: linear-gradient(135deg, #2e7d32, #4caf50);
+  color: white;
+  padding: 1rem 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
-.hero{
-padding:60px;
-background:#d1fae5;
+nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 2rem;
 }
 
-.features{
-padding:40px;
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
 }
 
-.card{
-background:white;
-padding:20px;
-margin:20px auto;
-width:250px;
-border-radius:10px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
+nav ul {
+  display: flex;
+  list-style: none;
 }
 
-.bin{
-background:white;
-padding:20px;
-margin:20px auto;
-width:300px;
-border-radius:10px;
-box-shadow:0 4px 10px rgba(0,0,0,0.1);
+nav ul li {
+  margin-left: 2rem;
 }
 
-.bar{
-height:15px;
-border-radius:20px;
+nav ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
 }
 
-.full{
-background:red;
-width:90%;
+nav ul li a:hover {
+  color: #c8e6c9;
 }
 
-.medium{
-background:orange;
-width:60%;
+.hero {
+  background: linear-gradient(rgba(46,125,50,0.8), rgba(76,175,80,0.8)), 
+              url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="%23c8e6c9"/><circle cx="80" cy="30" r="1.5" fill="%23a5d6a7"/><circle cx="40" cy="80" r="2" fill="%2398ee9f"/></svg>');
+  color: white;
+  text-align: center;
+  padding: 5rem 2rem;
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.low{
-background:green;
-width:20%;
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  animation: fadeInUp 1s ease;
 }
 
-form{
-display:flex;
-flex-direction:column;
-width:300px;
-margin:auto;
+.hero p {
+  font-size: 1.3rem;
+  margin-bottom: 2rem;
+  animation: fadeInUp 1s ease 0.2s both;
 }
 
-input,textarea{
-margin:10px;
-padding:10px;
+.btn {
+  display: inline-block;
+  background: #fff;
+  color: #2e7d32;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: bold;
+  transition: all 0.3s;
+  animation: fadeInUp 1s ease 0.4s both;
 }
 
-button{
-background:#0f766e;
-color:white;
-border:none;
-padding:10px;
-cursor:pointer;
+.btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-footer{
-background:black;
-color:white;
-padding:10px;
-margin-top:40px;
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem;
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.card {
+  background: white;
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  transition: transform 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+}
+
+.card h3 {
+  color: #2e7d32;
+  margin-bottom: 1rem;
+}
+
+form {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+form input, form select, form textarea {
+  width: 100%;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+form button {
+  width: 100%;
+  background: #2e7d32;
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+form button:hover {
+  background: #1b5e20;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background: #2e7d32;
+  color: white;
+}
+
+.status-pending { background: #fff3cd; color: #856404; }
+.status-completed { background: #d4edda; color: #155724; }
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+footer {
+  background: #2e7d32;
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  margin-top: 4rem;
 }
