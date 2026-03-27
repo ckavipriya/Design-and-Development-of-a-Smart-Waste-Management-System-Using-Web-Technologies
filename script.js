@@ -16,7 +16,23 @@ async login(username, password) {
         resolve({ 
           success: false, 
           error: username ? 'Incorrect password' : 'Username not found' 
-        });
+        });// Critical: WasteManager must exist
+class WasteManager {
+  async login(username, password) {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        const valid = { 'admin': 'admin123', 'user': 'user123' };
+        if (valid[username] === password) {
+          resolve({ success: true, role: username, token: 'demo-token' });
+        } else {
+          resolve({ success: false, error: 'Invalid credentials' });
+        }
+      }, 1000);
+    });
+  }
+  // ... rest of class
+}
+window.wm = new WasteManager();
         // Notification system (already in backend, enhance)
 function showNotification(title, message, type = 'info') {
   if (!document.getElementById('notification-container')) {
