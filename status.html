@@ -3,116 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Waste Request Status - SmartWaste</title>
+  <title>Bin Status</title>
   <link rel="stylesheet" href="style.css">
+  <style>.full {color: red;} .medium {color: orange;} .empty {color: green;}</style>
 </head>
 <body>
-  <header>
-    <nav>
-      <div class="logo">🗑️ SmartWaste</div>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="status.html">Status</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <section class="section">
-    <div class="container">
-      <h1 style="text-align: center; color: #2e7d32;">Waste Request & Status</h1>
-      
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem;">
-        <!-- Request Form -->
-        <div class="card">
-          <h3>📤 Submit Request</h3>
-          <form id="requestForm">
-            <input type="text" id="name" placeholder="Your Name" required>
-            <input type="text" id="location" placeholder="Location (e.g., Block A)" required>
-            <select id="wasteType" required>
-              <option value="">Select Waste Type</option>
-              <option value="organic">Organic</option>
-              <option value="plastic">Plastic</option>
-              <option value="paper">Paper</option>
-              <option value="metal">Metal</option>
-            </select>
-            <button type="submit">Submit Request</button>
-          </form>
-        </div>
-
-        <!-- Status Table -->
-        <div class="card">
-          <h3>📊 Current Status</h3>
-          <div class="table-container">
-            <table id="statusTable">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Name</th>
-                  <th>Location</th>
-                  <th>Type</th>
-                  <th>Status</th>
-                  <th>Time</th>
-                </tr>
-              </thead>
-              <tbody id="tableBody">
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+  <header><h1>Bin Status</h1><a href="index.html">Home</a></header>
+  <div class="container">
+    <div class="card">
+      <table>
+        <thead><tr><th>ID</th><th>Location</th><th>Fill Level</th><th>Status</th></tr></thead>
+        <tbody id="statusTable"></tbody>
+      </table>
     </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2026 Smart Waste Management System</p>
-  </footer>
-
-  <script>
-    // Sample data (replace with real backend API later)
-    let requests = JSON.parse(localStorage.getItem('wasteRequests')) || [];
-
-    // Load status table
-    function loadStatus() {
-      const tbody = document.getElementById('tableBody');
-      tbody.innerHTML = '';
-      
-      requests.forEach((req, index) => {
-        const row = tbody.insertRow();
-        row.innerHTML = `
-          <td>${index + 1}</td>
-          <td>${req.name}</td>
-          <td>${req.location}</td>
-          <td>${req.wasteType}</td>
-          <td class="status-${req.status}">${req.status.toUpperCase()}</td>
-          <td>${req.time}</td>
-        `;
-      });
-    }
-
-    // Submit form
-    document.getElementById('requestForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      
-      const request = {
-        name: document.getElementById('name').value,
-        location: document.getElementById('location').value,
-        wasteType: document.getElementById('wasteType').value,
-        status: 'pending',
-        time: new Date().toLocaleString()
-      };
-      
-      requests.unshift(request);
-      localStorage.setItem('wasteRequests', JSON.stringify(requests));
-      
-      alert('✅ Request submitted successfully!');
-      e.target.reset();
-      loadStatus();
-    });
-
-    // Initial load
-    loadStatus();
-  </script>
+  </div>
+  <script src="script.js"></script>
 </body>
 </html>
