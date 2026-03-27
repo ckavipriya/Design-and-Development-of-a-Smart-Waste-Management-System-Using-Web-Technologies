@@ -1,72 +1,37 @@
-// script.js - Professional functionality
-document.addEventListener('DOMContentLoaded', function() {
-  // Preloader
-  window.addEventListener('load', () => {
-    document.querySelector('.preloader').style.opacity = '0';
-    setTimeout(() => document.querySelector('.preloader').style.display = 'none', 500);
-  });
+// Simulate bin data
+let bins = JSON.parse(localStorage.getItem('bins')) || [
+  {id:1, location:'Ambattur', level:75, status:'Full'},
+  {id:2, location:'Karur', level:40, status:'Medium'},
+  {id:3, location:'Chennai', level:20, status:'Empty'}
+];
 
-  // Navbar scroll effect
-  window.addEventListener('scroll', () => {
-    const navbar = document.querySelector('.navbar');
-    if (window.scrollY > 50) {
-      navbar.style.background = 'rgba(255,255,255,1)';
-      navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.1)';
-    } else {
-      navbar.style.background = 'rgba(255,255,255,0.95)';
-      navbar.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
-    }
-  });
+// Save to localStorage
+function saveData() { localStorage.setItem('bins', JSON.stringify(bins)); }
 
-  // Counter animation
-  const counters = document.querySelectorAll('.stat-number[data-target]');
-  const animateCounters = () => {
-    counters.forEach(counter => {
-      const target = +counter.getAttribute('data-target');
-      const count = +counter.innerText;
-      const increment = target / 100;
-      
-      if (count < target) {
-        counter.innerText = Math.ceil(count + increment);
-        setTimeout(animateCounters, 30);
-      } else {
-        counter.innerText = target;
-      }
-    });
-  };
-
-  // Intersection observer for counters
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animateCounters();
-        observer.unobserve(entry.target);
-      }
-    });
-  });
-
-  document.querySelector('.hero-stats')?.parentElement && 
-  observer.observe(document.querySelector('.hero-stats'));
-
-  // Smooth scrolling
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = document.querySelector(anchor.getAttribute('href'));
-      target?.scrollIntoView({ behavior: 'smooth' });
-    });
-  });
-
-  // Auth check
-  const isLoggedIn = localStorage.getItem('isLoggedIn');
-  if (window.location.pathname.includes('admin.html') || window.location.pathname.includes('user.html')) {
-    if (!isLoggedIn) {
-      window.location.href = 'login.html';
-    }
+// Update status table
+function updateStatus() {
+  const tbody = document.querySelector('#statusTable tbody');
+  if (tbody) {
+    tbody.innerHTML = bins.map(bin => `
+      <tr>
+        <td>${bin.id}</td>
+        <td>${bin.location}</td>
+        <td>${bin.level}%</td>
+        <td><span class="${bin.status.toLowerCase()}">${bin.status}</span></td>
+      </tr>
+    `).join('');
   }
-});
-
-function logout() {
-  localStorage.clear();
-  window.location.href = 'login.html';
+  saveData();
 }
+
+// Login simulation
+function login() {
+  const user = document.getElementById('username').value;
+  if (user) {
+    localStorage.setItem('user', user);
+    window.location.href = user === 'admin' ? 'admin.html' : 'user.html';
+  }
+}
+
+// Init on load
+document.addEventListener('DOMContentLoaded', updateStatus);
