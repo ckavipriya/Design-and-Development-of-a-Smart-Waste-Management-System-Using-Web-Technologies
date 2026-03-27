@@ -1,28 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" x-data>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Waste Management</title>
-  <link rel="stylesheet" href="style.css">
+  <title>SmartWaste Pro</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
-<body>
-  <header>
-    <h1>Smart Waste Management System</h1>
-    <nav>
-      <a href="login.html">Login</a>
-      <a href="status.html">Status</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-  </header>
-  <div class="container">
-    <div class="card">
-      <h2>Welcome</h2>
-      <p>Monitor bins, schedule collections, and report issues in real-time.</p>
-      <a href="login.html" class="btn">Get Started</a>
+<body class="bg-gradient-to-br from-emerald-500 to-teal-600 min-h-screen">
+  <nav class="bg-white/20 backdrop-blur-md shadow-lg fixed w-full top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-white"><i class="fas fa-recycle mr-2"></i>SmartWaste Pro</h1>
+      <div>
+        <a href="login.html" class="text-white px-4 py-2 bg-white/20 rounded-lg hover:bg-white/30 transition">Login</a>
+      </div>
+    </div>
+  </nav>
+  <div class="max-w-7xl mx-auto px-4 py-24 mt-20">
+    <div class="grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h2 class="text-5xl font-bold text-white mb-6">IoT-Powered Waste Management</h2>
+        <p class="text-xl text-white/90 mb-8">Real-time bin monitoring, AI route optimization, and zero-waste analytics for smart cities.</p>
+        <a href="login.html" class="bg-white text-emerald-600 px-8 py-4 rounded-xl font-semibold hover:shadow-xl transition-all">Launch Dashboard</a>
+      </div>
+      <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-8">
+        <i class="fas fa-chart-line text-6xl text-white mb-4 block"></i>
+        <p class="text-white text-lg">Efficiency +30%</p>
+      </div>
     </div>
   </div>
-  <script src="script.js"></script>
 </body>
 </html>
