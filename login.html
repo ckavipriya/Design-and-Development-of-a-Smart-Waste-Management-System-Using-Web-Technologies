@@ -1,42 +1,78 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Login - SmartWaste</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Smart Waste Management</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>body{background:linear-gradient(135deg,#1e3a8a,#3b82f6 100%)}</style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-8">
-  <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-12 w-full max-w-md border border-white/20 shadow-2xl">
-    <h1 class="text-4xl font-bold text-white text-center mb-8">🔐 Login</h1>
+<body class="bg-gradient-to-br from-indigo-500 to-purple-600 min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white/90 backdrop-blur-xl rounded-2xl shadow-2xl p-8 w-full max-w-md">
+    <h1 class="text-3xl font-bold text-center text-gray-800 mb-8">Secure Login</h1>
     
-    <input id="username" placeholder="admin / user" class="w-full p-5 mb-4 rounded-2xl bg-white/20 text-white placeholder-white/70 text-lg">
-    <input id="password" type="password" placeholder="admin123 / user123" class="w-full p-5 mb-6 rounded-2xl bg-white/20 text-white placeholder-white/70 text-lg">
+    <form id="loginForm" class="space-y-6">
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Username</label>
+        <input type="text" id="username" required class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" placeholder="admin or user">
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+        <input type="password" id="password" required class="w-full p-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition" placeholder="admin123 or user123">
+      </div>
+      <div id="errorMsg" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl text-sm"></div>
+      
+      <button type="submit" id="loginBtn" class="w-full bg-indigo-600 text-white py-4 px-6 rounded-xl font-bold text-lg shadow-lg hover:bg-indigo-700 transition transform hover:-translate-y-0.5">
+        Login
+      </button>
+    </form>
     
-    <button onclick="doLogin()" class="w-full bg-emerald-500 text-white p-6 rounded-2xl font-bold text-xl hover:bg-emerald-600 transition-all">
-      🚀 Launch Dashboard
-    </button>
-    
-    <div class="mt-8 text-center text-emerald-300">
-      <p><strong>admin</strong> / admin123 → Admin Panel</p>
-      <p><strong>user</strong> / user123 → User Panel</p>
-    </div>
+    <p class="text-center text-sm text-gray-500 mt-6">
+      Demo: <strong>admin / admin123</strong> | <strong>user / user123</strong>
+    </p>
   </div>
 
   <script>
-  function doLogin() {
-    const user = document.getElementById('username').value;
-    const pass = document.getElementById('password').value;
-    
-    if (user === 'admin' && pass === 'admin123') {
-      localStorage.role = 'admin';
-      window.location.href = 'admin.html';
-    } else if (user === 'user' && pass === 'user123') {
-      localStorage.role = 'user';
-      window.location.href = 'user.html';
-    } else {
-      alert('❌ Demo: admin/admin123 or user/user123');
+    const validUsers = {
+      'admin': 'admin123',
+      'user': 'user123'
+    };
+
+    document.getElementById('loginForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim().toLowerCase();
+      const password = document.getElementById('password').value;
+      const errorMsg = document.getElementById('errorMsg');
+      const loginBtn = document.getElementById('loginBtn');
+
+      // Hide previous errors
+      errorMsg.classList.add('hidden');
+
+      // Simulate loading
+      loginBtn.textContent = 'Logging in...';
+      loginBtn.disabled = true;
+
+      setTimeout(() => {
+        if (validUsers[username] && validUsers[username] === password) {
+          // Success: Store token and redirect
+          localStorage.setItem('userToken', username + ':' + Date.now());
+          localStorage.setItem('userRole', username);
+          window.location.href = username === 'admin' ? 'admin.html' : 'user.html';
+        } else {
+          // Error: Show specific message
+          errorMsg.textContent = username && validUsers[username] ? '❌ Wrong password' : '❌ Username not found';
+          errorMsg.classList.remove('hidden');
+        }
+        // Reset button
+        loginBtn.textContent = 'Login';
+        loginBtn.disabled = false;
+      }, 1200); // Realistic delay
+    });
+
+    // Auto-redirect if already logged in
+    if (localStorage.getItem('userToken')) {
+      const role = localStorage.getItem('userRole');
+      window.location.href = role === 'admin' ? 'admin.html' : 'user.html';
     }
-  }
   </script>
 </body>
 </html>
