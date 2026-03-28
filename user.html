@@ -1,41 +1,51 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
-  <!-- Same head as admin.html -->
-  <title>User Dashboard</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Dashboard - Smart Waste</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-br from-slate-900 min-h-screen">
-  <!-- Simplified sidebar for user -->
-  <aside class="fixed left-0 top-0 h-full w-72 bg-white/10 backdrop-blur-xl z-50">
-    <div class="p-8">
-      <h2 class="text-2xl font-bold">User Panel</h2>
-      <p>Bin Status & Reports</p>
+<body class="bg-gradient-to-br from-blue-400 to-purple-500 min-h-screen p-4">
+  <nav class="bg-white shadow-lg rounded-xl p-6 mb-8">
+    <h1 class="text-3xl font-bold text-gray-800">User Dashboard</h1>
+    <button onclick="logout()" class="mt-4 bg-red-500 text-white px-6 py-2 rounded-lg">Logout</button>
+  </nav>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+    <div class="bg-white rounded-xl p-6 shadow-xl">
+      <h2 class="text-xl font-semibold mb-4">Nearby Bins</h2>
+      <ul id="nearbyBins" class="space-y-2"></ul>
     </div>
-    <nav class="p-8 space-y-2">
-      <a href="status.html" class="p-4 rounded-2xl bg-white/20 flex items-center gap-4">
-        <i class="fas fa-trash-alt"></i> Bin Status
-      </a>
-      <a href="report.html" class="p-4 rounded-2xl hover:bg-white/20 flex items-center gap-4">
-        <i class="fas fa-chart-bar"></i> My Reports
-      </a>
-    </nav>
-  </aside>
-  
-  <div class="ml-72 p-8">
-    <header class="mb-12">
-      <h1 class="text-4xl font-black">Welcome User!</h1>
-      <p>Monitor your local bins</p>
-    </header>
-    
-    <!-- User-specific content -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <!-- Bin status table (read-only) -->
-      <!-- Quick report form -->
+    <div class="bg-white rounded-xl p-6 shadow-xl">
+      <h2 class="text-xl font-semibold mb-4">Submit Complaint</h2>
+      <form id="complaintForm" class="space-y-4">
+        <textarea placeholder="Describe issue (overflow, unclean, etc.)" class="w-full p-3 border rounded-lg" required></textarea>
+        <input type="file" class="w-full p-3 border rounded-lg">
+        <button type="submit" class="w-full bg-purple-500 text-white py-3 rounded-lg font-bold">Submit</button>
+      </form>
     </div>
   </div>
-  
-  <!-- Include chatbot + export -->
-  <script src="script.js"></script>
-  <script src="chatbot.js"></script>
+
+  <script>
+    const nearbyBins = [
+      {id: 'B001', dist: '200m', fill: 75, status: 'Full'},
+      {id: 'B002', dist: '500m', fill: 20, status: 'Empty'}
+    ];
+
+    document.getElementById('nearbyBins').innerHTML = nearbyBins.map(b => `
+      <li class="p-4 bg-gray-100 rounded-lg flex justify-between">
+        <span>${b.id} (${b.dist})</span>
+        <span class="font-bold ${b.status === 'Full' ? 'text-red-500' : 'text-green-500'}">${b.status}</span>
+      </li>
+    `).join('');
+
+    document.getElementById('complaintForm').onsubmit = e => {
+      e.preventDefault();
+      alert('Complaint submitted! Ticket #123');
+    };
+
+    function logout() { window.location = 'login.html'; }
+  </script>
 </body>
 </html>
