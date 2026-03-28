@@ -1,44 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SmartWaste Login</title>
+  <title>Login - SmartWaste</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    body { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
-    .glass { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
-  </style>
+  <style>body{background:linear-gradient(135deg,#1e3a8a,#3b82f6 100%)}</style>
 </head>
 <body class="min-h-screen flex items-center justify-center p-8">
-  <div class="glass rounded-3xl p-12 w-full max-w-md border border-white/20 shadow-2xl">
-    <h1 class="text-4xl font-bold text-white text-center mb-8">🔐 Secure Login</h1>
+  <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-12 w-full max-w-md border border-white/20 shadow-2xl">
+    <h1 class="text-4xl font-bold text-white text-center mb-8">🔐 Login</h1>
     
-    <input id="username" placeholder="admin / user" class="w-full p-4 mb-4 rounded-2xl bg-white/20 text-white placeholder-white/70 text-lg">
-    <input id="password" type="password" placeholder="admin123 / user123" class="w-full p-4 mb-6 rounded-2xl bg-white/20 text-white placeholder-white/70 text-lg">
+    <input id="username" placeholder="admin / user" class="w-full p-5 mb-4 rounded-2xl bg-white/20 text-white placeholder-white/70 text-lg">
+    <input id="password" type="password" placeholder="admin123 / user123" class="w-full p-5 mb-6 rounded-2xl bg-white/20 text-white placeholder-white/70 text-lg">
     
-    <button onclick="login()" class="w-full bg-green-500 text-white p-5 rounded-2xl font-bold text-xl hover:bg-green-600 transition-all">
+    <button onclick="doLogin()" class="w-full bg-emerald-500 text-white p-6 rounded-2xl font-bold text-xl hover:bg-emerald-600 transition-all">
       🚀 Launch Dashboard
     </button>
     
-    <div class="mt-8 p-6 bg-white/10 rounded-2xl text-center">
-      <p class="text-emerald-300 font-bold mb-2">Demo Login:</p>
-      <p><strong>admin</strong> / admin123</p>
-      <p><strong>user</strong> / user123</p>
+    <div class="mt-8 text-center text-emerald-300">
+      <p><strong>admin</strong> / admin123 → Admin Panel</p>
+      <p><strong>user</strong> / user123 → User Panel</p>
     </div>
   </div>
 
   <script>
-  function login() {
+  function doLogin() {
     const user = document.getElementById('username').value;
     const pass = document.getElementById('password').value;
     
     if (user === 'admin' && pass === 'admin123') {
-      localStorage.setItem('role', 'admin');
+      localStorage.role = 'admin';
       window.location.href = 'admin.html';
     } else if (user === 'user' && pass === 'user123') {
-      localStorage.setItem('role', 'user');
+      localStorage.role = 'user';
       window.location.href = 'user.html';
     } else {
-      alert('❌ Wrong! Use: admin/admin123 or user/user123');
+      alert('❌ Demo: admin/admin123 or user/user123');
     }
   }
   </script>
