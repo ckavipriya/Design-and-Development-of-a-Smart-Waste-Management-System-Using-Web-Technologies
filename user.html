@@ -46,6 +46,19 @@
     };
 
     function logout() { window.location = 'login.html'; }
+    const token = localStorage.getItem('userToken');
+const role = localStorage.getItem('userRole');
+if (!token || !role) {
+  window.location.href = 'login.html';
+} else {
+  // Optional: Validate token age (1 day)
+  const tokenTime = parseInt(token.split(':')[1]);
+  if (Date.now() - tokenTime > 86400000) {
+    localStorage.clear();
+    window.location.href = 'login.html';
+  }
+}
+console.log('Logged in as:', role);
   </script>
 </body>
 </html>
