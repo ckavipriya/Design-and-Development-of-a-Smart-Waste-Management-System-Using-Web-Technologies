@@ -3,7 +3,7 @@ class WasteBot {
   constructor() {
     this.init();
   }
-  
+
   init() {
     this.toggle = document.getElementById('chatbot-toggle');
     this.chat = document.getElementById('chatbot-container');
