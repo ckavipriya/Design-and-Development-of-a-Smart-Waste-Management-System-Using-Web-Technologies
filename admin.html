@@ -1,330 +1,88 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
-  <!-- CDNs + Chart.js + Heroicons if needed -->
-  <script>tailwind.config = {darkMode: 'class'}</script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Smart Waste</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-  <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 mb-12">
-  <h3 class="text-2xl font-bold mb-6 flex items-center"><i class="fas fa-route mr-3 text-purple-400"></i>Drag to Optimize Route</h3>
-  <div class="grid grid-cols-3 gap-4 p-6 bg-white/5 rounded-2xl min-h-[200px]">
-    <div class="space-y-3">
-      <div class="flex items-center p-4 bg-red-500/20 rounded-xl cursor-move group hover:bg-red-500/30 transition-all">
-        <div class="w-12 h-12 bg-red-500 rounded-lg flex items-center justify-center mr-4 font-bold text-white">1</div>
-        <div>
-          <div class="font-bold">Ambattur (85%🟥)</div>
-          <div class="text-red-200 text-sm">High Priority</div>
-        </div>
-        <i class="fas fa-grip-vertical ml-auto text-white/50 group-hover:text-white transition"></i>
-      </div>
-      <button id="voice-btn" class="fixed bottom-32 left-8 w-20 h-20 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-full shadow-2xl border-4 border-white flex items-center justify-center text-2xl hover:scale-110 transition-all z-40">
-  🎤
-        <!-- Add to <head> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<body class="bg-gradient-to-br from-green-400 to-blue-500 min-h-screen p-4">
+  <nav class="bg-white shadow-lg rounded-xl p-6 mb-8">
+    <h1 class="text-3xl font-bold text-gray-800">Admin Dashboard</h1>
+    <button onclick="logout()" class="mt-4 bg-red-500 text-white px-6 py-2 rounded-lg">Logout</button>
+  </nav>
 
-<!-- Export Button -->
-<button onclick="exportPDF()" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 px-8 rounded-2xl font-bold hover:shadow-2xl fixed top-8 left-8 z-30 transition-all">
-  📄 Export PDF
-</button>
-
-<script>
-async function exportPDF() {
-  try {
-    // Target dashboard content
-    const element = document.querySelector('main') || document.body;
-    const canvas = await html2canvas(element, {
-      scale: 2,
-      useCORS: true,
-      backgroundColor: '#0f172a',
-      logging: false
-    });
-    
-    const imgData = canvas.toDataURL('image/png');
-    const pdf = new jsPDF('landscape', 'mm', 'a4');
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-    
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-    pdf.save('SmartWaste-Dashboard.pdf');
-    
-    // Success toast
-    showNotification('✅ PDF Exported!', 'Dashboard saved as PDF');
-  } catch (error) {
-    console.error('PDF Error:', error);
-    alert('Export failed - try smaller section');
-  }
-}
-</script>
-</button>
-
-<script>
-const voiceBtn = document.getElementById('voice-btn');
-if ('webkitSpeechRecognition' in window) {
-  const recognition = new webkitSpeechRecognition();
-  recognition.continuous = false;
-  recognition.interimResults = false;
-  recognition.lang = 'en-IN';
-  
-  voiceBtn.onclick = () => recognition.start();
-  
-  recognition.onresult = (event) => {
-    const command = event.results[0][0].transcript.toLowerCase();
-    if (command.includes('status')) showNotification('📊', 'Opening bin status...');
-    if (command.includes('route')) showNotification('🗺️', 'Optimizing routes...');
-    if (command.includes('full bins')) showNotification('🚛', 'Dispatching to full bins!');
-  };
-}
-</script>
-      <!-- Add 4 more draggable bins -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white rounded-xl p-6 shadow-xl">
+      <h2 class="text-xl font-semibold mb-4">Total Bins: 50</h2>
+      <canvas id="fillChart" height="200"></canvas>
     </div>
-  </div>
-  <button class="mt-6 bg-gradient-to-r from-emerald-500 to-teal-600 text-white py-4 px-8 rounded-2xl font-bold hover:shadow-xl mx-auto block">
-    ✅ Optimize & Save Route
-  </button>
-</div>
-<body class="bg-gradient-to-br from-slate-900 via-gray-900 to-slate-900 min-h-screen text-white overflow-hidden" x-data="{ sidebarOpen: false, darkMode: true }">
-  <!-- Add to <head> -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-<!-- Add to admin dashboard (after KPIs) -->
-<div class="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 mb-12">
-  <h3 class="text-2xl font-bold mb-6 flex items-center"><i class="fas fa-map-marked-alt mr-3 text-blue-400"></i>Live Bin Locations</h3>
-  <div id="map" style="height: 400px; border-radius: 16px;"></div>
-</div>
-  <div class="bg-gradient-to-r from-emerald-500/90 to-teal-600/90 backdrop-blur-xl rounded-3xl p-8 border border-white/20 text-center fixed top-8 right-8 shadow-2xl z-30">
-  <div class="flex items-center justify-center mb-4">
-    <i class="fas fa-broadcast-tower text-2xl mr-3 text-white"></i>
-    <span class="font-bold text-lg">IoT Live Feed</span>
-  </div>
-  <div class="space-y-2 text-sm">
-    <div><span class="font-mono text-xs">📡 Connected:</span> <span class="font-bold text-emerald-200" id="iot-status">3/3 bins</span></div>
-    <div><span class="font-mono text-xs">⚡ Last Update:</span> <span class="font-bold" id="iot-time"></span></div>
-    <div><span class="font-mono text-xs">📊 Data Rate:</span> <span class="font-bold text-blue-200">12s</span></div>
-  </div>
-</div>
-
-<script>
-// Simulate IoT updates
-setInterval(() => {
-  document.getElementById('iot-time').textContent = new Date().toLocaleTimeString();
-}, 1000);
-</script>
-
-<script>
-// Initialize map after bins load
-setTimeout(() => {
-  const map = L.map('map').setView([13.08, 80.27], 11); // Chennai
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap'
-  }).addTo(map);
-  
-  wm.bins.forEach(bin => {
-    const color = bin.status === 'full' ? 'red' : bin.status === 'medium' ? 'orange' : 'green';
-    L.circleMarker([bin.gps?.lat || 13.08, bin.gps?.lng || 80.27], {
-      radius: bin.level / 5,
-      fillColor: color,
-      color: '#fff',
-      weight: 3,
-      opacity: 0.8,
-      fillOpacity: 0.7
-    }).addTo(map)
-    .bindPopup(`<b>${bin.location}</b><br>Level: ${bin.level}%<br>Status: ${bin.status}`);
-  });
-}, 1000);
-</script>
-  <!-- Mobile Sidebar Toggle -->
-  <div x-show="sidebarOpen" class="fixed inset-0 bg-black/50 z-40 lg:hidden" @click="sidebarOpen=false"></div>
-  
-  <!-- Sidebar -->
-  <aside class="fixed left-0 top-0 h-full w-80 bg-white/10 backdrop-blur-xl border-r border-white/20 z-50 transform -translate-x-full lg:translate-x-0 transition-transform duration-300" :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'">
-    <div class="p-8 border-b border-white/10">
-      <div class="flex items-center space-x-4">
-        <i class="fas fa-user-shield text-3xl text-emerald-400"></i>
-        <div>
-          <h3 class="font-bold text-xl">Admin Panel</h3>
-          <p class="text-white/60">Super Administrator</p>
-        </div>
-      </div>
+    <div class="bg-white rounded-xl p-6 shadow-xl">
+      <h2 class="text-xl font-semibold mb-4">Full Bins: 8</h2>
+      <div class="text-4xl font-bold text-red-500">8/50</div>
     </div>
-    <nav class="p-8 space-y-2">
-      <a href="#" class="flex items-center space-x-4 p-4 rounded-2xl bg-white/20 hover:bg-white/30 transition-all group">
-        <i class="fas fa-tachometer-alt text-xl"></i>
-        <span>Dashboard</span>
-      </a>
-      <a href="#bins" class="flex items-center space-x-4 p-4 rounded-2xl hover:bg-white/20 transition-all group">
-        <i class="fas fa-trash-alt text-xl"></i>
-        <span>Smart Bins</span>
-      </a>
-      <a href="report.html" class="flex items-center space-x-4 p-4 rounded-2xl hover:bg-white/20 transition-all group">
-        <i class="fas fa-chart-bar text-xl"></i>
-        <span>Analytics</span>
-      </a>
-      <a href="#" class="flex items-center space-x-4 p-4 rounded-2xl hover:bg-white/20 transition-all group">
-        <i class="fas fa-route text-xl"></i>
-        <span>Routes</span>
-      </a>
-    </nav>
-    <div class="p-8 border-t border-white/10 space-y-4">
-      <label class="flex items-center space-x-3 cursor-pointer">
-        <input type="checkbox" checked onchange="toggleDarkMode()" class="w-5 h-5 rounded-lg">
-        <span>Dark Mode</span>
-      </label>
-      <a href="index.html" class="w-full bg-red-500/80 hover:bg-red-500 text-white py-3 px-6 rounded-2xl text-center font-bold transition-all">Logout</a>
-    </div>
-  </aside>
-
-  <!-- Main Content -->
-  <div class="lg:ml-80 p-8">
-    <!-- Header -->
-    <header class="flex justify-between items-center mb-12">
-      <div>
-        <h1 class="text-5xl font-black bg-gradient-to-r from-white to-gray-300 bg-clip-text">Waste Control Center</h1>
-        <p class="text-white/60 text-xl mt-2">Real-time operations dashboard</p>
-      </div>
-      <button @click="sidebarOpen=true" class="lg:hidden p-4 bg-white/10 rounded-2xl hover:bg-white/20">
-        <i class="fas fa-bars text-2xl"></i>
-      </button>
-    </header>
-
-    <!-- KPI Cards Row 1 -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-      <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:shadow-2xl transition-all">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-white/60 text-sm uppercase tracking-wide">Full Bins</p>
-            <p class="text-4xl font-black text-red-400" x-text="wm.getStats().full"></p>
-          </div>
-          <i class="fas fa-exclamation-triangle text-5xl text-red-400/50"></i>
-        </div>
-        <div class="w-full bg-white/20 h-2 rounded-full mt-6">
-          <div class="bg-red-400 h-2 rounded-full" :style="'width: ' + (wm.getStats().full/wm.getStats().total*100) + '%'"></div>
-        </div>
-      </div>
-      <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 hover:shadow-2xl transition-all">
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-white/60 text-sm uppercase tracking-wide">Avg Fill Level</p>
-            <p class="text-4xl font-black text-orange-400" x-text="wm.getStats().avg + '%'"></p>
-          </div>
-          <i class="fas fa-percentage text-5xl text-orange-400/50"></i>
-        </div>
-      </div>
-      <!-- Add 2 more KPI cards: Trucks Active, Cost Savings -->
-    </div>
-
-    <!-- Charts & Tables Row -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-      <!-- Live Chart -->
-      <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20">
-        <h3 class="text-2xl font-bold mb-8 flex items-center"><i class="fas fa-chart-bar mr-3 text-emerald-400"></i>Bin Fill Levels</h3>
-        <canvas id="binChart" height="200"></canvas>
-      </div>
-      <!-- Quick Actions -->
-      <div class="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20 space-y-6">
-        <h3 class="text-2xl font-bold flex items-center"><i class="fas fa-bolt mr-3 text-yellow-400"></i>Quick Actions</h3>
-        <button onclick="wm.notify('Emergency collection dispatched!')" class="w-full bg-gradient-to-r from-red-500 to-red-600 p-6 rounded-2xl font-bold hover:shadow-xl transition-all">🚨 Emergency Pickup</button>
-        <button onclick="wm.addBin('New Location')" class="w-full bg-emerald-500 p-6 rounded-2xl font-bold hover:shadow-xl transition-all">➕ Add Smart Bin</button>
-        <button class="w-full bg-purple-500 p-6 rounded-2xl font-bold hover:shadow-xl transition-all">🗺️ Optimize Routes</button>
-      </div>
-    </div>
-
-    <!-- Bins Table -->
-    <div class="bg-white/10 backdrop-blur-xl rounded-3xl border border-white/20 overflow-hidden">
-      <div class="p-8 border-b border-white/10">
-        <div class="flex justify-between items-center">
-          <h3 class="text-2xl font-bold flex items-center"><i class="fas fa-trash-alt mr-3 text-gray-300"></i>All Smart Bins</h3>
-          <div class="flex space-x-4">
-            <input placeholder="🔍 Search bins..." class="bg-white/20 p-4 rounded-2xl border border-white/30 text-white placeholder-white/50 w-64">
-            <select class="bg-white/20 p-4 rounded-2xl border border-white/30 text-white">
-              <option>All Status</option>
-              <option>Full</option>
-              <option>Medium</option>
-            </select>
-          </div>
-        </div>
-      </div>
-      <div class="overflow-x-auto">
-        <table class="w-full">
-          <thead class="bg-white/5">
-            <tr>
-              <th class="p-6 text-left font-bold uppercase text-sm">ID | Location</th>
-              <th class="p-6 text-left font-bold uppercase text-sm">Fill Level</th>
-              <th class="p-6 text-left font-bold uppercase text-sm">Status</th>
-              <th class="p-6 text-left font-bold uppercase text-sm">Last Update</th>
-              <th class="p-6 text-left font-bold uppercase text-sm">Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <template x-for="(bin, index) in wm.bins" :key="bin.id">
-              <tr class="border-t border-white/10 hover:bg-white/10 transition-all">
-                <td class="p-6">
-                  <div>
-                    <div class="font-bold" x-text="bin.id"></div>
-                    <div class="text-white/70" x-text="bin.location"></div>
-                  </div>
-                </td>
-                <td class="p-6">
-                  <div class="flex items-center space-x-3">
-                    <div class="w-20 h-3 bg-white/20 rounded-full">
-                      <div class="h-3 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500" :style="'width: '+bin.level+'%'"></div>
-                    </div>
-                    <span class="font-bold" x-text="bin.level + '%'"></span>
-                  </div>
-                </td>
-                <td class="p-6">
-                  <span :class="bin.status=='full' ? 'bg-red-500/20 text-red-400 px-4 py-2 rounded-full text-sm font-bold' : bin.status=='medium' ? 'bg-orange-500/20 text-orange-400 px-4 py-2 rounded-full text-sm font-bold' : 'bg-emerald-500/20 text-emerald-400 px-4 py-2 rounded-full text-sm font-bold'" x-text="bin.status.toUpperCase()"></span>
-                </td>
-                <td class="p-6 text-white/70" x-text="new Date(bin.lastUpdate).toLocaleString()"></td>
-                <td class="p-6">
-                  <button class="bg-emerald-500/80 hover:bg-emerald-500 text-white px-6 py-2 rounded-xl font-bold mr-2 transition-all">Dispatch</button>
-                  <button class="bg-gray-500/80 hover:bg-gray-500 text-white px-6 py-2 rounded-xl font-bold">View</button>
-                </td>
-              </tr>
-            </template>
-          </tbody>
-        </table>
-      </div>
+    <div class="bg-white rounded-xl p-6 shadow-xl">
+      <h2 class="text-xl font-semibold mb-4">Routes Today</h2>
+      <div class="text-4xl font-bold text-blue-500">12</div>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <div class="bg-white rounded-xl p-6 shadow-xl mb-8">
+    <h2 class="text-2xl font-bold mb-6">Bin Management</h2>
+    <form id="addBin" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <input type="text" placeholder="Bin ID" class="p-3 border rounded-lg" required>
+      <input type="number" placeholder="Fill Level %" class="p-3 border rounded-lg" max="100" required>
+      <select class="p-3 border rounded-lg" required>
+        <option>Normal</option><option>Full</option><option>Empty</option>
+      </select>
+      <button type="submit" class="bg-green-500 text-white px-6 py-3 rounded-lg font-bold col-span-3 md:col-span-1">Add/Update Bin</button>
+    </form>
+  </div>
+
+  <div class="bg-white rounded-xl p-6 shadow-xl">
+    <h2 class="text-2xl font-bold mb-6">Bin Status Table</h2>
+    <div class="overflow-x-auto">
+      <table class="w-full table-auto border-collapse">
+        <thead><tr class="bg-gray-200"><th class="p-4">ID</th><th>Location</th><th>Fill %</th><th>Status</th><th>Action</th></tr></thead>
+        <tbody id="binTable">
+          <!-- JS populates -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <script>
-    // Initialize live chart
-    setTimeout(() => {
-      const ctx = document.getElementById('binChart')?.getContext('2d');
-      if (ctx) {
-        new Chart(ctx, {
-          type: 'bar',
-          data: wm.getChartData(),
-          options: {
-            responsive: true,
-            plugins: { legend: { labels: { color: 'white' } } },
-            scales: {
-              y: { beginAtZero: true, max: 100, ticks: { color: 'white' }, grid: { color: 'white/20' } },
-              x: { ticks: { color: 'white' }, grid: { color: 'white/20' } }
-            }
-          }
-        });
-      }
-    }, 500);
-  </script>
-  <button id="chatbot-toggle" style="position:fixed;bottom:30px;right:30px;width:70px;height:70px;background:#10b981;border-radius:50%;border:none;color:white;font-size:24px;cursor:pointer;z-index:10000;box-shadow:0 10px 30px rgba(16,185,129,0.4);">🤖</button>
+    // Mock data
+    const bins = [
+      {id: 'B001', location: 'Nagercoil Main', fill: 75, status: 'Full'},
+      {id: 'B002', location: 'College Gate', fill: 20, status: 'Normal'},
+      {id: 'B003', location: 'Market Area', fill: 90, status: 'Critical'}
+    ];
 
-<div id="chatbot-container" style="position:fixed;bottom:120px;right:30px;width:360px;height:450px;background:rgba(15,23,42,0.95);border-radius:20px;display:none;z-index:10001;overflow:hidden;">
-  <div style="background:#1e293b;padding:20px;display:flex;justify-content:space-between;align-items:center;">
-    <div style="display:flex;align-items:center;">
-      <div style="width:40px;height:40px;background:#3b82f6;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;margin-right:10px;">🤖</div>
-      <span style="color:white;font-weight:bold;">WasteBot</span>
-    </div>
-    <button onclick="document.getElementById('chatbot-container').style.display='none'" style="background:none;border:none;color:white;font-size:20px;cursor:pointer;padding:5px;">×</button>
-  </div>
-  <div id="chatbot-messages" style="height:320px;overflow-y:auto;padding:20px;background:rgba(255,255,255,0.05);"></div>
-  <div style="padding:20px;background:rgba(255,255,255,0.05);display:flex;gap:10px;">
-    <input id="chatbot-input" placeholder="Ask about bins, schedule..." style="flex:1;padding:12px;border-radius:25px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);color:white;outline:none;">
-    <button id="chatbot-send" style="width:50px;height:50px;background:#10b981;border:none;border-radius:50%;color:white;cursor:pointer;">➤</button>
-  </div>
-</div>
-<script src="chatbot.js"></script>
+    // Chart
+    const ctx = document.getElementById('fillChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'doughnut',
+      data: { labels: ['Full', 'Normal', 'Empty'], datasets: [{ data: [8, 30, 12], backgroundColor: ['#ef4444', '#10b981', '#3b82f6'] }] }
+    });
+
+    // Table
+    function loadTable() {
+      const tbody = document.getElementById('binTable');
+      tbody.innerHTML = bins.map(bin => `
+        <tr><td class="p-4">${bin.id}</td><td>${bin.location}</td><td><div class="w-20 bg-green-200 rounded-full h-3"><div style="width:${bin.fill}% background:red height:100% border-radius:inherit"></div></div> ${bin.fill}%</td><td>${bin.status}</td><td><button onclick="alert('Route assigned!')" class="bg-blue-500 text-white px-4 py-1 rounded">Assign Route</button></td></tr>
+      `).join('');
+    }
+    loadTable();
+
+    // Add bin form
+    document.getElementById('addBin').onsubmit = e => {
+      e.preventDefault();
+      alert('Bin added/updated!');
+    };
+
+    function logout() { localStorage.removeItem('user'); window.location = 'login.html'; }
+  </script>
 </body>
 </html>
