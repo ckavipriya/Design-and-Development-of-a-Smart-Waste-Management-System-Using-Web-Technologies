@@ -1,88 +1,101 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard - Smart Waste</title>
+  <title>Admin - Smart Waste</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js" defer></script>
 </head>
-<body class="bg-gradient-to-br from-green-400 to-blue-500 min-h-screen p-4">
-  <nav class="bg-white shadow-lg rounded-xl p-6 mb-8">
-    <h1 class="text-3xl font-bold text-gray-800">Admin Dashboard</h1>
-    <button onclick="logout()" class="mt-4 bg-red-500 text-white px-6 py-2 rounded-lg">Logout</button>
+<body class="bg-gradient-to-br from-emerald-500 to-teal-600 min-h-screen p-8">
+  <!-- Header -->
+  <nav class="bg-white/20 backdrop-blur-xl rounded-3xl p-6 mb-8 shadow-2xl">
+    <div class="flex justify-between items-center">
+      <h1 class="text-4xl font-bold text-white drop-shadow-lg">Admin Dashboard</h1>
+      <a href="index.html" class="bg-white text-emerald-600 px-8 py-3 rounded-2xl font-bold hover:shadow-xl">Logout</a>
+    </div>
   </nav>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-    <div class="bg-white rounded-xl p-6 shadow-xl">
-      <h2 class="text-xl font-semibold mb-4">Total Bins: 50</h2>
+  <!-- Stats Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+    <div class="bg-white/30 backdrop-blur-xl rounded-3xl p-8 text-center shadow-2xl">
+      <div class="text-4xl font-bold text-white mb-2" id="totalBins">50</div>
+      <div class="text-white/80 text-lg">Total Bins</div>
+    </div>
+    <div class="bg-white/30 backdrop-blur-xl rounded-3xl p-8 text-center shadow-2xl">
+      <div class="text-4xl font-bold text-red-400 mb-2" id="fullBins">8</div>
+      <div class="text-white/80 text-lg">Full Bins</div>
+    </div>
+    <div class="bg-white/30 backdrop-blur-xl rounded-3xl p-8 text-center shadow-2xl">
+      <div class="text-4xl font-bold text-yellow-400 mb-2" id="pendingComplaints">3</div>
+      <div class="text-white/80 text-lg">Pending Complaints</div>
+    </div>
+  </div>
+
+  <!-- Charts Row -->
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+    <div class="bg-white/20 backdrop-blur-xl rounded-3xl p-8 shadow-2xl">
+      <h3 class="text-2xl font-bold text-white mb-6">Fill Levels</h3>
       <canvas id="fillChart" height="200"></canvas>
     </div>
-    <div class="bg-white rounded-xl p-6 shadow-xl">
-      <h2 class="text-xl font-semibold mb-4">Full Bins: 8</h2>
-      <div class="text-4xl font-bold text-red-500">8/50</div>
-    </div>
-    <div class="bg-white rounded-xl p-6 shadow-xl">
-      <h2 class="text-xl font-semibold mb-4">Routes Today</h2>
-      <div class="text-4xl font-bold text-blue-500">12</div>
+    <div class="bg-white/20 backdrop-blur-xl rounded-3xl p-8 shadow-2xl">
+      <h3 class="text-2xl font-bold text-white mb-6">Status Distribution</h3>
+      <canvas id="statusChart" height="200"></canvas>
     </div>
   </div>
 
-  <div class="bg-white rounded-xl p-6 shadow-xl mb-8">
-    <h2 class="text-2xl font-bold mb-6">Bin Management</h2>
-    <form id="addBin" class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-      <input type="text" placeholder="Bin ID" class="p-3 border rounded-lg" required>
-      <input type="number" placeholder="Fill Level %" class="p-3 border rounded-lg" max="100" required>
-      <select class="p-3 border rounded-lg" required>
-        <option>Normal</option><option>Full</option><option>Empty</option>
-      </select>
-      <button type="submit" class="bg-green-500 text-white px-6 py-3 rounded-lg font-bold col-span-3 md:col-span-1">Add/Update Bin</button>
-    </form>
-  </div>
-
-  <div class="bg-white rounded-xl p-6 shadow-xl">
-    <h2 class="text-2xl font-bold mb-6">Bin Status Table</h2>
-    <div class="overflow-x-auto">
-      <table class="w-full table-auto border-collapse">
-        <thead><tr class="bg-gray-200"><th class="p-4">ID</th><th>Location</th><th>Fill %</th><th>Status</th><th>Action</th></tr></thead>
-        <tbody id="binTable">
-          <!-- JS populates -->
-        </tbody>
-      </table>
+  <!-- Complaints Table -->
+  <div class="bg-white/20 backdrop-blur-xl rounded-3xl p-8 shadow-2xl">
+    <h3 class="text-2xl font-bold text-white mb-6">Recent Complaints</h3>
+    <div id="complaintsTable" class="overflow-x-auto">
+      <!-- Loaded by JS -->
     </div>
   </div>
 
   <script>
-    // Mock data
-    const bins = [
-      {id: 'B001', location: 'Nagercoil Main', fill: 75, status: 'Full'},
-      {id: 'B002', location: 'College Gate', fill: 20, status: 'Normal'},
-      {id: 'B003', location: 'Market Area', fill: 90, status: 'Critical'}
-    ];
+    // Load data
+    async function loadDashboard() {
+      const bins = await loadBins();
+      
+      // Update stats
+      document.getElementById('totalBins').textContent = bins.length;
+      document.getElementById('fullBins').textContent = bins.filter(b => b.status === 'Full').length;
+      
+      // Fill chart
+      const ctx1 = document.getElementById('fillChart').getContext('2d');
+      new Chart(ctx1, {
+        type: 'bar',
+        data: {
+          labels: bins.map(b => b.id),
+          datasets: [{ label: 'Fill %', data: bins.map(b => b.fill), backgroundColor: 'rgba(255,255,255,0.8)' }]
+        },
+        options: { scales: { y: { beginAtZero: true, max: 100 } }, plugins: { legend: { labels: { color: 'white' } } } }
+      });
 
-    // Chart
-    const ctx = document.getElementById('fillChart').getContext('2d');
-    new Chart(ctx, {
-      type: 'doughnut',
-      data: { labels: ['Full', 'Normal', 'Empty'], datasets: [{ data: [8, 30, 12], backgroundColor: ['#ef4444', '#10b981', '#3b82f6'] }] }
-    });
+      // Status pie
+      const statusData = {};
+      bins.forEach(b => statusData[b.status] = (statusData[b.status] || 0) + 1);
+      const ctx2 = document.getElementById('statusChart').getContext('2d');
+      new Chart(ctx2, {
+        type: 'doughnut',
+        data: {
+          labels: Object.keys(statusData),
+          datasets: [{ data: Object.values(statusData), backgroundColor: ['#ef4444', '#f59e0b', '#10b981'] }]
+        },
+        options: { plugins: { legend: { labels: { color: 'white' } } } }
+      });
 
-    // Table
-    function loadTable() {
-      const tbody = document.getElementById('binTable');
-      tbody.innerHTML = bins.map(bin => `
-        <tr><td class="p-4">${bin.id}</td><td>${bin.location}</td><td><div class="w-20 bg-green-200 rounded-full h-3"><div style="width:${bin.fill}% background:red height:100% border-radius:inherit"></div></div> ${bin.fill}%</td><td>${bin.status}</td><td><button onclick="alert('Route assigned!')" class="bg-blue-500 text-white px-4 py-1 rounded">Assign Route</button></td></tr>
-      `).join('');
+      // Complaints (mock)
+      document.getElementById('complaintsTable').innerHTML = `
+        <table class="w-full text-left text-white">
+          <thead><tr class="border-b border-white/30"><th class="p-4">ID</th><th>User</th><th>Bin</th><th>Issue</th><th>Action</th></tr></thead>
+          <tbody>
+            <tr><td class="p-4">C001</td><td>Kavipriya</td><td>B001</td><td>Overflowing</td><td><button class="bg-green-500 text-white px-4 py-2 rounded-lg">Resolve</button></td></tr>
+          </tbody>
+        </table>
+      `;
     }
-    loadTable();
 
-    // Add bin form
-    document.getElementById('addBin').onsubmit = e => {
-      e.preventDefault();
-      alert('Bin added/updated!');
-    };
-
-    function logout() { localStorage.removeItem('user'); window.location = 'login.html'; }
+    loadDashboard();
   </script>
 </body>
 </html>
