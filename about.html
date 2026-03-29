@@ -1,29 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>About</title><link rel="stylesheet" href="style.css"></head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About - Smart Waste</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
 <body>
-  <header><h1>About Us</h1><a href="index.html">Home</a></header>
-  <div class="container">
-    <div class="card">
-      <h2>Project by Kavipriya</h2>
-      <p>3rd-year CCE student at VSB Engineering College. Focus: IoT-enabled waste monitoring for smart cities.</p>
+  <nav class="bg-white/80 backdrop-blur-md shadow-lg fixed w-full z-50 py-4">
+    <div class="container flex justify-between items-center">
+      <h2 class="text-2xl font-bold text-indigo-600">SmartWaste</h2>
+      <a href="index.html" class="btn bg-indigo-600 text-white px-6 py-2">Home</a>
     </div>
-  </div><button id="chatbot-toggle" style="position:fixed;bottom:30px;right:30px;width:70px;height:70px;background:#10b981;border-radius:50%;border:none;color:white;font-size:24px;cursor:pointer;z-index:10000;box-shadow:0 10px 30px rgba(16,185,129,0.4);">🤖</button>
-
-<div id="chatbot-container" style="position:fixed;bottom:120px;right:30px;width:360px;height:450px;background:rgba(15,23,42,0.95);border-radius:20px;display:none;z-index:10001;overflow:hidden;">
-  <div style="background:#1e293b;padding:20px;display:flex;justify-content:space-between;align-items:center;">
-    <div style="display:flex;align-items:center;">
-      <div style="width:40px;height:40px;background:#3b82f6;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;margin-right:10px;">🤖</div>
-      <span style="color:white;font-weight:bold;">WasteBot</span>
+  </nav>
+  <div class="pt-20">
+    <div class="container">
+      <div class="card grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <h1 class="text-4xl font-bold mb-6 text-gray-800">Revolutionizing Waste Management</h1>
+          <p class="text-lg mb-6 text-gray-600">Our system uses ultrasonic sensors in smart bins to detect fill levels (85% threshold alerts), GPS-optimized routes for trucks, and a web dashboard for all stakeholders. Reduces overflow by 60%, saves fuel.</p>
+          <ul class="space-y-3 text-gray-600">
+            <li>✅ IoT Integration (RPi/Arduino)</li>
+            <li>✅ Real-time Monitoring</li>
+            <li>✅ Role-based Dashboards</li>
+            <li>✅ AI Route Optimization</li>
+          </ul>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="progress"><div class="progress-bar" style="width:75%"></div></div>
+          <div class="progress"><div class="progress-bar" style="width:40%"></div></div>
+          <div class="progress"><div class="progress-bar" style="width:90%"></div></div>
+          <div class="progress"><div class="progress-bar" style="width:20%"></div></div>
+        </div>
+      </div>
+      <div class="card mt-12 p-12 text-center">
+        <h2 class="text-3xl font-bold mb-4">By Kavipriya C. | V.S.B. Engineering College</h2>
+        <p>3rd Year CCE | Placement Prep 2026</p>
+      </div>
     </div>
-    <button onclick="document.getElementById('chatbot-container').style.display='none'" style="background:none;border:none;color:white;font-size:20px;cursor:pointer;padding:5px;">×</button>
   </div>
-  <div id="chatbot-messages" style="height:320px;overflow-y:auto;padding:20px;background:rgba(255,255,255,0.05);"></div>
-  <div style="padding:20px;background:rgba(255,255,255,0.05);display:flex;gap:10px;">
-    <input id="chatbot-input" placeholder="Ask about bins, schedule..." style="flex:1;padding:12px;border-radius:25px;border:1px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.1);color:white;outline:none;">
-    <button id="chatbot-send" style="width:50px;height:50px;background:#10b981;border:none;border-radius:50%;color:white;cursor:pointer;">➤</button>
-  </div>
-</div>
-<script src="chatbot.js"></script>
 </body>
 </html>
