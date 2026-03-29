@@ -1,86 +1,63 @@
-// Auth Check
-const user = JSON.parse(localStorage.getItem('user'));
-if (!user) window.location.href = 'login.html';
-document.getElementById('userEmail') ? document.getElementById('userEmail').textContent = `Hi, ${user.email}` : null;
-document.getElementById('adminEmail') ? document.getElementById('adminEmail').textContent = `Admin: ${user.email}` : null;
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+// GSAP Registration
+gsap.registerPlugin(ScrollTrigger);
 
-function logout() { localStorage.removeItem('user'); window.location.href = 'login.html'; }
+// Theme Toggle (Pro feature)
+function toggleTheme() {
+  document.documentElement.dataset.theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+}
+if (!document.documentElement.dataset.theme) document.documentElement.dataset.theme = 'light';
 
-// Mock IoT Bins Data (API ready)
-let bins = [
-  {id:1, fill:75, status:'Full', type:'Wet', loc:'Area A'},
-  {id:2, fill:40, status:'OK', type:'Dry', loc:'Area B'},
-  {id:3, fill:92, status:'Critical', type:'Plastic', loc:'Area C'}
-];
-
-// Update Live Bins
-function renderBins(containerId) {
-  const container = document.getElementById(containerId);
-  container.innerHTML = bins.map(bin => `
-    <div class="card p-6 text-center">
-      <h3 class="text-xl font-bold mb-2">Bin #${bin.id} (${bin.type})</h3>
-      <div class="progress"><div id="bin-${bin.id}-level" class="progress-bar" style="width:${bin.fill}%"></div></div>
-      <p class="mt-2 font-semibold text-lg">${bin.fill}% - ${bin.status}</p>
-      <p class="text-sm text-gray-500">${bin.loc}</p>
-    </div>
-  `).join('');
+// Particles.js Background (Stunning!)
+if (document.getElementById('particles-js') || document.body) {
+  particlesJS('particles-js', {
+    particles: {
+      number: { value: 80, density: { enable: true, value_area: 800 } },
+      color: { value: ['#00d4ff', '#7c3aed', '#00ff88', '#ff6b6b'] },
+      shape: { type: 'circle' },
+      opacity: { value: 0.5, random: true },
+      size: { value: 3, random: true },
+      line_linked: { enable: true, distance: 150, color: '#ffffff', opacity: 0.2, width: 1 },
+      move: { enable: true, speed: 2, direction: 'none', random: true }
+    },
+    interactivity: { detect_on: 'canvas', events: { onhover: { enable: true, mode: 'repulse' } } }
+  });
 }
 
-// User Requests
-let requests = JSON.parse(localStorage.getItem('requests')) || [];
-function renderRequests() {
-  document.getElementById('requestsList').innerHTML = requests.map((req, i) => `
-    <div class="card p-6 border-l-4 border-${req.status === 'Pending' ? 'yellow' : 'green'}-500">
-      <h4>Type: ${req.type}</h4>
-      <p>${req.desc}</p>
-      <span class="px-3 py-1 rounded-full text-sm bg-gray-100">${req.status}</span>
-    </div>
-  `).join('');
-}
-document.getElementById('newRequest')?.addEventListener('submit', e => {
-  e.preventDefault();
-  const req = {
-    type: document.getElementById('type').value,
-    desc: document.getElementById('desc').value,
-    status: 'Pending',
-    id: Date.now()
-  };
-  requests.unshift(req);
-  localStorage.setItem('requests', JSON.stringify(requests));
-  renderRequests();
-  e.target.reset();
-  alert('Request raised! 🚀');
+// Stagger Animations (Pro Polish)
+gsap.from('.card', {
+  duration: 1,
+  y: 100,
+  opacity: 0,
+  stagger: 0.2,
+  ease: 'power3.out',
+  scrollTrigger: { trigger: '.container', start: 'top 80%' }
 });
 
-// Auto-update Bins (simulate IoT)
+// Navbar Scroll Effect
+window.addEventListener('scroll', () => {
+  const nav = document.querySelector('nav');
+  if (nav) nav.style.background = scrollY > 50 ? 'rgba(255,255,255,0.95)' : 'rgba(255,255,255,0.8)';
+});
+
+// Bin Progress Shimmer + Pulse on Critical
 setInterval(() => {
-  bins.forEach(bin => {
-    bin.fill += (Math.random() - 0.5) * 10;
-    bin.fill = Math.max(0, Math.min(100, bin.fill));
-    bin.status = bin.fill > 85 ? 'Critical' : bin.fill > 60 ? 'Full' : 'OK';
-    document.getElementById(`bin-${bin.id}-level`)?.style.width = `${bin.fill}%`;
+  document.querySelectorAll('.progress-bar').forEach(bar => {
+    if (parseFloat(bar.style.width) > 85) {
+      gsap.to(bar, { scale: 1.05, duration: 0.5, yoyo: true, repeat: 1 });
+    }
   });
-  renderBins('liveBins');
-  renderBins('binsDashboard');
-}, 5000);
+}, 2000);
 
-// Init
-renderRequests();
-renderBins('liveBins');
-renderBins('binsDashboard');
-document.getElementById('pendingRequests').innerHTML = requests.filter(r => r.status === 'Pending').map(req => `<div class="card p-4"><p>${req.type}: ${req.desc}</p><button onclick="assignRequest(${req.id})" class="btn bg-green-600 text-sm">Assign Driver</button></div>`).join('');
-function assignRequest(id) {
-  const req = requests.find(r => r.id === id);
-  req.status = 'Assigned';
-  localStorage.setItem('requests', JSON.stringify(requests));
-  location.reload();
-}
-
-// User Chart
-if (document.getElementById('binChart')) {
-  new Chart(document.getElementById('binChart'), {
-    type: 'bar',
-    data: { labels: bins.map(b => `Bin ${b.id}`), datasets: [{ label: 'Fill %', data: bins.map(b => b.fill), backgroundColor: '#8b5cf6' }] },
-    options: { responsive: true }
-  });
-}
+// Floating Elements
+gsap.to('.btn', {
+  y: -5,
+  rotation: 2,
+  duration: 2,
+  yoyo: true,
+  repeat: -1,
+  ease: 'power1.inOut',
+  stagger: { amount: 0.5 }
+});
