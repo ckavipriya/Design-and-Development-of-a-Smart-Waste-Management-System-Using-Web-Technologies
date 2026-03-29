@@ -1,28 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Waste - Efficient Management</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="style.css">
-  <link rel="manifest" href="manifest.json">
-</head>
-<body class="bg-gradient-to-br from-indigo-500 to-purple-600 min-h-screen flex items-center justify-center">
-  <div class="container text-center text-white">
-    <div class="card bg-white/10 backdrop-blur-xl max-w-4xl mx-auto">
-      <h1 class="text-5xl font-bold mb-8 bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">Smart Waste Management</h1>
-      <p class="text-xl mb-12 opacity-90">IoT-powered bins, optimized routes, zero overflow. Sustainable cities start here.</p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="login.html" class="btn bg-white/20 hover:bg-white/30 text-white px-8 py-4 text-lg">Get Started</a>
-        <a href="about.html" class="btn bg-transparent border-2 border-white/50 hover:bg-white/20 px-8 py-4 text-lg">Learn More</a>
+<body data-theme="light">
+  <div id="particles-js"></div>
+  <nav class="glass fixed w-full z-50 py-6 px-8 backdrop-blur-xl">
+    <div class="container flex justify-between items-center">
+      <div class="flex items-center space-x-2">
+        <div class="w-10 h-10 bg-gradient-to-r from-blue-400 to-purple-500 rounded-2xl flex items-center justify-center">
+          <span class="text-xl font-bold text-white">🚮</span>
+        </div>
+        <h1 class="text-2xl font-bold bg-gradient-to-r from-white to-gray-200 bg-clip-text text-transparent">SmartWaste Pro</h1>
+      </div>
+      <div class="flex items-center space-x-4">
+        <button onclick="toggleTheme()" class="p-2 rounded-xl bg-white/20 hover:bg-white/30 transition-all">🌙</button>
+        <a href="login.html" class="btn text-lg px-8 py-3">Launch App</a>
       </div>
     </div>
-    <div class="mt-20 grid md:grid-cols-3 gap-8 text-lg">
-      <div>📊 150+ Bins Monitored</div>
-      <div>⚡ 40% Route Efficiency</div>
-      <div>🌍 25% Waste Reduction</div>
+  </nav>
+  
+  <!-- Hero -->
+  <div class="min-h-screen flex flex-col justify-center pt-32 px-8">
+    <div class="container text-center mb-20">
+      <div class="glass max-w-5xl mx-auto p-12">
+        <h1 class="text-7xl md:text-8xl font-extrabold mb-8 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent leading-tight">
+          AI-Powered<br>
+          <span class="bg-gradient-to-r from-[#00d4ff] via-[#7c3aed] to-[#00ff88] bg-clip-text text-transparent drop-shadow-2xl">Waste Revolution</span>
+        </h1>
+        <p class="text-2xl mb-12 opacity-90 max-w-2xl mx-auto leading-relaxed">Smart bins with 95% accuracy. Routes optimized by AI. Zero overflow. Sustainable cities in real-time.</p>
+        <div class="flex flex-col sm:flex-row gap-6 justify-center">
+          <a href="login.html" class="btn text-xl py-5 px-12 shadow-2xl">🚀 Start Free Trial</a>
+          <a href="about.html" class="btn bg-transparent border-2 border-white/50 backdrop-blur-sm hover:bg-white/20 text-xl py-5 px-12">Watch Demo</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Live Stats -->
+    <div class="stats-grid">
+      <div class="stat-card glass p-8">
+        <div class="stat-number">1,247</div>
+        <div class="text-xl opacity-90 mt-2">Smart Bins Active</div>
+      </div>
+      <div class="stat-card glass p-8">
+        <div class="stat-number">47%</div>
+        <div class="text-xl opacity-90 mt-2">Fuel Saved</div>
+      </div>
+      <div class="stat-card glass p-8">
+        <div class="stat-number">392t</div>
+        <div class="text-xl opacity-90 mt-2">Waste Recycled</div>
+      </div>
+      <div class="stat-card glass p-8">
+        <div class="stat-number">99.8%</div>
+        <div class="text-xl opacity-90 mt-2">Uptime</div>
+      </div>
     </div>
   </div>
+  <script src="script.js"></script>
 </body>
-</html>
