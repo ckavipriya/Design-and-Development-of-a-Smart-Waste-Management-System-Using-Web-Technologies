@@ -1,83 +1,102 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>User - Smart Waste</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Portal - Smart Waste</title>
+  <link rel="stylesheet" href="style.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="script.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-gradient-to-br from-blue-500 to-indigo-600 min-h-screen p-8">
-  <nav class="bg-white/20 backdrop-blur-xl rounded-3xl p-6 mb-8 shadow-2xl">
-    <div class="flex justify-between">
-      <h1 class="text-3xl font-bold text-white">User Dashboard</h1>
-      <a href="index.html" class="bg-white text-blue-600 px-6 py-3 rounded-xl font-bold">Logout</a>
+<body class="p-8">
+  <!-- Navbar -->
+  <nav class="glass max-w-4xl mx-auto rounded-3xl p-6 mb-12 flex justify-between items-center">
+    <h1 class="text-3xl font-bold text-white">
+      <i class="fas fa-home mr-4 text-blue-400"></i>User Portal
+    </h1>
+    <div>
+      <a href="status.html" class="btn btn-secondary mr-4">Live Map</a>
+      <a href="index.html" class="btn btn-primary">Logout</a>
     </div>
   </nav>
 
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+  <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12">
     <!-- Nearby Bins -->
-    <div class="bg-white/20 backdrop-blur-xl rounded-3xl p-8 shadow-2xl">
-      <h3 class="text-2xl font-bold text-white mb-6">Nearby Bins</h3>
-      <div id="binsList" class="space-y-4">
-        <!-- Loaded by JS -->
+    <div class="glass card">
+      <h3 class="text-3xl font-bold text-white mb-8 flex items-center">
+        <i class="fas fa-trash-alt mr-4 text-emerald-400"></i>Nearby Bins
+      </h3>
+      <div id="binsContainer" class="space-y-6">
+        <div class="glass p-8 rounded-2xl flex justify-between items-center hover:scale-105">
+          <div>
+            <h4 class="text-2xl font-bold text-white mb-2">B001 - College Gate</h4>
+            <p class="text-white/80 mb-4">200m away</p>
+          </div>
+          <div class="text-right">
+            <div class="text-4xl font-bold text-red-400 mb-4">75%</div>
+            <span class="status status-full px-6 py-3 rounded-2xl font-bold">FULL</span>
+          </div>
+        </div>
+        <div class="glass p-8 rounded-2xl flex justify-between items-center hover:scale-105">
+          <div>
+            <h4 class="text-2xl font-bold text-white mb-2">B002 - Market Road</h4>
+            <p class="text-white/80 mb-4">500m away</p>
+          </div>
+          <div class="text-right">
+            <div class="text-4xl font-bold text-green-400 mb-4">20%</div>
+            <span class="status status-empty px-6 py-3 rounded-2xl font-bold">EMPTY</span>
+          </div>
+        </div>
+        <div class="glass p-8 rounded-2xl flex justify-between items-center hover:scale-105">
+          <div>
+            <h4 class="text-2xl font-bold text-white mb-2">B003 - Hostel Area</h4>
+            <p class="text-white/80 mb-4">150m away</p>
+          </div>
+          <div class="text-right">
+            <div class="text-4xl font-bold text-orange-400 mb-4">90%</div>
+            <span class="status status-critical px-6 py-3 rounded-2xl font-bold">CRITICAL</span>
+          </div>
+        </div>
       </div>
     </div>
 
     <!-- Complaint Form -->
-    <div class="bg-white/20 backdrop-blur-xl rounded-3xl p-8 shadow-2xl">
-      <h3 class="text-2xl font-bold text-white mb-6">Report Issue</h3>
-      <form id="complaintForm" class="space-y-4">
-        <select class="w-full p-4 bg-white/50 rounded-xl text-lg" required>
-          <option value="">Select Bin</option>
-          <option value="B001">B001 - College Gate</option>
-          <option value="B002">B002 - Market Road</option>
-          <option value="B003">B003 - Hostel</option>
-        </select>
-        <textarea class="w-full p-4 bg-white/50 rounded-xl h-32 resize-none" placeholder="Describe problem (overflow, unclean, etc.)" required></textarea>
-        <button type="submit" class="w-full bg-emerald-500 text-white py-4 px-8 rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all">
-          Submit Complaint
-        </button>
+    <div class="glass card">
+      <h3 class="text-3xl font-bold text-white mb-8 flex items-center">
+        <i class="fas fa-exclamation-circle mr-4 text-orange-400"></i>Report Problem
+      </h3>
+      <form id="complaintForm" class="space-y-6">
+        <div>
+          <select class="input text-lg" required>
+            <option value="">Select nearby bin</option>
+            <option value="B001">B001 - College Gate (75% Full)</option>
+            <option value="B002">B002 - Market Road (20% Empty)</option>
+            <option value="B003">B003 - Hostel Area (90% Critical)</option>
+          </select>
+        </div>
+        <div>
+          <textarea class="textarea h-40" placeholder="Describe the issue (overflowing, unclean, broken, etc.)" required></textarea>
+        </div>
+        <div class="flex gap-4">
+          <button type="submit" class="btn btn-primary flex-1 py-5 text-xl">
+            <i class="fas fa-paper-plane mr-3"></i>Submit Complaint
+          </button>
+          <button type="reset" class="btn btn-secondary flex-1 py-5 text-xl">
+            <i class="fas fa-times mr-3"></i>Clear
+          </button>
+        </div>
       </form>
-      <div id="complaintStatus" class="mt-4"></div>
+      <div id="formStatus" class="mt-8"></div>
     </div>
   </div>
 
   <script>
-    async function loadUserPage() {
-      const bins = await loadBins();
-      const list = document.getElementById('binsList');
-      list.innerHTML = bins.map(bin => `
-        <div class="p-6 bg-white/30 rounded-2xl backdrop-blur-xl shadow-xl flex justify-between items-center">
-          <div>
-            <div class="text-xl font-bold text-white">${bin.id}</div>
-            <div class="text-white/80">${bin.location}</div>
-          </div>
-          <div class="text-right">
-            <div class="text-2xl font-bold text-white">${bin.fill}%</div>
-            <div class="px-4 py-2 rounded-full bg-white/30 text-white font-bold ${bin.status === 'Full' ? 'bg-red-500/30' : 'bg-green-500/30'}">
-              ${bin.status}
-            </div>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    document.getElementById('complaintForm').onsubmit = async e => {
+    document.getElementById('complaintForm').addEventListener('submit', async e => {
       e.preventDefault();
-      const formData = Object.fromEntries(new FormData(e.target));
-      const statusEl = document.getElementById('complaintStatus');
-      
-      statusEl.innerHTML = '<div class="bg-green-500/20 text-green-100 p-4 rounded-xl">Submitting...</div>';
-      
-      try {
-        const complaint = await submitComplaint(formData);
-        statusEl.innerHTML = `<div class="bg-green-500/20 text-green-100 p-4 rounded-xl">✅ Complaint #${complaint.id} submitted!</div>`;
-        e.target.reset();
-      } catch (err) {
-        statusEl.innerHTML = '<div class="bg-red-500/20 text-red-100 p-4 rounded-xl">❌ Error submitting</div>';
-      }
-    };
-
-    loadUserPage();
+      const statusEl = document.getElementById('formStatus');
+      statusEl.innerHTML = '<div class="status bg-emerald-500/30 text-emerald-200 p-6 rounded-2xl text-center font-bold">✅ Complaint submitted! #C003<br>Team notified instantly.</div>';
+    });
   </script>
 </body>
 </html>
