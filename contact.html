@@ -3,48 +3,27 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact - SmartWaste</title>
+  <title>Contact - Smart Waste</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-  <header>
-    <nav>
-      <div class="logo">🗑️ SmartWaste</div>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="status.html">Status</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <section class="section">
-    <div class="container">
-      <h1>Contact Us</h1>
-      <div class="grid">
-        <div class="card">
-          <h3>📧 Send Message</h3>
-          <form>
-            <input type="text" placeholder="Your Name" required>
-            <input type="email" placeholder="Your Email" required>
-            <textarea rows="5" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
-          </form>
-        </div>
-        <div class="card">
-          <h3>📍 Contact Info</h3>
-          <p><strong>Developer:</strong> Kavipriya Chakkaravarthi</p>
-          <p><strong>College:</strong> V.S.B. Engineering College, Karur</p>
-          <p><strong>Email:</strong> kavipriya@example.com</p>
-          <p><strong>Phone:</strong> +91-XXXXXXXXXX</p>
-        </div>
+<body class="bg-gradient-to-br from-indigo-500 to-purple-600 min-h-screen pt-20">
+  <div class="container">
+    <div class="card max-w-2xl mx-auto">
+      <h1 class="text-4xl font-bold mb-8 text-center text-gray-800">Contact Support</h1>
+      <form class="space-y-6">
+        <input type="text" placeholder="Name" class="w-full p-4 border rounded-lg">
+        <input type="email" placeholder="Email" class="w-full p-4 border rounded-lg">
+        <textarea placeholder="Message" rows="5" class="w-full p-4 border rounded-lg"></textarea>
+        <button type="submit" class="btn w-full text-lg py-4">Send Message</button>
+      </form>
+      <div class="mt-12 text-center text-gray-600">
+        <p>📧 support@smartwaste.com</p>
+        <p>📱 +91-XXXXXXX</p>
+        <p>📍 Madurai, Tamil Nadu</p>
       </div>
     </div>
-  </section>
-
-  <footer>
-    <p>&copy; 2026 Smart Waste Management System</p>
-  </footer>
+  </div>
+  <script>document.querySelector('form').onsubmit = e => { e.preventDefault(); alert('Message sent! 🚀'); };</script>
 </body>
 </html>
