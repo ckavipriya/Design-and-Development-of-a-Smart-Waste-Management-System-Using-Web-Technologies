@@ -1,15 +1,73 @@
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">* { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #333; }
-.container { max-width: 1200px; margin: 0 auto; padding: 20px; }
-header { background: #28a745; color: white; padding: 1rem; text-align: center; }
-nav a { color: white; margin: 0 15px; text-decoration: none; }
-.card { background: white; border-radius: 10px; padding: 20px; margin: 20px 0; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
-.btn { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
-.btn:hover { background: #0056b3; }
-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
-th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
-th { background: #f8f9fa; }
-@media (max-width: 768px) { .container { padding: 10px; } }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+  font-family: 'Poppins', sans-serif; 
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+.glass { 
+  background: rgba(255,255,255,0.15); 
+  backdrop-filter: blur(20px); 
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 25px 45px rgba(0,0,0,0.1);
+}
+.btn { 
+  padding: 14px 28px; 
+  border: none; 
+  border-radius: 16px; 
+  font-weight: 600; 
+  cursor: pointer; 
+  transition: all 0.3s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+}
+.btn-primary { 
+  background: linear-gradient(45deg, #10b981, #059669); 
+  color: white; 
+  box-shadow: 0 10px 30px rgba(16,185,129,0.3);
+}
+.btn-primary:hover { transform: translateY(-3px); box-shadow: 0 20px 40px rgba(16,185,129,0.4); }
+.btn-secondary { 
+  background: rgba(255,255,255,0.2); 
+  color: white; 
+  backdrop-filter: blur(10px);
+}
+.btn-danger { background: linear-gradient(45deg, #ef4444, #dc2626); color: white; }
+.card { 
+  background: rgba(255,255,255,0.1); 
+  backdrop-filter: blur(20px); 
+  border-radius: 24px; 
+  padding: 32px; 
+  margin-bottom: 24px;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.input, .textarea { 
+  width: 100%; 
+  padding: 16px 20px; 
+  border: 2px solid rgba(255,255,255,0.2); 
+  border-radius: 16px; 
+  background: rgba(255,255,255,0.1); 
+  color: white; 
+  font-size: 16px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s;
+}
+.input::placeholder, .textarea::placeholder { color: rgba(255,255,255,0.7); }
+.input:focus, .textarea:focus { 
+  outline: none; 
+  border-color: #10b981; 
+  box-shadow: 0 0 0 4px rgba(16,185,129,0.2);
+  background: rgba(255,255,255,0.15);
+}
+.status { padding: 12px 24px; border-radius: 50px; font-weight: 600; font-size: 14px; }
+.status-full { background: rgba(239,68,68,0.2); color: #ef4444; }
+.status-empty { background: rgba(16,185,129,0.2); color: #10b981; }
+.status-critical { background: rgba(245,158,11,0.2); color: #f59e0b; }
+@keyframes float { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-10px);} }
+.float { animation: float 3s ease-in-out infinite; }
+@media (max-width: 768px) { .container { padding: 20px; } }
