@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script> in admin.html/user.html
-if (!localStorage.getItem('userToken')) {
-  window.location.href = 'login.html';
-}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Admin Dashboard - Smart Waste</title>
@@ -85,19 +81,6 @@ if (!localStorage.getItem('userToken')) {
       e.preventDefault();
       alert('Bin added/updated!');
     };
-    const token = localStorage.getItem('userToken');
-const role = localStorage.getItem('userRole');
-if (!token || !role) {
-  window.location.href = 'login.html';
-} else {
-  // Optional: Validate token age (1 day)
-  const tokenTime = parseInt(token.split(':')[1]);
-  if (Date.now() - tokenTime > 86400000) {
-    localStorage.clear();
-    window.location.href = 'login.html';
-  }
-}
-console.log('Logged in as:', role);
 
     function logout() { localStorage.removeItem('user'); window.location = 'login.html'; }
   </script>
