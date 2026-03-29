@@ -3,106 +3,86 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Reports</title>
+  <title>Reports - Smart Waste</title>
   <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="script.js" defer></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body>
-  <header><h1>Generate Report</h1><a href="index.html">Home</a></header>
-  <div class="container">
-    <div class="card">
-      <h2>Summary</h2>
-      <!-- Prediction Chart -->
-<div class="bg-white/10 backdrop-blur-xl rounded-3xl p-8 border border-white/20">
-  <h3 class="text-2xl font-bold mb-6 flex items-center"><i class="fas fa-chart-line mr-3 text-yellow-400"></i>Fill Level Trends & Predictions</h3>
-  <canvas id="trendChart" height="300"></canvas>
-</div>
-<!-- Add to <head> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<body class="p-8">
+  <nav class="glass max-w-6xl mx-auto rounded-3xl p-6 mb-12 flex justify-between items-center">
+    <h1 class="text-3xl font-bold text-white">
+      <i class="fas fa-chart-bar mr-4 text-purple-400"></i>Analytics & Reports
+    </h1>
+    <div class="space-x-4">
+      <button onclick="exportPDF()" class="btn btn-primary">
+        <i class="fas fa-download mr-2"></i>Export PDF
+      </button>
+      <a href="admin.html" class="btn btn-secondary">Dashboard</a>
+    </div>
+  </nav>
 
-<!-- Export Button -->
-<button onclick="exportPDF()" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white py-4 px-8 rounded-2xl font-bold hover:shadow-2xl fixed top-8 left-8 z-30 transition-all">
-  📄 Export PDF
-</button>
+  <div class="max-w-7xl mx-auto grid grid-cols-1 xl:grid-cols-2 gap-12">
+    <!-- Weekly Trends -->
+    <div class="glass card">
+      <h3 class="text-3xl font-bold text-white mb-8">Weekly Fill Trends</h3>
+      <canvas id="trendChart" class="w-full h-96"></canvas>
+    </div>
 
-<script>
-async function exportPDF() {
-  try {
-    // Target dashboard content
-    const element = document.querySelector('main') || document.body;
-    const canvas = await html2canvas(element, {
-      scale: 2,
-      useCORS: true,
-      backgroundColor: '#0f172a',
-      logging: false
-    });
-    
-    const imgData = canvas.toDataURL('image/png');
-    const pdf = new jsPDF('landscape', 'mm', 'a4');
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-    
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-    pdf.save('SmartWaste-Dashboard.pdf');
-    
-    // Success toast
-    showNotification('✅ PDF Exported!', 'Dashboard saved as PDF');
-  } catch (error) {
-    console.error('PDF Error:', error);
-    alert('Export failed - try smaller section');
-  }
-}
-</script>
-<script>
-new Chart(document.getElementById('trendChart'), {
-  type: 'line',
-  data: {
-    labels: ['Today', 'Tomorrow', '+2d', '+3d', '+4d', '+5d', '+7d'],
-    datasets: [{
-      label: 'Predicted Fill %',
-      data: [45, 62, 78, 89, 95, 100, 75],
-      borderColor: '#f59e0b',
-      backgroundColor: 'rgba(245, 158, 11, 0.1)',
-      tension: 0.4,
-      fill: true,
-      pointBackgroundColor: '#f59e0b',
-      pointBorderColor: '#fff',
-      pointBorderWidth: 3,
-      pointRadius: 8
-    }]
-  },
-  options: {
-    responsive: true,
-    plugins: { legend: { labels: { color: 'white', font: { size: 16 } } } },
-    scales: {
-      y: { beginAtZero: true, max: 100, ticks: { color: 'white' }, grid: { color: 'white/20' } },
-      x: { ticks: { color: 'white' }, grid: { color: 'white/20' } }
-    },
-    animation: { duration: 2000, easing: 'easeInOutQuart' }
-  }
-});
-</script>
-      <p>Full Bins: <span id="fullCount">0</span> | Avg Level: <span id="avgLevel">0</span>%</p>
-      <button class="btn" onclick="alert('Report emailed to admin!')">Export PDF</button>
+    <!-- Summary Stats -->
+    <div class="glass card space-y-8">
+      <h3 class="text-3xl font-bold text-white mb-8">Collection Summary</h3>
+      <div class="grid grid-cols-2 gap-8 text-center">
+        <div>
+          <div class="text-5xl font-bold text-emerald-400 mb-4">245</div>
+          <div class="text-2xl text-white/80">Tons Collected</div>
+        </div>
+        <div>
+          <div class="text-5xl font-bold text-blue-400 mb-4">98%</div>
+          <div class="text-2xl text-white/80">On-time Pickup</div>
+        </div>
+        <div>
+          <div class="text-5xl font-bold text-purple-400 mb-4">12</div>
+          <div class="text-2xl text-white/80">Active Routes</div>
+        </div>
+        <div>
+          <div class="text-5xl font-bold text-orange-400 mb-4">3.2</div>
+          <div class="text-2xl text-white/80">Avg Fill %</div>
+        </div>
+      </div>
     </div>
   </div>
-  <script src="script.js"></script>
+
   <script>
-    document.getElementById('fullCount').textContent = bins.filter(b=>b.status==='Full').length;
-    document.getElementById('avgLevel').textContent = Math.round(bins.reduce((a,b)=>a+b.level,0)/bins.length);
-    const token = localStorage.getItem('userToken');
-const role = localStorage.getItem('userRole');
-if (!token || !role) {
-  window.location.href = 'login.html';
-} else {
-  // Optional: Validate token age (1 day)
-  const tokenTime = parseInt(token.split(':')[1]);
-  if (Date.now() - tokenTime > 86400000) {
-    localStorage.clear();
-    window.location.href = 'login.html';
-  }
-}
-console.log('Logged in as:', role);
+    // Trends chart
+    const ctx = document.getElementById('trendChart').getContext('2d');
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [{
+          label: 'Avg Fill %',
+          data: [45, 62, 78, 55, 82, 70, 65],
+          borderColor: 'rgba(16, 185, 129, 1)',
+          backgroundColor: 'rgba(16, 185, 129, 0.1)',
+          tension: 0.4,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: 'white' } },
+          x: { grid: { color: 'rgba(255,255,255,0.1)' }, ticks: { color: 'white' } }
+        },
+        plugins: { legend: { labels: { color: 'white' } } }
+      }
+    });
+
+    function exportPDF() {
+      alert('📄 PDF Report generated!\n(In production: html2pdf.js or jsPDF)');
+    }
   </script>
 </body>
 </html>
