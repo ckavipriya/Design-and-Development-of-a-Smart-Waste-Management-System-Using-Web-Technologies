@@ -4,46 +4,35 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Smart Waste</title>
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="flex items-center justify-center min-h-screen p-6">
-  <div class="glass max-w-md w-full p-12 rounded-3xl shadow-2xl">
-    <div class="text-center mb-12">
-      <h1 class="text-4xl font-bold text-white mb-4">Welcome Back</h1>
-      <p class="text-white/80">Sign in to your dashboard</p>
-    </div>
-
-    <!-- Login Form -->
-    <form id="loginForm" class="space-y-6">
-      <div>
-        <input type="text" class="input" placeholder="Username (admin/user)" required>
+<body class="bg-gradient-to-br from-indigo-500 to-purple-600 min-h-screen flex items-center justify-center">
+  <div class="container">
+    <div class="card max-w-md mx-auto">
+      <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Welcome Back</h1>
+      <form id="loginForm">
+        <input type="email" id="email" placeholder="Email" class="w-full p-4 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+        <input type="password" id="pass" placeholder="Password" class="w-full p-4 mb-6 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
+        <button type="submit" class="btn w-full text-lg py-4">Login</button>
+      </form>
+      <div class="mt-6 text-center space-x-4">
+        <button onclick="loginDemo('user')" class="text-indigo-600 hover:underline">User Demo</button>
+        <button onclick="loginDemo('admin')" class="text-indigo-600 hover:underline">Admin Demo</button>
       </div>
-      <div>
-        <input type="password" class="input" placeholder="Password" required>
-      </div>
-      <button type="submit" class="btn btn-primary w-full text-lg py-5">Sign In</button>
-    </form>
-
-    <!-- Demo -->
-    <div class="text-center mt-8 p-4 bg-white/10 rounded-2xl">
-      <p class="text-white/90 text-sm mb-2">Demo Accounts:</p>
-      <div class="text-emerald-300 font-mono text-sm">admin | user</div>
+      <p class="mt-4 text-center text-sm text-gray-500">user@smartwaste.com / user123 | admin@smartwaste.com / admin123</p>
     </div>
-
-    <div id="status" class="mt-6 text-center"></div>
   </div>
-
   <script>
+    function loginDemo(role) {
+      if (role === 'user') { document.getElementById('email').value = 'user@smartwaste.com'; document.getElementById('pass').value = 'user123'; }
+      else { document.getElementById('email').value = 'admin@smartwaste.com'; document.getElementById('pass').value = 'admin123'; }
+    }
     document.getElementById('loginForm').onsubmit = e => {
       e.preventDefault();
-      const status = document.getElementById('status');
-      status.innerHTML = '<div class="status bg-emerald-500/30 text-emerald-200 p-4 rounded-xl">✅ Login successful! Redirecting...</div>';
-      
-      // Demo redirect after 1.5s
-      setTimeout(() => {
-        const isAdmin = document.querySelector('input[type="text"]').value === 'admin';
-        window.location.href = isAdmin ? 'admin.html' : 'user.html';
-      }, 1500);
+      const email = document.getElementById('email').value;
+      localStorage.setItem('user', JSON.stringify({email, role: email.includes('admin') ? 'admin' : 'user'}));
+      window.location.href = email.includes('admin') ? 'admin.html' : 'user.html';
     };
   </script>
 </body>
