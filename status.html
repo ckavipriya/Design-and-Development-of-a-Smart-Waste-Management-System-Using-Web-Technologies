@@ -3,44 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Live Status - Smart Waste</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Bin Status - Smart Waste</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="script.js" defer></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="p-8">
-  <nav class="glass max-w-6xl mx-auto rounded-3xl p-6 mb-12 flex justify-between items-center">
-    <h1 class="text-3xl font-bold text-white">
-      <i class="fas fa-map-marked-alt mr-4 text-cyan-400"></i>Live Bin Status
-    </h1>
-    <a href="admin.html" class="btn btn-primary">Admin Dashboard</a>
+<body>
+  <nav class="bg-white/80 backdrop-blur-md shadow-lg fixed w-full z-50 py-4">
+    <div class="container flex justify-between">
+      <h2 class="text-2xl font-bold text-indigo-600">SmartWaste | Status</h2>
+      <a href="user.html" class="btn bg-indigo-600">Dashboard</a>
+    </div>
   </nav>
-
-  <div class="max-w-6xl mx-auto">
-    <div class="glass p-8 rounded-3xl mb-8 text-center">
-      <h2 class="text-4xl font-bold text-white mb-4">🗺️ Real-time Monitoring</h2>
-      <p class="text-xl text-white/90 mb-8">Auto-refreshes every 30 seconds</p>
-      <div class="flex justify-center items-center space-x-8 text-white/80">
-        <span>Last update: <span id="lastUpdate" class="font-bold text-emerald-400"></span></span>
-        <button onclick="loadStatus()" class="btn btn-secondary">
-          <i class="fas fa-sync-alt mr-2"></i>Refresh Now
-        </button>
+  <div class="pt-20">
+    <div class="container">
+      <div class="card">
+        <h1 class="text-3xl font-bold mb-8">Live Bin Status</h1>
+        <div id="liveBins" class="grid md:grid-cols-3 gap-6"></div>
       </div>
     </div>
-
-    <div id="binsStatus" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <!-- Live bins loaded here -->
-    </div>
   </div>
-
-  <script>
-    async function loadStatus() {
-      document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
-      loadBins('binsStatus');
-    }
-    loadStatus();
-    setInterval(loadStatus, 30000); // Auto refresh
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
