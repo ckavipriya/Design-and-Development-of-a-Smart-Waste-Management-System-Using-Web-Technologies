@@ -3,6 +3,13 @@
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 // GSAP Registration
 gsap.registerPlugin(ScrollTrigger);
+const toggle = document.querySelector('#darkToggle');
+toggle.addEventListener('click', () => {
+  document.body.classList.toggle('dark');
+  localStorage.setTheme = document.body.classList.contains('dark') ? 'dark' : 'light';
+});
+// Load saved theme
+if (localStorage.setTheme === 'dark') document.body.classList.add('dark');
 
 // Theme Toggle (Pro feature)
 function toggleTheme() {
