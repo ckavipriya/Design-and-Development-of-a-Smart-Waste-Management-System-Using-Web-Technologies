@@ -1,232 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SmartWaste Pro - Intelligent Waste Management System</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <button id="modeToggle">Toggle Mode</button>
-<script>
-  document.getElementById('modeToggle').addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-  });
-</script>
-
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    :root { --glass-bg: rgba(255,255,255,0.1); --glass-border: rgba(255,255,255,0.2); }
-    body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%); overflow-x: hidden; }
-    .glass { background: var(--glass-bg); backdrop-filter: blur(16px); border: 1px solid var(--glass-border); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
-    .hero { background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAwMCIgaGVpZ2h0PSIxMDAwIiB2aWV3Qm94PSIwIDAgMTAwMCAxMDAwIiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPjxjaXJjbGUgY3g9IjUwMCIgY3k9IjUwMCIgcj0iNTAwIiBmaWxsPSIjMDBCMkZGIiBvcGFjaXR5PSIwLjEiLz48L3N2Zz4='); min-height: 100vh; }
-    @keyframes pulse-glow { 0%, 100% { box-shadow: 0 0 20px rgba(34,197,94,0.5); } 50% { box-shadow: 0 0 40px rgba(34,197,94,0.8); } }
-    .pulse { animation: pulse-glow 2s infinite; }
-    @keyframes float { 0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);} }
-    .float { animation: float 4s ease-in-out infinite; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Waste Management System</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="text-white">
-  <!-- Navbar -->
-  <header class="fixed w-full z-50 glass px-4 py-4 md:px-8">
-    <nav class="max-w-7xl mx-auto flex justify-between items-center">
-      <a href="#" class="text-2xl font-bold bg-gradient-to-r from-green-400 to-blue-500 bg-clip-text text-transparent">SmartWaste Pro</a>
-      <ul class="hidden md:flex items-center space-x-8">
-        <li><a href="#home" class="hover:text-green-400 transition-all">Home</a></li>
-        <li><a href="#features" class="hover:text-green-400 transition-all">Features</a></li>
-        <li><a href="#about" class="hover:text-green-400 transition-all">About</a></li>
-        <li><a href="#demo" class="hover:text-green-400 transition-all">Demo</a></li>
-      </ul>
-      <div class="flex items-center space-x-4">
-        <button onclick="toggleDark()" class="p-2 rounded-lg hover:bg-white/20"><i class="fas fa-moon"></i></button>
-        <button onclick="openModal('login')" class="glass px-6 py-2 rounded-full hover:bg-white/20 transition-all font-medium">Sign In</button>
-      </div>
-    </nav>
-  </header>
+<body>
+    <header>
+        <h1>Smart Waste Management</h1>
+        <button id="modeToggle">🌙</button>
+        <button id="signInBtn">Sign In</button>
+        <button id="signUpBtn">Sign Up</button>
+    </header>
 
-  <!-- Hero -->
-  <section id="home" class="hero flex items-center justify-center pt-24 pb-20 px-6 overflow-hidden relative">
-    <div class="absolute inset-0">
-      <div class="float w-32 h-32 bg-green-500/20 rounded-full absolute top-1/4 left-10"></div>
-      <div class="float w-24 h-24 bg-blue-500/20 rounded-full absolute top-1/2 right-20 animation-delay-1s"></div>
-      <div class="float w-40 h-40 bg-purple-500/10 rounded-full absolute bottom-20 left-1/4"></div>
+    <main>
+        <section class="dashboard">
+            <h2>Bin Status</h2>
+            <div class="bins">
+                <div class="bin full">Bin 1: Full (90%)</div>
+                <div class="bin okay">Bin 2: Okay (40%)</div>
+                <div class="bin empty">Bin 3: Empty (10%)</div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Sign In Modal -->
+    <div id="signInModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Sign In</h2>
+            <form>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Sign In</button>
+            </form>
+        </div>
     </div>
-    <div class="max-w-6xl mx-auto text-center z-10">
-      <h1 class="text-5xl md:text-7xl lg:text-8xl font-black mb-6 leading-tight bg-gradient-to-r from-white to-gray-200 bg-clip-text">
-        Revolutionize <span class="text-green-400">Waste</span><br>Management
-      </h1>
-      <p class="text-xl md:text-2xl mb-12 max-w-3xl mx-auto opacity-90 leading-relaxed">
-        IoT-powered smart bins with AI route optimization for Madurai. Real-time monitoring reduces costs by 47% and boosts efficiency.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20">
-        <a href="#features" class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 px-12 py-5 rounded-2xl text-xl font-semibold shadow-2xl pulse transform hover:scale-105 transition-all">Explore Features</a>
-        <a onclick="openModal('demo')" class="glass px-12 py-5 rounded-2xl text-xl font-semibold hover:bg-white/20 transition-all">Live Demo</a>
-      </div>
-      <!-- Stats -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-        <div class="glass p-6 rounded-2xl text-center">
-          <div class="text-4xl font-bold text-green-400 mb-2">2,450+</div>
-          <div class="text-sm opacity-75">Bins Deployed</div>
+
+    <!-- Sign Up Modal -->
+    <div id="signUpModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Sign Up</h2>
+            <form>
+                <input type="text" placeholder="Name" required>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit">Sign Up</button>
+            </form>
         </div>
-        <div class="glass p-6 rounded-2xl text-center">
-          <div class="text-4xl font-bold text-blue-400 mb-2">98.5%</div>
-          <div class="text-sm opacity-75">Efficiency</div>
-        </div>
-        <div class="glass p-6 rounded-2xl text-center">
-          <div class="text-4xl font-bold text-purple-400 mb-2">$1.2M</div>
-          <div class="text-sm opacity-75">Saved Yearly</div>
-        </div>
-        <div class="glass p-6 rounded-2xl text-center">
-          <div class="text-4xl font-bold text-yellow-400 mb-2">24/7</div>
-          <div class="text-sm opacity-75">Monitoring</div>
-        </div>
-      </div>
     </div>
-  </section>
 
-  <!-- Features -->
-  <section id="features" class="py-32 px-6 bg-black/30">
-    <div class="max-w-6xl mx-auto">
-      <div class="text-center mb-20">
-        <h2 class="text-5xl md:text-6xl font-black mb-6">Core Features</h2>
-        <p class="text-xl opacity-90 max-w-2xl mx-auto">Enterprise-grade system built for scalability and placements.</p>
-      </div>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="glass p-10 rounded-3xl hover:scale-105 transition-all group">
-          <div class="w-24 h-24 bg-green-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-all">
-            <i class="fas fa-trash-alt text-3xl text-green-400"></i>
-          </div>
-          <h3 class="text-2xl font-bold mb-4">Smart Bin Sensors</h3>
-          <p>Ultrasonic fill-level detection, GPS tracking, temperature alerts. Data synced to Java backend.</p>
-        </div>
-        <div class="glass p-10 rounded-3xl hover:scale-105 transition-all group">
-          <div class="w-24 h-24 bg-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-all">
-            <i class="fas fa-route text-3xl text-blue-400"></i>
-          </div>
-          <h3 class="text-2xl font-bold mb-4">AI Route Optimizer</h3>
-          <p>Dynamic truck scheduling using Dijkstra algorithm. 47% fuel reduction proven.</p>
-        </div>
-        <div class="glass p-10 rounded-3xl hover:scale-105 transition-all group">
-          <div class="w-24 h-24 bg-purple-500/20 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:rotate-12 transition-all">
-            <i class="fas fa-robot text-3xl text-purple-400"></i>
-          </div>
-          <h3 class="text-2xl font-bold mb-4">AI Chat Assistant</h3>
-          <p>24/7 user support, complaint filing, status queries. Integrates with your chatbot.js.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- About -->
-  <section id="about" class="py-32 px-6">
-    <div class="max-w-4xl mx-auto text-center">
-      <h2 class="text-5xl font-black mb-8 bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text">For Madurai, By V.S.B. Students</h2>
- 
-      <div class="flex flex-col sm:flex-row gap-6 justify-center">
-        <a href="https://github.com/ckavipriya/Design-and-Development-of-a-Smart-Waste-Management-System-Using-Web-Technologies" class="glass px-10 py-4 rounded-2xl hover:bg-white/20 transition">View GitHub</a>
-        <button onclick="openModal('contact')" class="bg-gradient-to-r from-green-500 to-green-600 px-10 py-4 rounded-2xl font-semibold hover:from-green-600 transition">Get Involved</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Modals -->
-  <div id="loginModal" class="fixed inset-0 bg-black/70 hidden flex items-center justify-center z-50 p-6">
-    <div class="glass p-10 rounded-3xl max-w-sm w-full max-h-[90vh] overflow-y-auto">
-      <button onclick="closeAllModals()" class="absolute top-4 right-6 text-2xl hover:text-green-400">&times;</button>
-      <h3 class="text-3xl font-bold mb-8 text-center">Admin Portal</h3>
-    function handleLogin(e) {
-  e.preventDefault();
-  const email = document.getElementById('loginEmail').value;
-  const pass = document.getElementById('loginPass').value;
-  if (email.includes('admin') && pass === 'admin123') {
-    localStorage.setItem('loggedIn', 'admin');
-    window.location.href = 'admin.html';  // Creates if missing? No, save admin.html below
-  } else {
-    alert('Demo: admin@vsb.edu / admin123');
-  }
-}
-        <div>
-          <label class="block text-sm font-medium mb-2">Email</label>
-          <input type="email" id="loginEmail" required class="w-full p-4 rounded-xl bg-white/10 border border-white/30 focus:border-green-400 focus:outline-none focus:ring-2 ring-green-400/50 transition">
-        </div>
-        <div>
-          <label class="block text-sm font-medium mb-2">Password</label>
-          <input type="password" id="loginPass" required class="w-full p-4 rounded-xl bg-white/10 border border-white/30 focus:border-green-400 focus:outline-none focus:ring-2 ring-green-400/50 transition">
-        </div>
-        <button type="submit" class="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 p-4 rounded-xl text-xl font-semibold shadow-lg transition-all transform hover:scale-105">Enter Dashboard</button>
-      </form>
-      <p class="text-center mt-6 text-sm opacity-75">Demo: admin@vsb.edu / admin123 → Redirects to admin.html</p>
-    </div>
-  </div>
-
-  <div id="demoModal" class="fixed inset-0 bg-black/70 hidden flex items-center justify-center z-50 p-6">
-    <div class="glass p-10 rounded-3xl max-w-md w-full">
-      <button onclick="closeAllModals()" class="absolute top-4 right-6 text-2xl">&times;</button>
-      <h3 class="text-3xl font-bold mb-6 text-center">Live Stats Demo</h3>
-      <div id="demoStats" class="space-y-4">
-        <div class="flex justify-between"><span>Bin Fill Avg:</span><span id="fillAvg">72%</span></div>
-        <div class="flex justify-between"><span>Trucks Active:</span><span id="trucks">5</span></div>
-        <div class="flex justify-between"><span>Next Pickup:</span><span id="nextPickup">14:30</span></div>
-      </div>
-      <button onclick="startDemo()" class="w-full mt-8 bg-blue-500 hover:bg-blue-600 p-4 rounded-xl font-semibold transition">Start Simulation</button>
-    </div>
-  </div>
-
-  <script>
-    // Smooth scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(link => {
-      link.addEventListener('click', e => {
-        e.preventDefault();
-        document.querySelector(link.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-      });
-    });
-
-    // Navbar scroll
-    let lastScroll = 0;
-    window.addEventListener('scroll', () => {
-      const navbar = document.querySelector('header');
-      if (window.scrollY > 100) navbar.classList.add('shadow-2xl');
-      else navbar.classList.remove('shadow-2xl');
-    });
-
-    // Modals
-    function openModal(type) { document.getElementById(type + 'Modal').classList.remove('hidden'); }
-    function closeAllModals() { document.querySelectorAll('[id$="Modal"]').forEach(m => m.classList.add('hidden')); }
-
-    // Demo login
-    function handleLogin(e) {
-      const email = document.getElementById('loginEmail').value;
-      const pass = document.getElementById('loginPass').value;
-      if (email === 'admin@vsb.edu' && pass === 'admin123') {
-        closeAllModals();
-        alert('✅ Login successful! Navigate to admin.html for dashboard.');
-        // window.location.href = 'admin.html';
-      } else {
-        alert('❌ Invalid credentials. Try demo: admin@vsb.edu / admin123');
-      }
-    }
-
-    // Live demo simulation
-    let demoInterval;
-    function startDemo() {
-      let fill = 72, trucks = 5, time = 14;
-      demoInterval = setInterval(() => {
-        fill = Math.max(0, fill + (Math.random() - 0.5) * 10);
-        trucks = Math.floor(Math.random() * 10) + 1;
-        time = (time + 0.1) % 24;
-        document.getElementById('fillAvg').textContent = Math.round(fill) + '%';
-        document.getElementById('trucks').textContent = trucks;
-        document.getElementById('nextPickup').textContent = `${Math.floor(time)}:${Math.floor((time%1)*60).toString().padStart(2,'0')}`;
-      }, 2000);
-      setTimeout(() => clearInterval(demoInterval), 15000);
-    }
-
-    // Dark mode toggle (localStorage)
-    function toggleDark() {
-      document.body.classList.toggle('dark');
-      localStorage.setItem('darkMode', document.body.classList.contains('dark'));
-    }
-    if (localStorage.getItem('darkMode') === 'true') document.body.classList.add('dark');
-  </script>
+    <script src="script.js"></script>
 </body>
 </html>
