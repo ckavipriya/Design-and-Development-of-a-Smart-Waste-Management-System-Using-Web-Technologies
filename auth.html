@@ -1,147 +1,84 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Waste Auth</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication - Smart Waste Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
-<body class="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 min-h-screen flex items-center justify-center p-4">
-  <div class="bg-white/95 backdrop-blur-2xl shadow-2xl rounded-3xl p-10 w-full max-w-md border border-white/50">
-    <div class="text-center mb-8">
-      <h1 class="text-4xl font-black bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-2">SmartWaste</h1>
-      <p class="text-gray-600">Sign up or login to manage waste</p>
+<body class="auth-page">
+    <div class="auth-container">
+        <!-- Tabs -->
+        <div class="auth-tabs">
+            <button class="tab-btn active" data-tab="signup">Sign Up</button>
+            <button class="tab-btn" data-tab="forgot">Forgot Password</button>
+        </div>
+
+        <!-- Signup Tab -->
+        <div class="auth-card active" id="signup">
+            <div class="auth-header">
+                <i class="fas fa-user-plus"></i>
+                <h2>Create Account</h2>
+                <p>Join SmartWaste Pro today</p>
+            </div>
+            <form class="auth-form">
+                <div class="input-group icon-left">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Full Name" required>
+                </div>
+                <div class="input-group icon-left">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="input-group icon-left">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <div class="input-group icon-left">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Confirm Password" required>
+                </div>
+                <button type="submit" class="btn-primary w-full">Create Account</button>
+            </form>
+        </div>
+
+        <!-- Forgot Password Tab -->
+        <div class="auth-card" id="forgot">
+            <div class="auth-header">
+                <i class="fas fa-key"></i>
+                <h2>Reset Password</h2>
+                <p>Enter your email to receive reset instructions</p>
+            </div>
+            <form class="auth-form">
+                <div class="input-group icon-left">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" placeholder="Email Address" required>
+                </div>
+                <button type="submit" class="btn-primary w-full">Send Reset Link</button>
+                <a href="login.html" class="btn-secondary w-full">Back to Login</a>
+            </form>
+        </div>
     </div>
 
-    <!-- Tabs -->
-    <div class="flex bg-gray-100 rounded-xl p-1 mb-6">
-      <button id="loginTab" class="flex-1 py-3 px-4 font-bold rounded-lg bg-white shadow-sm">Sign In</button>
-      <button id="signupTab" class="flex-1 py-3 px-4 font-medium text-gray-500 rounded-lg">Sign Up</button>
-    </div>
+    <script>
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.onclick = () => {
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.auth-card').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tab).classList.add('active');
+            };
+        });
 
-    <!-- Error Display -->
-    <div id="errorMsg" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-xl mb-6 text-sm"></div>
-
-    <!-- Login Form -->
-    <form id="loginForm" class="space-y-5">
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Username</label>
-        <input type="text" id="loginUsername" required class="w-full p-4 border border-gray-300 rounded-xl focus:ring-3 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all" placeholder="e.g. admin">
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
-        <input type="password" id="loginPassword" required class="w-full p-4 border border-gray-300 rounded-xl focus:ring-3 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all" placeholder="Enter password">
-      </div>
-      <button type="submit" id="loginBtn" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white py-4 px-6 rounded-xl font-bold text-lg shadow-xl transition-all transform hover:-translate-y-1">
-        Sign In
-      </button>
-    </form>
-
-    <!-- Signup Form (Hidden initially) -->
-    <form id="signupForm" class="space-y-5 hidden">
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">New Username</label>
-        <input type="text" id="signupUsername" required class="w-full p-4 border border-gray-300 rounded-xl focus:ring-3 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all" placeholder="Choose username">
-      </div>
-      <div>
-        <label class="block text-sm font-medium text-gray-700 mb-2">New Password</label>
-        <input type="password" id="signupPassword" required minlength="6" class="w-full p-4 border border-gray-300 rounded-xl focus:ring-3 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all" placeholder="Min 6 chars">
-      </div>
-      <button type="submit" id="signupBtn" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-4 px-6 rounded-xl font-bold text-lg shadow-xl transition-all transform hover:-translate-y-1">
-        Create Account
-      </button>
-    </form>
-
-    <p class="text-center text-sm text-gray-500 mt-8">
-      Demo: <strong>admin / admin123</strong> | <strong>user / user123</strong>
-    </p>
-  </div>
-
-  <script>
-    // Users storage (localStorage simulates DB)
-    function getUsers() {
-      return JSON.parse(localStorage.getItem('wasteUsers') || '{"admin":"admin123","user":"user123"}');
-    }
-
-    function saveUsers(users) {
-      localStorage.setItem('wasteUsers', JSON.stringify(users));
-    }
-
-    // Elements
-    const loginTab = document.getElementById('loginTab');
-    const signupTab = document.getElementById('signupTab');
-    const loginForm = document.getElementById('loginForm');
-    const signupForm = document.getElementById('signupForm');
-    const errorMsg = document.getElementById('errorMsg');
-    const loginBtn = document.getElementById('loginBtn');
-    const signupBtn = document.getElementById('signupBtn');
-
-    // Tab switch
-    loginTab.onclick = () => {
-      loginForm.classList.remove('hidden');
-      signupForm.classList.add('hidden');
-      loginTab.classList.add('bg-white', 'shadow-sm');
-      loginTab.classList.remove('text-gray-500');
-      signupTab.classList.remove('bg-white', 'shadow-sm');
-      signupTab.classList.add('text-gray-500');
-      errorMsg.classList.add('hidden');
-    };
-
-    signupTab.onclick = () => {
-      signupForm.classList.remove('hidden');
-      loginForm.classList.add('hidden');
-      signupTab.classList.add('bg-white', 'shadow-sm');
-      signupTab.classList.remove('text-gray-500');
-      loginTab.classList.remove('bg-white', 'shadow-sm');
-      loginTab.classList.add('text-gray-500');
-      errorMsg.classList.add('hidden');
-    };
-
-    // Show error
-    function showError(text) {
-      errorMsg.textContent = `❌ ${text}`;
-      errorMsg.classList.remove('hidden');
-    }
-
-    // Login
-    loginForm.onsubmit = e => {
-      e.preventDefault();
-      const username = document.getElementById('loginUsername').value.trim().toLowerCase();
-      const password = document.getElementById('loginPassword').value;
-      const users = getUsers();
-
-      loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Signing In...';
-      loginBtn.disabled = true;
-
-      setTimeout(() => {
-        if (users[username] && users[username] === password) {
-          localStorage.setItem('userToken', `${username}:${Date.now()}`);
-          localStorage.setItem('userRole', username);
-          window.location.href = username === 'admin' ? 'admin.html' : 'user.html';
-        } else {
-          showError(username ? 'Wrong password' : 'Username not found');
-        }
-        loginBtn.innerHTML = 'Sign In';
-        loginBtn.disabled = false;
-      }, 1200);
-    };
-
-    // Signup
-    signupForm.onsubmit = e => {
-      e.preventDefault();
-      const username = document.getElementById('signupUsername').value.trim().toLowerCase();
-      const password = document.getElementById('signupPassword').value;
-      const users = getUsers();
-
-      if (username.length < 3) return showError('Username min 3 chars');
-      if (password.length < 6) return showError('Password min 6 chars');
-      if (users[username]) return showError('Username exists!');
-
-      users[username] = password;
-      saveUsers(users);
-      showError('Account created! Now sign in.');
-      loginTab.click(); // Switch to login
-    };
-  </script>
+        // Form submits
+        document.querySelectorAll('.auth-form').forEach(form => {
+            form.onsubmit = e => {
+                e.preventDefault();
+                alert('Action completed! Check your email.');
+            };
+        });
+    </script>
 </body>
 </html>
