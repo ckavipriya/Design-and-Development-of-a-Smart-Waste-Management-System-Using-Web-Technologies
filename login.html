@@ -1,39 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login - Smart Waste</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Smart Waste Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
 </head>
-<body class="bg-gradient-to-br from-indigo-500 to-purple-600 min-h-screen flex items-center justify-center">
-  <div class="container">
-    <div class="card max-w-md mx-auto">
-      <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Welcome Back</h1>
-      <form id="loginForm">
-        <input type="email" id="email" placeholder="Email" class="w-full p-4 mb-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
-        <input type="password" id="pass" placeholder="Password" class="w-full p-4 mb-6 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" required>
-        <button type="submit" class="btn w-full text-lg py-4">Login</button>
-      </form>
-      <div class="mt-6 text-center space-x-4">
-        <button onclick="loginDemo('user')" class="text-indigo-600 hover:underline">User Demo</button>
-        <button onclick="loginDemo('admin')" class="text-indigo-600 hover:underline">Admin Demo</button>
-      </div>
-      <p class="mt-4 text-center text-sm text-gray-500">user@smartwaste.com / user123 | admin@smartwaste.com / admin123</p>
+<body class="login-page">
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <i class="fas fa-recycle"></i>
+                <h1>SmartWaste Pro</h1>
+                <p>Welcome back! Please sign in to your account.</p>
+            </div>
+            <form class="login-form">
+                <div class="input-group icon-left">
+                    <i class="fas fa-user"></i>
+                    <input type="email" placeholder="Email" required>
+                </div>
+                <div class="input-group icon-left">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password" required>
+                </div>
+                <label class="checkbox-group">
+                    <input type="checkbox">
+                    <span class="checkmark"></span>
+                    Remember me
+                </label>
+                <button type="submit" class="btn-primary w-full">Sign In</button>
+                <div class="login-links">
+                    <a href="auth.html">Forgot Password?</a>
+                    <a href="auth.html">Sign Up</a>
+                </div>
+            </form>
+        </div>
+        <footer class="login-footer">
+            <p>&copy; 2026 SmartWaste Pro. All rights reserved.</p>
+        </footer>
     </div>
-  </div>
-  <script>
-    function loginDemo(role) {
-      if (role === 'user') { document.getElementById('email').value = 'user@smartwaste.com'; document.getElementById('pass').value = 'user123'; }
-      else { document.getElementById('email').value = 'admin@smartwaste.com'; document.getElementById('pass').value = 'admin123'; }
-    }
-    document.getElementById('loginForm').onsubmit = e => {
-      e.preventDefault();
-      const email = document.getElementById('email').value;
-      localStorage.setItem('user', JSON.stringify({email, role: email.includes('admin') ? 'admin' : 'user'}));
-      window.location.href = email.includes('admin') ? 'admin.html' : 'user.html';
-    };
-  </script>
+    <script>
+        document.querySelector('.login-form').onsubmit = e => {
+            e.preventDefault();
+            alert('Login successful! Redirecting...');
+            window.location.href = 'index.html';
+        };
+    </script>
 </body>
 </html>
