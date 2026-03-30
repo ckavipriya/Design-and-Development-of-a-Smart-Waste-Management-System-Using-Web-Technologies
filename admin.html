@@ -1,122 +1,120 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Dashboard - SmartWaste Pro</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    body { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); font-family: 'Inter', sans-serif; }
-    .glass { background: rgba(255,255,255,0.1); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.2); }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Smart Waste Pro</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body class="min-h-screen text-white p-8">
-  <!-- Navbar -->
-  <nav class="glass rounded-2xl p-6 mb-8 flex justify-between items-center">
-    <h1 class="text-3xl font-bold">Admin Dashboard</h1>
-    <div>
-      <span id="userRole" class="px-4 py-2 bg-green-500/30 rounded-full">Admin</span>
-      <button onclick="logout()" class="ml-4 px-6 py-2 bg-red-500/70 hover:bg-red-600 rounded-xl transition">Logout</button>
-    </div>
-  </nav>
+<body>
+    <div class="app">
+        <aside class="sidebar">
+            <div class="logo">
+                <i class="fas fa-recycle"></i>
+                <span>SmartWaste Pro</span>
+            </div>
+            <nav>
+                <a href="index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+                <a href="report.html"><i class="fas fa-chart-bar"></i> Reports</a>
+                <a href="admin.html" class="active"><i class="fas fa-user-cog"></i> Admin</a>
+                <a href="status.html"><i class="fas fa-map-marker-alt"></i> Map</a>
+            </nav>
+        </aside>
 
-  <!-- Stats Grid -->
-  <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-    <div class="glass p-8 rounded-3xl">
-      <i class="fas fa-trash text-4xl text-green-400 mb-4"></i>
-      <div class="text-3xl font-bold">1,247</div>
-      <div>Total Bins</div>
-    </div>
-    <div class="glass p-8 rounded-3xl">
-      <i class="fas fa-chart-line text-4xl text-blue-400 mb-4"></i>
-      <div class="text-3xl font-bold">78%</div>
-      <div>Avg Fill</div>
-    </div>
-    <div class="glass p-8 rounded-3xl">
-      <i class="fas fa-truck text-4xl text-yellow-400 mb-4"></i>
-      <div class="text-3xl font-bold">12</div>
-      <div>Active Trucks</div>
-    </div>
-    <div class="glass p-8 rounded-3xl">
-      <i class="fas fa-bell text-4xl text-red-400 mb-4"></i>
-      <div class="text-3xl font-bold">23</div>
-      <div>Alerts</div>
-    </div>
-  </div>
+        <main class="main">
+            <header class="topbar">
+                <h1>Admin Panel</h1>
+                <div class="user-controls">
+                    <button id="modeToggle" class="btn-icon"><i class="fas fa-moon"></i></button>
+                    <button id="logoutBtn" class="btn-secondary">Logout</button>
+                </div>
+            </header>
 
-  <!-- Charts -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-    <div class="glass p-8 rounded-3xl">
-      <h3 class="text-2xl font-bold mb-6">Bin Fill Levels</h3>
-      <canvas id="fillChart"></canvas>
-    </div>
-    <div class="glass p-8 rounded-3xl">
-      <h3 class="text-2xl font-bold mb-6">Collection Efficiency</h3>
-      <canvas id="efficiencyChart"></canvas>
-    </div>
-  </div>
+            <div class="content">
+                <div class="page-header">
+                    <h2>System Management</h2>
+                    <div class="page-actions">
+                        <button class="btn-primary"><i class="fas fa-plus"></i> Add Bin</button>
+                        <button class="btn-success"><i class="fas fa-download"></i> Export</button>
+                    </div>
+                </div>
 
-  <!-- AI Chatbot -->
-  <div id="chatbot" class="fixed bottom-6 right-6 w-80 h-96 glass rounded-2xl shadow-2xl hidden flex flex-col">
-    <div class="p-4 border-b border-white/20 flex justify-between items-center">
-      <span class="font-bold">AI Assistant</span>
-      <button onclick="toggleChat()" class="text-xl">&times;</button>
+                <!-- Users Table -->
+                <div class="panel">
+                    <h3>Users Management</h3>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>001</td>
+                                    <td>John Doe</td>
+                                    <td>john@company.com</td>
+                                    <td>Admin</td>
+                                    <td><span class="status active">Active</span></td>
+                                    <td>
+                                        <button class="btn-icon-sm success"><i class="fas fa-edit"></i></button>
+                                        <button class="btn-icon-sm danger"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>002</td>
+                                    <td>Jane Smith</td>
+                                    <td>jane@company.com</td>
+                                    <td>Operator</td>
+                                    <td><span class="status inactive">Inactive</span></td>
+                                    <td>...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Add User Form -->
+                <div class="panel">
+                    <h3>Add New User</h3>
+                    <form class="form-grid">
+                        <div class="input-group">
+                            <label>Name</label>
+                            <input type="text" placeholder="Enter full name">
+                        </div>
+                        <div class="input-group">
+                            <label>Email</label>
+                            <input type="email" placeholder="user@company.com">
+                        </div>
+                        <div class="input-group">
+                            <label>Role</label>
+                            <select>
+                                <option>Admin</option>
+                                <option>Operator</option>
+                                <option>Viewer</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Status</label>
+                            <select>
+                                <option>Active</option>
+                                <option>Inactive</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-primary span-2">Create User</button>
+                    </form>
+                </div>
+            </div>
+        </main>
     </div>
-    <div id="chatMessages" class="flex-1 p-4 overflow-y-auto space-y-2">
-      <div class="bg-blue-500/30 p-3 rounded-lg">Hi Admin! Ask about bins, routes, or status.</div>
-    </div>
-    <div class="p-4 border-t border-white/20">
-      <div class="flex">
-        <input id="chatInput" type="text" placeholder="Type message..." class="flex-1 bg-white/10 border-0 rounded-l-lg p-3 text-white placeholder-white/50 focus:outline-none">
-        <button onclick="sendMessage()" class="bg-green-500 hover:bg-green-600 px-6 rounded-r-lg transition">Send</button>
-      </div>
-    </div>
-  </div>
-  <button onclick="toggleChat()" class="fixed bottom-6 right-6 w-16 h-16 bg-green-500 hover:bg-green-600 text-white text-2xl rounded-full shadow-2xl flex items-center justify-center chatbot-toggle">🤖</button>
 
-  <script>
-    // Auth check
-    if (localStorage.getItem('loggedIn') !== 'admin') window.location.href = 'index.html';
-
-    // Charts
-    new Chart(document.getElementById('fillChart'), {
-      type: 'doughnut',
-      data: { labels: ['Full', 'Medium', 'Empty'], datasets: [{ data: [45, 35, 20], backgroundColor: ['#ef4444', '#f59e0b', '#10b981'] }] },
-      options: { responsive: true, plugins: { legend: { labels: { color: 'white' } } } }
-    });
-    new Chart(document.getElementById('efficiencyChart'), {
-      type: 'line',
-      data: { labels: ['Jan', 'Feb', 'Mar'], datasets: [{ label: 'Efficiency', data: [75, 82, 89], borderColor: '#10b981', tension: 0.4 }] },
-      options: { responsive: true, scales: { y: { beginAtZero: true, ticks: { color: 'white' } }, x: { ticks: { color: 'white' } } }, plugins: { legend: { labels: { color: 'white' } } } }
-    });
-
-    // Chatbot
-    function toggleChat() { document.getElementById('chatbot').classList.toggle('hidden'); }
-    function sendMessage() {
-      const input = document.getElementById('chatInput');
-      const msg = input.value.trim().toLowerCase();
-      if (!msg) return;
-      const messages = document.getElementById('chatMessages');
-      messages.innerHTML += `<div class="bg-gray-700 p-3 rounded-lg self-end">${msg}</div>`;
-      input.value = '';
-      setTimeout(() => {
-        let reply = 'Understood.';
-        if (msg.includes('bin') || msg.includes('status')) reply = '78% average fill. 23 critical bins need pickup.';
-        if (msg.includes('route') || msg.includes('truck')) reply = '12 trucks active. Optimized routes save 47% fuel.';
-        if (msg.includes('alert')) reply = '23 overflow alerts in Zone 3 (Madurai). Dispatching now.';
-        messages.innerHTML += `<div class="bg-blue-500/30 p-3 rounded-lg">🤖 ${reply}</div>`;
-        messages.scrollTop = messages.scrollHeight;
-      }, 800);
-    }
-    document.getElementById('chatInput').addEventListener('keypress', e => e.key === 'Enter' && sendMessage());
-
-    // Logout
-    function logout() {
-      localStorage.removeItem('loggedIn');
-      window.location.href = 'index.html';
-    }
-  </script>
+    <script src="admin-script.js"></script>
 </body>
 </html>
