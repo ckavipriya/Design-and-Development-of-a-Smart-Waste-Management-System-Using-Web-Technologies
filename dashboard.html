@@ -11,10 +11,12 @@
     <aside class="sidebar">
       <h3>Menu</h3>
       <ul>
+        <li><a href="index.html">Home</a></li>
         <li><a href="dashboard.html" class="active">Dashboard</a></li>
-        <li><a href="#" onclick="alert('Bins page coming soon')">Bins</a></li>
-        <li><a href="#" onclick="alert('Map view coming soon')">Map View</a></li>
-        <li><a href="#" onclick="alert('Alerts list coming soon')">Alerts</a></li>
+        <li><a href="#">Bins</a></li>
+        <li><a href="#">Route Planner</a></li>
+        <li><a href="#">Reports</a></li>
+        <li><a href="#">Settings</a></li>
       </ul>
     </aside>
 
@@ -25,11 +27,25 @@
       </header>
 
       <div class="card-row">
-        <div class="card">Total Bins: <b>25</b></div>
-        <div class="card">Full Bins: <b>7</b></div>
-        <div class="card">Pending Pickups: <b>4</b></div>
+        <div class="card">
+          <p class="card-title">Total Bins</p>
+          <p class="card-value">28</p>
+        </div>
+        <div class="card">
+          <p class="card-title">Full Bins</p>
+          <p class="card-value">9</p>
+        </div>
+        <div class="card">
+          <p class="card-title">Pending Pickups</p>
+          <p class="card-value">3</p>
+        </div>
+        <div class="card">
+          <p class="card-title">Collection Today</p>
+          <p class="card-value">25</p>
+        </div>
       </div>
 
+      <h2 style="color:#1a237e; margin-bottom:16px;">Smart Bin Status</h2>
       <table class="bins-table">
         <tr>
           <th>ID</th>
@@ -61,7 +77,22 @@
           <td>100%</td>
           <td class="status-full">Full</td>
         </tr>
+        <tr>
+          <td>BIN005</td>
+          <td>Market Road</td>
+          <td>90%</td>
+          <td class="status-full">Full</td>
+        </tr>
       </table>
+
+      <div class="alerts-box" style="margin-top:25px; padding:16px; background:#fffde7; border-radius:10px; border-left:4px solid #ffd600;">
+        <h3 style="margin-bottom:8px; color:#1a237e;">Recent Alerts</h3>
+        <ul style="margin:0; padding-left:18px;">
+          <li>BIN004 at School Gate is full (100%) – collect soon.</li>
+          <li>BIN001 at Main Road Junction is 85% full – monitor closely.</li>
+          <li>New smart bin added at Library Gate for pilot testing.</li>
+        </ul>
+      </div>
     </main>
   </div>
 </body>
