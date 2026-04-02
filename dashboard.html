@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard - Smart Waste</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="dashboard">
+    <aside class="sidebar">
+      <h3>Menu</h3>
+      <ul>
+        <li><a href="dashboard.html" class="active">Dashboard</a></li>
+        <li><a href="#" onclick="alert('Bins page coming soon')">Bins</a></li>
+        <li><a href="#" onclick="alert('Map view coming soon')">Map View</a></li>
+        <li><a href="#" onclick="alert('Alerts list coming soon')">Alerts</a></li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-bar">
+        <h2>Admin Dashboard</h2>
+        <span>Welcome, Admin</span>
+      </header>
+
+      <div class="card-row">
+        <div class="card">Total Bins: <b>25</b></div>
+        <div class="card">Full Bins: <b>7</b></div>
+        <div class="card">Pending Pickups: <b>4</b></div>
+      </div>
+
+      <table class="bins-table">
+        <tr>
+          <th>ID</th>
+          <th>Location</th>
+          <th>Fill Level</th>
+          <th>Status</th>
+        </tr>
+        <tr>
+          <td>BIN001</td>
+          <td>Main Road Junction</td>
+          <td>85%</td>
+          <td class="status-full">Full</td>
+        </tr>
+        <tr>
+          <td>BIN002</td>
+          <td>Residential Area 1</td>
+          <td>30%</td>
+          <td>OK</td>
+        </tr>
+        <tr>
+          <td>BIN003</td>
+          <td>Bus Stand</td>
+          <td>70%</td>
+          <td>OK</td>
+        </tr>
+        <tr>
+          <td>BIN004</td>
+          <td>School Gate</td>
+          <td>100%</td>
+          <td class="status-full">Full</td>
+        </tr>
+      </table>
+    </main>
+  </div>
+</body>
+</html>
