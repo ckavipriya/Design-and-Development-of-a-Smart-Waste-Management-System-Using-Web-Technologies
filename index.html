@@ -3,30 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Smart Waste Login</title>
+  <title>Smart Waste Management</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
-<body class="login-body">
-  <div class="login-container">
-    <h1>Smart Waste Management</h1>
-    <p>Monitor and manage waste bins efficiently</p>
+<body>
+  <header class="hero-header">
+    <div class="hero-content">
+      <h1>Smart Waste Management System</h1>
+      <p>Real‑time monitoring and smart routing for cleaner, smarter cities.</p>
+      <div class="hero-buttons">
+        <a href="dashboard.html" class="btn-primary">View Dashboard</a>
+      </div>
+    </div>
+  </header>
 
-    <form id="loginForm" class="login-form">
-      <input type="text" id="username" placeholder="User ID or Email" required />
+  <section class="features">
+    <div class="feature-card">
+      <h3>Real‑Time Bin Monitoring</h3>
+      <p>Track fill levels of smart bins across the city and get instant alerts when bins are full.</p>
+    </div>
+    <div class="feature-card">
+      <h3>Route Optimization</h3>
+      <p>Plan efficient collection routes to reduce fuel usage, emissions, and operational cost.</p>
+    </div>
+    <div class="feature-card">
+      <h3>Admin Dashboard</h3>
+      <p>Manage bins, view live stats, and monitor collection status from a single dashboard.</p>
+    </div>
+  </section>
 
-      <input type="password" id="password" placeholder="Password" required />
+  <section class="demo">
+    <h2>Live Bin Overview</h2>
+    <div class="demo-stats">
+      <div class="stat">
+        <span class="value">28</span>
+        <span class="label">Total Bins</span>
+      </div>
+      <div class="stat">
+        <span class="value">9</span>
+        <span class="label">Full Bins</span>
+      </div>
+      <div class="stat">
+        <span class="value">3</span>
+        <span class="label">Pending Pickups</span>
+      </div>
+    </div>
+  </section>
 
-      <select id="role" required>
-        <option value="">Select Role</option>
-        <option value="admin">Admin</option>
-        <option value="collector">Collector</option>
-        <option value="citizen">Citizen</option>
-      </select>
-
-      <button type="submit">Login</button>
-    </form>
-  </div>
-
-  <script src="scripts.js"></script>
+  <footer class="footer">
+    <p>Smart Waste Management System © 2026 | V.S.B. Engineering College</p>
+  </footer>
 </body>
 </html>
