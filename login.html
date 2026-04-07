@@ -1,51 +1,48 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Smart Waste Pro</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - SmartWaste</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="login-page">
-    <div class="login-container">
-        <div class="login-card">
-            <div class="login-header">
-                <i class="fas fa-recycle"></i>
-                <h1>SmartWaste Pro</h1>
-                <p>Welcome back! Please sign in to your account.</p>
-            </div>
-            <form class="login-form">
-                <div class="input-group icon-left">
-                    <i class="fas fa-user"></i>
-                    <input type="email" placeholder="Email" required>
-                </div>
-                <div class="input-group icon-left">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Password" required>
-                </div>
-                <label class="checkbox-group">
-                    <input type="checkbox">
-                    <span class="checkmark"></span>
-                    Remember me
-                </label>
-                <button type="submit" class="btn-primary w-full">Sign In</button>
-                <div class="login-links">
-                    <a href="auth.html">Forgot Password?</a>
-                    <a href="auth.html">Sign Up</a>
-                </div>
-            </form>
-        </div>
-        <footer class="login-footer">
-            <p>&copy; 2026 SmartWaste Pro. All rights reserved.</p>
-        </footer>
-    </div>
-    <script>
-        document.querySelector('.login-form').onsubmit = e => {
-            e.preventDefault();
-            alert('Login successful! Redirecting...');
-            window.location.href = 'index.html';
-        };
-    </script>
+<body class="bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 min-h-screen flex items-center justify-center p-4">
+  <div class="bg-white/90 backdrop-blur-xl p-12 rounded-3xl shadow-2xl max-w-md w-full">
+    <h1 class="text-4xl font-bold text-center mb-8 text-gray-800">Secure Login</h1>
+    <form id="loginForm" class="space-y-6">
+      <div>
+        <input id="username" type="text" placeholder="Username" class="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:outline-none transition-all" required>
+      </div>
+      <div>
+        <input id="password" type="password" placeholder="Password" class="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-indigo-500 focus:outline-none transition-all" required>
+      </div>
+      <button type="submit" class="w-full bg-gradient-to-r from-indigo-500 to-purple-600 text-white p-4 rounded-xl font-bold text-lg hover:shadow-xl transition-all">Login</button>
+      <div id="error" class="text-red-500 text-sm hidden mt-2 text-center"></div>
+    </form>
+    <p class="text-center mt-6 text-sm text-gray-500">Demo: <strong>admin/admin123</strong> | <strong>user/user123</strong></p>
+  </div>
+  <script>
+    const validUsers = { 'admin': 'admin123', 'user': 'user123' };
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const errorEl = document.getElementById('error');
+      
+      errorEl.classList.add('hidden');
+      
+      // Simulate API delay
+      await new Promise(r => setTimeout(r, 800));
+      
+      if (validUsers[username] === password) {
+        localStorage.setItem('role', username);
+        if (username === 'admin') window.location.href = 'dashboard.html';
+        else window.location.href = 'user.html';
+      } else {
+        errorEl.textContent = 'Invalid credentials';
+        errorEl.classList.remove('hidden');
+      }
+    });
+  </script>
 </body>
 </html>
