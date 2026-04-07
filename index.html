@@ -2,28 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Smart Waste Mgmt</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Waste Management System</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gradient-to-r from-green-400 to-blue-500 min-h-screen flex items-center justify-center">
-  <div class="bg-white p-8 rounded-lg shadow-xl">
-    <h1 class="text-3xl font-bold mb-6 text-center">Smart Waste Management</h1>
-    <form id="loginForm" class="space-y-4">
-      <input type="email" placeholder="Email" class="w-full p-3 border rounded-lg">
-      <select class="w-full p-3 border rounded-lg">
-        <option>Admin</option>
-        <option>Collector</option>
-        <option>Citizen</option>
-      </select>
-      <input type="password" placeholder="Password" class="w-full p-3 border rounded-lg">
-      <button type="submit" class="w-full bg-green-500 text-white p-3 rounded-lg font-bold">Login</button>
-    </form>
+<body class="bg-gradient-to-br from-emerald-500 to-teal-600 min-h-screen">
+  <nav class="bg-white/20 backdrop-blur-md p-4">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-white">🗑️ SmartWaste Coimbatore</h1>
+      <a href="login.html" class="bg-white text-teal-600 px-6 py-2 rounded-full font-semibold hover:bg-teal-50 transition">Get Started</a>
+    </div>
+  </nav>
+  <div class="max-w-4xl mx-auto text-center py-20 px-4">
+    <h1 class="text-5xl md:text-6xl font-black text-white mb-6">Real-Time Waste Management</h1>
+    <p class="text-xl text-white/90 mb-12">Monitor bins, optimize routes, reduce overflow by 80% in Coimbatore</p>
+    <div class="space-x-4">
+      <a href="login.html" class="bg-white text-teal-600 px-8 py-4 rounded-full font-bold text-lg hover:shadow-2xl transition">Admin Login</a>
+      <a href="user.html" class="border-2 border-white text-white px-8 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-teal-600 transition">Citizen View</a>
+    </div>
   </div>
-  <script>
-    document.getElementById('loginForm').onsubmit = (e) => {
-      e.preventDefault();
-      window.location.href = 'admin.html'; // Or based on role
-    };
-  </script>
 </body>
 </html>
