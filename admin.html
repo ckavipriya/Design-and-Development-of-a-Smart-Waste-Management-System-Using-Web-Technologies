@@ -1,120 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel - Smart Waste Pro</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <title>Admin Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
-    <div class="app">
-        <aside class="sidebar">
-            <div class="logo">
-                <i class="fas fa-recycle"></i>
-                <span>SmartWaste Pro</span>
-            </div>
-            <nav>
-                <a href="index.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
-                <a href="report.html"><i class="fas fa-chart-bar"></i> Reports</a>
-                <a href="admin.html" class="active"><i class="fas fa-user-cog"></i> Admin</a>
-                <a href="status.html"><i class="fas fa-map-marker-alt"></i> Map</a>
-            </nav>
-        </aside>
-
-        <main class="main">
-            <header class="topbar">
-                <h1>Admin Panel</h1>
-                <div class="user-controls">
-                    <button id="modeToggle" class="btn-icon"><i class="fas fa-moon"></i></button>
-                    <button id="logoutBtn" class="btn-secondary">Logout</button>
-                </div>
-            </header>
-
-            <div class="content">
-                <div class="page-header">
-                    <h2>System Management</h2>
-                    <div class="page-actions">
-                        <button class="btn-primary"><i class="fas fa-plus"></i> Add Bin</button>
-                        <button class="btn-success"><i class="fas fa-download"></i> Export</button>
-                    </div>
-                </div>
-
-                <!-- Users Table -->
-                <div class="panel">
-                    <h3>Users Management</h3>
-                    <div class="table-container">
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>001</td>
-                                    <td>John Doe</td>
-                                    <td>john@company.com</td>
-                                    <td>Admin</td>
-                                    <td><span class="status active">Active</span></td>
-                                    <td>
-                                        <button class="btn-icon-sm success"><i class="fas fa-edit"></i></button>
-                                        <button class="btn-icon-sm danger"><i class="fas fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>002</td>
-                                    <td>Jane Smith</td>
-                                    <td>jane@company.com</td>
-                                    <td>Operator</td>
-                                    <td><span class="status inactive">Inactive</span></td>
-                                    <td>...</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- Add User Form -->
-                <div class="panel">
-                    <h3>Add New User</h3>
-                    <form class="form-grid">
-                        <div class="input-group">
-                            <label>Name</label>
-                            <input type="text" placeholder="Enter full name">
-                        </div>
-                        <div class="input-group">
-                            <label>Email</label>
-                            <input type="email" placeholder="user@company.com">
-                        </div>
-                        <div class="input-group">
-                            <label>Role</label>
-                            <select>
-                                <option>Admin</option>
-                                <option>Operator</option>
-                                <option>Viewer</option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <label>Status</label>
-                            <select>
-                                <option>Active</option>
-                                <option>Inactive</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn-primary span-2">Create User</button>
-                    </form>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <script src="admin-script.js"></script>
+<body class="bg-gray-100 p-8">
+  <h1 class="text-4xl font-bold mb-8">Admin Dashboard</h1>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <canvas id="fillChart" width="400" height="200"></canvas>
+    <div id="binsList" class="bg-white p-6 rounded-lg shadow"></div>
+  </div>
+  <script>
+    async function loadData() {
+      const res = await fetch('http://localhost:3000/api/bins');
+      const bins = await res.json();
+      document.getElementById('binsList').innerHTML = bins.map(b => 
+        `<div class="p-4 border-b">Bin ${b.id}: ${b.fill}% ${b.status}</div>`).join('');
+      
+      const ctx = document.getElementById('fillChart').getContext('2d');
+      new Chart(ctx, {
+        type: 'bar',
+        data: { labels: bins.map(b=>`Bin ${b.id}`), datasets: [{label:'Fill %', data:bins.map(b=>b.fill), backgroundColor:'rgba(34,197,94,0.5)'}] }
+      });
+    }
+    loadData(); setInterval(loadData, 5000);
+  </script>
 </body>
 </html>
