@@ -1,30 +1,13 @@
-# Smart Waste Management System
+# Design and Development of a Smart Waste Management System Using Web Technologies
 
-This project is a web-based smart waste monitoring system developed
-using HTML, CSS and JavaScript.
+## Problem Statement
+[Above problem statement here]
 
-## Features
+## Solution
+Web app monitors simulated bin levels, alerts on full bins, optimizes routes. Tech: HTML/JS/Tailwind/Node.js.
 
-- Waste bin monitoring
-- Smart waste alerts
-- Waste status dashboard
-- AI waste assistant
+## Demo
+[GitHub Pages link]
 
-## Pages
-
-- Home
-- About
-- Waste Status
-- Project Report
-- Contact
-
-## Purpose
-
-The system helps improve waste collection efficiency and maintain
-clean cities by monitoring garbage levels.
-
-## Technologies Used
-
-- HTML
-- CSS
-- JavaScript
+## Screenshots
+![Dashboard][screenshots/dashboard.png]
