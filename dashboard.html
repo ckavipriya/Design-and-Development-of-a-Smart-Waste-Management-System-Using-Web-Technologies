@@ -1,99 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Dashboard - Smart Waste</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - SmartWaste</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body>
-  <div class="dashboard">
-    <aside class="sidebar">
-      <h3>Menu</h3>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="dashboard.html" class="active">Dashboard</a></li>
-        <li><a href="#">Bins</a></li>
-        <li><a href="#">Route Planner</a></li>
-        <li><a href="#">Reports</a></li>
-        <li><a href="#">Settings</a></li>
-      </ul>
-    </aside>
-
-    <main class="main-content">
-      <header class="top-bar">
-        <h2>Admin Dashboard</h2>
-        <span>Welcome, Admin</span>
-      </header>
-
-      <div class="card-row">
-        <div class="card">
-          <p class="card-title">Total Bins</p>
-          <p class="card-value">28</p>
-        </div>
-        <div class="card">
-          <p class="card-title">Full Bins</p>
-          <p class="card-value">9</p>
-        </div>
-        <div class="card">
-          <p class="card-title">Pending Pickups</p>
-          <p class="card-value">3</p>
-        </div>
-        <div class="card">
-          <p class="card-title">Collection Today</p>
-          <p class="card-value">25</p>
-        </div>
+<body class="bg-gradient-to-br from-slate-100 to-slate-200 min-h-screen">
+  <nav class="bg-white shadow-lg p-4">
+    <div class="max-w-6xl mx-auto flex justify-between items-center">
+      <h1 class="text-2xl font-bold text-gray-800">🗑️ Admin Dashboard</h1>
+      <div class="space-x-4">
+        <button onclick="exportPDF()" class="bg-red-500 text-white px-6 py-2 rounded-xl font-semibold hover:bg-red-600">📄 Export Report</button>
+        <a href="index.html" class="bg-gray-500 text-white px-6 py-2 rounded-xl font-semibold hover:bg-gray-600">Logout</a>
       </div>
-
-      <h2 style="color:#1a237e; margin-bottom:16px;">Smart Bin Status</h2>
-      <table class="bins-table">
-        <tr>
-          <th>ID</th>
-          <th>Location</th>
-          <th>Fill Level</th>
-          <th>Status</th>
-        </tr>
-        <tr>
-          <td>BIN001</td>
-          <td>Main Road Junction</td>
-          <td>85%</td>
-          <td class="status-full">Full</td>
-        </tr>
-        <tr>
-          <td>BIN002</td>
-          <td>Residential Area 1</td>
-          <td>30%</td>
-          <td>OK</td>
-        </tr>
-        <tr>
-          <td>BIN003</td>
-          <td>Bus Stand</td>
-          <td>70%</td>
-          <td>OK</td>
-        </tr>
-        <tr>
-          <td>BIN004</td>
-          <td>School Gate</td>
-          <td>100%</td>
-          <td class="status-full">Full</td>
-        </tr>
-        <tr>
-          <td>BIN005</td>
-          <td>Market Road</td>
-          <td>90%</td>
-          <td class="status-full">Full</td>
-        </tr>
-      </table>
-
-      <div class="alerts-box" style="margin-top:25px; padding:16px; background:#fffde7; border-radius:10px; border-left:4px solid #ffd600;">
-        <h3 style="margin-bottom:8px; color:#1a237e;">Recent Alerts</h3>
-        <ul style="margin:0; padding-left:18px;">
-          <li>BIN004 at School Gate is full (100%) – collect soon.</li>
-          <li>BIN001 at Main Road Junction is 85% full – monitor closely.</li>
-          <li>New smart bin added at Library Gate for pilot testing.</li>
-        </ul>
+    </div>
+  </nav>
+  <div class="max-w-6xl mx-auto p-8 space-y-8">
+    <!-- Stats -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div class="bg-white p-8 rounded-2xl shadow-xl text-center">
+        <div class="text-3xl font-bold text-emerald-600">127</div>
+        <div class="text-gray-600">Active Bins</div>
       </div>
-    </main>
+      <div class="bg-white p-8 rounded-2xl shadow-xl text-center">
+        <div class="text-3xl font-bold text-red-500">23</div>
+        <div class="text-gray-600">Full Alerts</div>
+      </div>
+      <div class="bg-white p-8 rounded-2xl shadow-xl text-center">
+        <div class="text-3xl font-bold text-blue-600">89%</div>
+        <div class="text-gray-600">Collection Efficiency</div>
+      </div>
+      <div class="bg-white p-8 rounded-2xl shadow-xl text-center">
+        <div class="text-3xl font-bold text-purple-600">₹45K</div>
+        <div class="text-gray-600">Saved Monthly</div>
+      </div>
+    </div>
+    
+    <!-- Charts -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div class="bg-white p-8 rounded-2xl shadow-xl">
+        <h2 class="text-2xl font-bold mb-6">Bin Fill Levels</h2>
+        <canvas id="fillChart"></canvas>
+      </div>
+      <div class="bg-white p-8 rounded-2xl shadow-xl">
+        <h2 class="text-2xl font-bold mb-6">Status Overview</h2>
+        <canvas id="statusChart"></canvas>
+      </div>
+    </div>
+    
+    <!-- Recent Alerts -->
+    <div class="bg-white p-8 rounded-2xl shadow-xl">
+      <h2 class="text-2xl font-bold mb-6">Recent Full Bin Alerts</h2>
+      <div id="alerts" class="space-y-4"></div>
+    </div>
   </div>
+
+  <script>
+    // Mock live data
+    function getRandomBins() {
+      return Array.from({length: 8}, (_, i) => ({
+        id: i+1,
+        name: `Bin-${String(i+1).padStart(3,'0')}`,
+        fill: Math.floor(Math.random() * 101),
+        status: Math.random() > 0.7 ? 'full' : 'ok',
+        location: 'Coimbatore Area'
+      }));
+    }
+
+    let bins = getRandomBins();
+    let chartFill, chartStatus;
+
+    function updateDashboard() {
+      bins = getRandomBins();
+      
+      // Update alerts
+      document.getElementById('alerts').innerHTML = bins
+        .filter(b => b.status === 'full')
+        .slice(0,5)
+        .map(b => `
+          <div class="flex justify-between items-center p-4 bg-red-50 border-l-4 border-red-400 rounded-r-xl">
+            <div>
+              <div class="font-bold text-red-800">${b.name}</div>
+              <div class="text-sm text-gray-600">${b.location} - ${b.fill}% full</div>
+            </div>
+            <button onclick="clearAlert(${b.id})" class="text-green-600 hover:text-green-800 font-semibold">Clear</button>
+          </div>
+        `).join('') || '<p class="text-gray-500 italic">No active alerts</p>';
+
+      // Update charts
+      const fills = bins.map(b => b.fill);
+      const statuses = bins.reduce((acc, b) => { acc[b.status] = (acc[b.status] || 0) + 1; return acc; }, {});
+      
+      if (chartFill) {
+        chartFill.data.datasets[0].data = fills;
+        chartFill.update('none');
+      }
+      
+      if (chartStatus) {
+        chartStatus.data.labels = Object.keys(statuses);
+        chartStatus.data.datasets[0].data = Object.values(statuses);
+        chartStatus.update('none');
+      }
+    }
+
+    // Init charts
+    document.addEventListener('DOMContentLoaded', () => {
+      const ctxFill = document.getElementById('fillChart').getContext('2d');
+      chartFill = new Chart(ctxFill, {
+        type: 'bar',
+        data: { labels: bins.map(b=>b.name), datasets: [{label:'Fill Level %', data: bins.map(b=>b.fill), backgroundColor: 'rgba(34,197,94,0.8)'}] },
+        options: { responsive: true, scales: { y: { beginAtZero: true, max: 100 } } }
+      });
+
+      const ctxStatus = document.getElementById('statusChart').getContext('2d');
+      chartStatus = new Chart(ctxStatus, {
+        type: 'doughnut',
+        data: { labels: ['OK', 'Full'], datasets: [{data: [5,3], backgroundColor: ['#10b981', '#ef4444'] }] },
+        options: { responsive: true }
+      });
+
+      updateDashboard();
+      setInterval(updateDashboard, 4000); // Live updates
+    });
+
+    function clearAlert(id) {
+      alert(`Alert cleared for Bin ${id}`);
+    }
+
+    function exportPDF() {
+      const content = `
+        Smart Waste Management Report - Coimbatore
+        Generated: ${new Date().toLocaleString()}
+        
+        Active Bins: 127 | Full Alerts: ${bins.filter(b=>b.status==='full').length}
+        Efficiency: 89% | Monthly Savings: ₹45,000
+        
+        Recent Alerts:
+        ${bins.filter(b=>b.status==='full').slice(0,5).map(b=>`• ${b.name}: ${b.fill}%`).join('\n')}
+      `;
+      const blob = new Blob([content], {type: 'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'waste-report.txt';
+      a.click();
+    }
+
+    // Check auth
+    if (localStorage.getItem('role') !== 'admin') window.location.href = 'login.html';
+  </script>
 </body>
 </html>
+
