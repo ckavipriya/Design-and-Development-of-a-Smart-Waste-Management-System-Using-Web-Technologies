@@ -1,57 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Smart Waste Management</title>
-  <link rel="stylesheet" href="styles.css" />
+  <meta charset="UTF-8">
+  <title>Smart Waste Mgmt</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <header class="hero-header">
-    <div class="hero-content">
-      <h1>Smart Waste Management System</h1>
-      <p>Real‑time monitoring and smart routing for cleaner, smarter cities.</p>
-      <div class="hero-buttons">
-        <a href="dashboard.html" class="btn-primary">View Dashboard</a>
-      </div>
-    </div>
-  </header>
-
-  <section class="features">
-    <div class="feature-card">
-      <h3>Real‑Time Bin Monitoring</h3>
-      <p>Track fill levels of smart bins across the city and get instant alerts when bins are full.</p>
-    </div>
-    <div class="feature-card">
-      <h3>Route Optimization</h3>
-      <p>Plan efficient collection routes to reduce fuel usage, emissions, and operational cost.</p>
-    </div>
-    <div class="feature-card">
-      <h3>Admin Dashboard</h3>
-      <p>Manage bins, view live stats, and monitor collection status from a single dashboard.</p>
-    </div>
-  </section>
-
-  <section class="demo">
-    <h2>Live Bin Overview</h2>
-    <div class="demo-stats">
-      <div class="stat">
-        <span class="value">28</span>
-        <span class="label">Total Bins</span>
-      </div>
-      <div class="stat">
-        <span class="value">9</span>
-        <span class="label">Full Bins</span>
-      </div>
-      <div class="stat">
-        <span class="value">3</span>
-        <span class="label">Pending Pickups</span>
-      </div>
-    </div>
-  </section>
-
-  <footer class="footer">
-    <p>Smart Waste Management System © 2026 | V.S.B. Engineering College</p>
-  </footer>
+<body class="bg-gradient-to-r from-green-400 to-blue-500 min-h-screen flex items-center justify-center">
+  <div class="bg-white p-8 rounded-lg shadow-xl">
+    <h1 class="text-3xl font-bold mb-6 text-center">Smart Waste Management</h1>
+    <form id="loginForm" class="space-y-4">
+      <input type="email" placeholder="Email" class="w-full p-3 border rounded-lg">
+      <select class="w-full p-3 border rounded-lg">
+        <option>Admin</option>
+        <option>Collector</option>
+        <option>Citizen</option>
+      </select>
+      <input type="password" placeholder="Password" class="w-full p-3 border rounded-lg">
+      <button type="submit" class="w-full bg-green-500 text-white p-3 rounded-lg font-bold">Login</button>
+    </form>
+  </div>
+  <script>
+    document.getElementById('loginForm').onsubmit = (e) => {
+      e.preventDefault();
+      window.location.href = 'admin.html'; // Or based on role
+    };
+  </script>
 </body>
 </html>
