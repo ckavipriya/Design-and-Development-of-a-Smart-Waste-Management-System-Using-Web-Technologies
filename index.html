@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EcoSense — Smart Waste Management</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<!-- styles.css -->
+<style>
+  :root {
+    --bg-deep: #060b09;
+    --bg-base: #0a110e;
+    --bg-surface: #111c17;
+    --bg-card: #162019;
+    --bg-elevated: #1c2b22;
+    --border: #243028;
+    --border-light: #2e4035;
+    --text-primary: #e8f0ec;
+    --text-secondary: #8fa898;
+    --text-muted: #5a7564;
+    --accent: #10b981;
+    --accent-dim: #065f46;
+    --accent-glow: rgba(16,185,129,0.15);
+    --warning: #f59e0b;
+    --warning-dim: rgba(245,158,11,0.12);
+    --danger: #ef4444;
+    --danger-dim: rgba(239,68,68,0.12);
+    --info: #06b6d4;
+    --info-dim: rgba(6,182,212,0.12);
+    --success: #22c55e;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Space Grotesk',sans-serif; background:var(--bg-deep); color:var(--text-primary); overflow:hidden; height:100vh; }
+  ::-webkit-scrollbar { width:5px; }
+  ::-webkit-scrollbar-track { background:transparent; }
+  ::-webkit-scrollbar-thumb { background:var(--border); border-radius:10px; }
+  .mono { font-family:'JetBrains Mono',monospace; }
+
+  /* ========== LOGIN PAGE ========== */
+  .login-page {
+    position:fixed; inset:0; z-index:9999;
+    display:flex; align-items:center; justify-content:center;
+    background:var(--bg-deep);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .login-page.hidden {
+    opacity:0; transform:scale(1.05); pointer-events:none;
+  }
+
+  .login-bg-canvas {
+    position:absolute; inset:0; z-index:0;
+  }
+
+  .login-container {
+    position:relative; z-index:1;
+    display:flex; width:880px; max-width:95vw;
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.5), 0 0 80px rgba(16,185,129,0.06);
+  }
+
+  .login-left {
+    width:400px; padding:48px 40px;
+    background: linear-gradient(160deg, var(--bg-surface), var(--bg-card));
+    border-right:1px solid var(--border);
+    display:flex; flex-direction:column; justify-content:center;
+  }
+
+  .login-right {
+    flex:1; padding:48px 44px;
+    display:flex; flex-direction:column; justify-content:center;
+  }
+
+  .login-logo { display:flex; align-items:center; gap:12px; margin-bottom:32px; }
+  .login-logo-icon {
+    width:48px; height:48px;
+    background:linear-gradient(135deg,var(--accent),#059669);
+    border-radius:12px; display:flex; align-items:center; justify-content:center;
+    font-size:22px; color:#fff;
+    box-shadow:0 6px 24px rgba(16,185,129,0.3);
+  }
+
+  .login-feature {
+    display:flex; align-items:start; gap:14px;
+    padding:14px 0;
+  }
+  .login-feature-icon {
+    width:36px; height:36px; border-radius:8px;
+    background:var(--accent-glow); display:flex; align-items:center; justify-content:center;
+    color:var(--accent); font-size:14px; flex-shrink:0;
+  }
+
+  .form-group { margin-bottom:20px; }
+  .form-label {
+    display:block; font-size:12px; font-weight:600;
+    color:var(--text-muted); margin-bottom:8px;
+    text-transform:uppercase; letter-spacing:0.06em;
+  }
+  .form-input, .form-select {
+    width:100%; padding:12px 16px;
+    background:var(--bg-surface); border:1px solid var(--border);
+    border-radius:10px; color:var(--text-primary);
+    font-family:inherit; font-size:14px; outline:none;
+    transition:border-color 0.2s, box-shadow 0.2s;
+  }
+  .form-input:focus, .form-select:focus {
+    border-color:var(--accent);
+    box-shadow:0 0 0 3px rgba(16,185,129,0.1);
+  }
+  .form-input.error { border-color:var(--danger); box-shadow:0 0 0 3px rgba(239,68,68,0.1); }
+  .form-error { font-size:12px; color:var(--danger); margin-top:6px; display:none; }
+  .form-error.visible { display:block; }
+  .form-select option { background:var(--bg-card); }
+
+  .input-wrapper {
+    position:relative;
+  }
+  .input-wrapper i {
+    position:absolute; left:14px; top:50%; transform:translateY(-50%);
+    color:var(--text-muted); font-size:14px; transition:color 0.2s;
+  }
+  .input-wrapper .form-input { padding-left:42px; }
+  .input-wrapper:focus-within i { color:var(--accent); }
+  .input-wrapper .toggle-pw {
+    position:absolute; right:14px; top:50%; transform:translateY(-50%);
+    background:none; border:none; color:var(--text-muted); cursor:pointer;
+    font-size:14px; padding:4px;
+  }
+
+  .btn {
+    display:inline-flex; align-items:center; gap:8px;
+    padding:12px 22px; border-radius:10px; font-size:14px; font-weight:600;
+    font-family:inherit; cursor:pointer; border:none; transition:all 0.2s;
+  }
+  .btn-primary {
+    background:var(--accent); color:#fff; width:100%; justify-content:center;
+    box-shadow:0 4px 20px rgba(16,185,129,0.3);
+  }
+  .btn-primary:hover {
+    background:#0ea572;
+    box-shadow:0 6px 28px rgba(16,185,129,0.4);
+    transform:translateY(-1px);
+  }
+  .btn-primary:active { transform:translateY(0); }
+  .btn-primary:disabled {
+    opacity:0.6; cursor:not-allowed; transform:none;
+    box-shadow:none;
+  }
+  .btn-secondary {
+    background:var(--bg-elevated); color:var(--text-secondary);
+    border:1px solid var(--border);
+  }
+  .btn-secondary:hover { border-color:var(--border-light); color:var(--text-primary); }
+  .btn-danger { background:var(--danger-dim); color:var(--danger); }
+  .btn-danger:hover { background:rgba(239,68,68,0.2); }
+  .btn-sm { padding:6px 12px; font-size:12px; border-radius:8px; }
+
+  .login-remember {
+    display:flex; align-items:center; gap:8px;
+    font-size:13px; color:var(--text-secondary); cursor:pointer;
+  }
+  .login-remember input { accent-color:var(--accent); width:16px; height:16px; cursor:pointer; }
+
+  .login-divider {
+    display:flex; align-items:center; gap:12px;
+    margin:20px 0; color:var(--text-muted); font-size:12px;
+  }
+  .login-divider::before, .login-divider::after {
+    content:''; flex:1; height:1px; background:var(--border);
+  }
+
+  .demo-hint {
+    margin-top:24px; padding:14px 16px;
+    background:var(--accent-glow); border:1px solid rgba(16,185,129,0.2);
+    border-radius:10px; font-size:12px; color:var(--text-secondary);
+  }
+  .demo-hint strong { color:var(--accent); }
+
+  .login-loading .btn-primary-text { display:none; }
+  .login-loading .btn-primary-spinner { display:inline-flex !important; }
+  .btn-primary-spinner {
+    display:none; align-items:center; gap:6px;
+  }
+  .spinner {
+    width:18px; height:18px; border:2px solid rgba(255,255,255,0.3);
+    border-top-color:#fff; border-radius:50%;
+    animation:spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform:rotate(360deg); } }
+
+  /* ========== AI ASSISTANT ========== */
+  .ai-fab {
+    position:fixed; bottom:28px; right:28px; z-index:90;
+    width:56px; height:56px; border-radius:16px;
+    background:linear-gradient(135deg,var(--accent),#059669);
+    color:#fff; border:none; cursor:pointer;
+    box-shadow:0 6px 28px rgba(16,185,129,0.35);
+    font-size:22px; display:flex; align-items:center; justify-content:center;
+    transition:all 0.3s;
+  }
+  .ai-fab:hover {
+    transform:translateY(-3px) scale(1.05);
+    box-shadow:0 10px 40px rgba(16,185,129,0.45);
+  }
+  .ai-fab .ai-fab-pulse {
+    position:absolute; inset:-4px; border-radius:20px;
+    border:2px solid var(--accent);
+    animation:fabPulse 2.5s infinite;
+  }
+  @keyframes fabPulse {
+    0% { opacity:0.6; transform:scale(1); }
+    100% { opacity:0; transform:scale(1.3); }
+  }
+
+  .ai-panel {
+    position:fixed; bottom:96px; right:28px; z-index:89;
+    width:420px; max-height:560px;
+    background:var(--bg-card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.5);
+    display:flex; flex-direction:column;
+    transform:translateY(20px) scale(0.95);
+    opacity:0; pointer-events:none;
+    transition:all 0.3s ease;
+  }
+  .ai-panel.open {
+    transform:translateY(0) scale(1);
+    opacity:1; pointer-events:all;
+  }
+
+  .ai-header {
+    padding:18px 20px; border-bottom:1px solid var(--border);
+    display:flex; align-items:center; gap:12px;
+  }
+  .ai-header-icon {
+    width:36px; height:36px; border-radius:10px;
+    background:linear-gradient(135deg,var(--accent),#06b6d4);
+    display:flex; align-items:center; justify-content:center;
+    font-size:16px; color:#fff;
+  }
+
+  .ai-messages {
+    flex:1; overflow-y:auto; padding:16px 20px;
+    display:flex; flex-direction:column; gap:14px;
+    min-height:300px; max-height:380px;
+  }
+
+  .ai-msg {
+    display:flex; gap:10px; max-width:90%;
+    animation:msgIn 0.3s ease;
+  }
+  .ai-msg.user { align-self:flex-end; flex-direction:row-reverse; }
+  @keyframes msgIn {
+    from { opacity:0; transform:translateY(8px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .ai-msg-avatar {
+    width:28px; height:28px; border-radius:8px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:12px; flex-shrink:0;
+  }
+  .ai-msg.bot .ai-msg-avatar {
+    background:linear-gradient(135deg,var(--accent),#06b6d4); color:#fff;
+  }
+  .ai-msg.user .ai-msg-avatar {
+    background:var(--bg-elevated); color:var(--text-secondary);
+  }
+
+  .ai-msg-bubble {
+    padding:10px 14px; border-radius:12px; font-size:13px;
+    line-height:1.6; color:var(--text-primary);
+  }
+  .ai-msg.bot .ai-msg-bubble {
+    background:var(--bg-surface); border:1px solid var(--border);
+    border-top-left-radius:4px;
+  }
+  .ai-msg.user .ai-msg-bubble {
+    background:var(--accent-dim); border:1px solid rgba(16,185,129,0.2);
+    border-top-right-radius:4px;
+  }
+
+  .ai-msg-bubble .ai-highlight {
+    color:var(--accent); font-weight:600;
+  }
+  .ai-msg-bubble .ai-warn {
+    color:var(--warning); font-weight:600;
+  }
+  .ai-msg-bubble .ai-danger {
+    color:var(--danger); font-weight:600;
+  }
+
+  .ai-typing {
+    display:flex; gap:4px; padding:4px 0;
+  }
+  .ai-typing span {
+    width:6px; height:6px; background:var(--text-muted);
+    border-radius:50%; animation:typingBounce 1.2s infinite;
+  }
+  .ai-typing span:nth-child(2) { animation-delay:0.15s; }
+  .ai-typing span:nth-child(3) { animation-delay:0.3s; }
+  @keyframes typingBounce {
+    0%,60%,100% { transform:translateY(0); opacity:0.4; }
+    30% { transform:translateY(-6px); opacity:1; }
+  }
+
+  .ai-suggestions {
+    padding:0 20px 8px; display:flex; flex-wrap:wrap; gap:6px;
+  }
+  .ai-suggestion-btn {
+    padding:6px 12px; border-radius:20px; font-size:11px;
+    background:var(--bg-surface); border:1px solid var(--border);
+    color:var(--text-secondary); cursor:pointer;
+    font-family:inherit; transition:all 0.2s; white-space:nowrap;
+  }
+  .ai-suggestion-btn:hover {
+    border-color:var(--accent); color:var(--accent);
+    background:var(--accent-glow);
+  }
+
+  .ai-input-area {
+    padding:14px 20px; border-top:1px solid var(--border);
+    display:flex; gap:10px; align-items:center;
+  }
+  .ai-input {
+    flex:1; padding:10px 14px;
+    background:var(--bg-surface); border:1px solid var(--border);
+    border-radius:10px; color:var(--text-primary);
+    font-family:inherit; font-size:13px; outline:none;
+    transition:border-color 0.2s;
+  }
+  .ai-input:focus { border-color:var(--accent); }
+  .ai-send {
+    width:38px; height:38px; border-radius:10px;
+    background:var(--accent); color:#fff; border:none;
+    cursor:pointer; display:flex; align-items:center; justify-content:center;
+    font-size:14px; transition:all 0.2s; flex-shrink:0;
+  }
+  .ai-send:hover { background:#0ea572; transform:scale(1.05); }
+  .ai-send:disabled { opacity:0.4; cursor:not-allowed; transform:none; }
+
+  /* ========== SIDEBAR ========== */
+  .sidebar {
+    width:260px; background:var(--bg-base);
+    border-right:1px solid var(--border);
+    height:100vh; position:fixed; left:0; top:0;
+    z-index:50; display:flex; flex-direction:column;
+    transition:transform 0.3s ease;
+  }
+  .sidebar-logo {
+    padding:24px 20px; border-bottom:1px solid var(--border);
+    display:flex; align-items:center; gap:12px;
+  }
+  .logo-icon {
+    width:40px; height:40px;
+    background:linear-gradient(135deg,var(--accent),#059669);
+    border-radius:10px; display:flex; align-items:center; justify-content:center;
+    font-size:18px; color:#fff;
+    box-shadow:0 4px 20px rgba(16,185,129,0.25);
+  }
+  .nav-item {
+    display:flex; align-items:center; gap:12px;
+    padding:12px 20px; color:var(--text-secondary);
+    cursor:pointer; transition:all 0.2s;
+    border-left:3px solid transparent;
+    font-size:14px; font-weight:500; position:relative;
+  }
+  .nav-item:hover { color:var(--text-primary); background:var(--bg-surface); }
+  .nav-item.active { color:var(--accent); background:var(--accent-glow); border-left-color:var(--accent); }
+  .nav-item .badge {
+    position:absolute; right:16px; background:var(--danger);
+    color:#fff; font-size:10px; padding:2px 7px; border-radius:10px; font-weight:600;
+  }
+  .nav-item i { width:20px; text-align:center; font-size:15px; }
+  .nav-item .ai-badge {
+    position:absolute; right:16px;
+    background:linear-gradient(135deg,var(--accent),#06b6d4);
+    color:#fff; font-size:9px; padding:2px 7px; border-radius:10px; font-weight:700;
+    letter-spacing:0.04em;
+  }
+
+  /* ========== MAIN ========== */
+  .main-content { margin-left:260px; height:100vh; overflow-y:auto; background:var(--bg-deep); }
+  .topbar {
+    height:64px; background:var(--bg-base);
+    border-bottom:1px solid var(--border);
+    display:flex; align-items:center; justify-content:space-between;
+    padding:0 28px; position:sticky; top:0; z-index:40;
+    backdrop-filter:blur(12px);
+  }
+  .search-box {
+    display:flex; align-items:center; gap:8px;
+    background:var(--bg-surface); border:1px solid var(--border);
+    border-radius:8px; padding:8px 14px; width:320px; transition:border-color 0.2s;
+  }
+  .search-box:focus-within { border-color:var(--accent); }
+  .search-box input {
+    background:none; border:none; outline:none;
+    color:var(--text-primary); font-family:inherit; font-size:13px; width:100%;
+  }
+  .search-box input::placeholder { color:var(--text-muted); }
+  .page-content { padding:28px; }
+
+  .card {
+    background:var(--bg-card); border:1px solid var(--border);
+    border-radius:12px; padding:20px; transition:border-color 0.2s, transform 0.2s;
+  }
+  .card:hover { border-color:var(--border-light); transform:translateY(-1px); }
+  .stat-card { position:relative; overflow:hidden; }
+  .stat-card::before {
+    content:''; position:absolute; top:-30px; right:-30px;
+    width:100px; height:100px; border-radius:50%; opacity:0.06; transition:opacity 0.3s;
+  }
+  .stat-card:hover::before { opacity:0.12; }
+  .stat-card.green::before { background:var(--accent); }
+  .stat-card.amber::before { background:var(--warning); }
+  .stat-card.red::before { background:var(--danger); }
+  .stat-card.cyan::before { background:var(--info); }
+  .stat-value { font-size:32px; font-weight:700; line-height:1; margin:8px 0 4px; }
+  .stat-change {
+    font-size:12px; display:inline-flex; align-items:center; gap:4px;
+    padding:2px 8px; border-radius:6px; font-weight:600;
+  }
+  .stat-change.up { background:rgba(34,197,94,0.12); color:var(--success); }
+  .stat-change.down { background:var(--danger-dim); color:var(--danger); }
+
+  .data-table { width:100%; border-collapse:collapse; font-size:13px; }
+  .data-table th {
+    text-align:left; padding:12px 16px; color:var(--text-muted);
+    font-weight:600; font-size:11px; text-transform:uppercase;
+    letter-spacing:0.05em; border-bottom:1px solid var(--border);
+  }
+  .data-table td { padding:12px 16px; border-bottom:1px solid var(--border); color:var(--text-secondary); }
+  .data-table tbody tr { transition:background 0.15s; }
+  .data-table tbody tr:hover { background:var(--bg-surface); }
+
+  .status-badge {
+    display:inline-flex; align-items:center; gap:6px;
+    padding:4px 10px; border-radius:6px; font-size:12px; font-weight:600;
+  }
+  .status-badge.normal { background:rgba(34,197,94,0.12); color:var(--success); }
+  .status-badge.warning { background:var(--warning-dim); color:var(--warning); }
+  .status-badge.critical { background:var(--danger-dim); color:var(--danger); }
+  .status-badge.empty { background:var(--info-dim); color:var(--info); }
+  .status-dot { width:6px; height:6px; border-radius:50%; background:currentColor; }
+  .status-badge.normal .status-dot { animation:pulseDot 2s infinite; }
+  .status-badge.critical .status-dot { animation:pulseDot 0.8s infinite; }
+  @keyframes pulseDot { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+  .fill-bar { height:6px; background:var(--bg-elevated); border-radius:10px; overflow:hidden; width:100%; }
+  .fill-bar-inner { height:100%; border-radius:10px; transition:width 0.6s ease; }
+
+  .toast-container { position:fixed; top:80px; right:28px; z-index:9999; display:flex; flex-direction:column; gap:8px; }
+  .toast {
+    background:var(--bg-card); border:1px solid var(--border); border-radius:10px;
+    padding:14px 20px; display:flex; align-items:center; gap:12px; font-size:13px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.4); animation:slideInToast 0.35s ease; min-width:300px;
+  }
+  .toast.leaving { animation:slideOutToast 0.3s ease forwards; }
+  @keyframes slideInToast { from{opacity:0;transform:translateX(60px)} to{opacity:1;transform:translateX(0)} }
+  @keyframes slideOutToast { from{opacity:1;transform:translateX(0)} to{opacity:0;transform:translateX(60px)} }
+
+  .modal-overlay {
+    position:fixed; inset:0; background:rgba(0,0,0,0.6);
+    backdrop-filter:blur(4px); z-index:100;
+    display:flex; align-items:center; justify-content:center; animation:fadeIn 0.2s ease;
+  }
+  .modal-box {
+    background:var(--bg-card); border:1px solid var(--border); border-radius:14px;
+    padding:28px; width:480px; max-width:90vw; animation:scaleIn 0.25s ease;
+  }
+  @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+  @keyframes scaleIn { from{opacity:0;transform:scale(0.95)} to{opacity:1;transform:scale(1)} }
+
+  .map-container {
+    position:relative; border-radius:12px; overflow:hidden;
+    background:var(--bg-surface); border:1px solid var(--border);
+  }
+  .map-legend {
+    position:absolute; bottom:16px; left:16px;
+    background:rgba(10,17,14,0.9); backdrop-filter:blur(8px);
+    border:1px solid var(--border); border-radius:8px;
+    padding:12px 16px; font-size:11px; display:flex; gap:16px;
+  }
+  .legend-item { display:flex; align-items:center; gap:6px; color:var(--text-secondary); }
+  .legend-dot { width:8px; height:8px; border-radius:50%; }
+
+  .page-section { display:none; animation:pageIn 0.3s ease; }
+  .page-section.active { display:block; }
+  @keyframes pageIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+  .glow-line { height:2px; background:linear-gradient(90deg,transparent,var(--accent),transparent); opacity:0.3; margin:20px 0; }
+
+  .bin-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:16px; }
+  .bin-card { cursor:pointer; }
+  .bin-card .bin-icon {
+    width:44px; height:44px; border-radius:10px;
+    display:flex; align-items:center; justify-content:center; font-size:18px;
+  }
+
+  .route-card {
+    display:flex; align-items:center; gap:16px; padding:16px;
+    background:var(--bg-surface); border:1px solid var(--border);
+    border-radius:10px; transition:border-color 0.2s;
+  }
+  .route-card:hover { border-color:var(--accent); }
+  .route-number {
+    width:40px; height:40px; background:var(--accent-glow); color:var(--accent);
+    border-radius:8px; display:flex; align-items:center; justify-content:center;
+    font-weight:700; font-size:15px;
+  }
+
+  .bg-particles { position:fixed; top:0; left:260px; right:0; bottom:0; pointer-events:none; z-index:0; overflow:hidden; }
+  .bg-particle {
+    position:absolute; width:2px; height:2px; background:var(--accent);
+    border-radius:50%; opacity:0; animation:floatParticle 8s infinite;
+  }
+  @keyframes floatParticle {
+    0%{opacity:0;transform:translateY(100vh) scale(0)}
+    10%{opacity:0.3} 90%{opacity:0.1}
+    100%{opacity:0;transform:translateY(-10vh) scale(1)}
+  }
+
+  .tab-group {
+    display:flex; gap:4px; background:var(--bg-surface);
+    border:1px solid var(--border); border-radius:8px; padding:4px;
+  }
+  .tab-btn {
+    padding:6px 16px; border-radius:6px; font-size:13px; font-weight:500;
+    color:var(--text-muted); cursor:pointer; border:none; background:none;
+    font-family:inherit; transition:all 0.2s;
+  }
+  .tab-btn.active { background:var(--accent); color:#fff; }
+  .tab-btn:hover:not(.active) { color:var(--text-primary); }
+
+  /* AI insight cards on dashboard */
+  .ai-insight-card {
+    background:linear-gradient(135deg, rgba(16,185,129,0.06), rgba(6,182,212,0.04));
+    border:1px solid rgba(16,185,129,0.15);
+    border-radius:10px; padding:14px 16px;
+    display:flex; align-items:start; gap:12px;
+    transition:border-color 0.2s;
+  }
+  .ai-insight-card:hover { border-color:rgba(16,185,129,0.35); }
+  .ai-insight-icon {
+    width:32px; height:32px; border-radius:8px;
+    background:linear-gradient(135deg,var(--accent),#06b6d4);
+    display:flex; align-items:center; justify-content:center;
+    color:#fff; font-size:13px; flex-shrink:0;
+  }
+
+  @media(max-width:1024px) {
+    .sidebar { transform:translateX(-100%); }
+    .sidebar.open { transform:translateX(0); }
+    .main-content { margin-left:0; }
+    .bg-particles { left:0; }
+    .login-container { flex-direction:column; width:95vw; }
+    .login-left { width:100%; padding:32px 28px; border-right:none; border-bottom:1px solid var(--border); }
+    .login-right { padding:32px 28px; }
+    .ai-panel { right:12px; bottom:90px; width:calc(100vw - 24px); max-width:420px; }
+  }
+  @media(prefers-reduced-motion:reduce) {
+    *,*::before,*::after { animation-duration:0.01ms!important; transition-duration:0.01ms!important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Background particles -->
+<div class="bg-particles" id="bgParticles"></div>
+<!-- Toast container -->
+<div class="toast-container" id="toastContainer"></div>
+<!-- Modal container -->
+<div id="modalContainer"></div>
+
+<!-- ============================================ -->
+<!-- auth.login.js — Login page                   -->
+<!-- ============================================ -->
+<div class="login-page" id="loginPage">
+  <canvas class="login-bg-canvas" id="loginBgCanvas"></canvas>
+  <div class="login-container">
+    <div class="login-left">
+      <div class="login-logo">
+        <div class="login-logo-icon"><i class="fas fa-leaf"></i></div>
+        <div>
+          <div style="font-weight:700;font-size:18px;color:var(--text-primary)">EcoSense</div>
+          <div style="font-size:12px;color:var(--text-muted)">Waste Intelligence Platform</div>
+        </div>
+      </div>
+      <div style="font-size:22px;font-weight:700;line-height:1.3;margin-bottom:8px">Smarter waste management starts here</div>
+      <div style="font-size:14px;color:var(--text-secondary);line-height:1.6;margin-bottom:28px">AI-powered monitoring, predictive analytics, and optimized route planning for modern cities.</div>
+
+      <div class="login-feature">
+        <div class="login-feature-icon"><i class="fas fa-brain"></i></div>
+        <div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:2px">AI-Powered Insights</div>
+          <div style="font-size:12px;color:var(--text-muted)">Predictive fill analysis and smart recommendations</div>
+        </div>
+      </div>
+      <div class="login-feature">
+        <div class="login-feature-icon"><i class="fas fa-satellite-dish"></i></div>
+        <div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:2px">Real-Time Monitoring</div>
+          <div style="font-size:12px;color:var(--text-muted)">247 IoT sensors across 6 city zones</div>
+        </div>
+      </div>
+      <div class="login-feature">
+        <div class="login-feature-icon"><i class="fas fa-route"></i></div>
+        <div>
+          <div style="font-size:14px;font-weight:600;margin-bottom:2px">Route Optimization</div>
+          <div style="font-size:12px;color:var(--text-muted)">40% fuel reduction with intelligent routing</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="login-right" id="loginFormContainer">
+      <div style="font-size:20px;font-weight:700;margin-bottom:4px">Welcome back</div>
+      <div style="font-size:13px;color:var(--text-muted);margin-bottom:28px">Sign in to your operations dashboard</div>
+
+      <form id="loginForm" onsubmit="return Auth.handleLogin(event)" novalidate>
+        <div class="form-group">
+          <label class="form-label">Email Address</label>
+          <div class="input-wrapper">
+            <i class="fas fa-envelope"></i>
+            <input type="email" class="form-input" id="loginEmail" placeholder="admin@ecosense.io" autocomplete="email" required>
+          </div>
+          <div class="form-error" id="emailError">Please enter a valid email address</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Password</label>
+          <div class="input-wrapper">
+            <i class="fas fa-lock"></i>
+            <input type="password" class="form-input" id="loginPassword" placeholder="Enter your password" autocomplete="current-password" required>
+            <button type="button" class="toggle-pw" onclick="Auth.togglePassword()" aria-label="Toggle password visibility"><i class="fas fa-eye" id="pwIcon"></i></button>
+          </div>
+          <div class="form-error" id="passwordError">Password must be at least 6 characters</div>
+        </div>
+
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+          <label class="login-remember">
+            <input type="checkbox" id="loginRemember"> Remember me
+          </label>
+          <a href="#" style="font-size:13px;color:var(--accent);text-decoration:none" onclick="Auth.showForgotPassword();return false">Forgot password?</a>
+        </div>
+
+        <button type="submit" class="btn btn-primary" id="loginBtn">
+          <span class="btn-primary-text">Sign In</span>
+          <span class="btn-primary-spinner"><span class="spinner"></span> Authenticating...</span>
+        </button>
+      </form>
+
+      <div class="login-divider">or continue with</div>
+
+      <div style="display:flex;gap:10px">
+        <button class="btn btn-secondary" style="flex:1;justify-content:center" onclick="Auth.socialLogin('google')"><i class="fab fa-google"></i> Google</button>
+        <button class="btn btn-secondary" style="flex:1;justify-content:center" onclick="Auth.socialLogin('microsoft')"><i class="fab fa-microsoft"></i> Microsoft</button>
+      </div>
+
+      <div class="demo-hint">
+        <strong>Demo credentials:</strong> admin@ecosense.io / eco2024<br>
+        <span style="color:var(--text-muted)">Or use any valid email with 6+ char password</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- AI Assistant Panel                           -->
+<!-- ============================================ -->
+<button class="ai-fab" id="aiFab" onclick="AI.togglePanel()" aria-label="Open AI Assistant" style="display:none">
+  <span class="ai-fab-pulse"></span>
+  <i class="fas fa-robot"></i>
+</button>
+
+<div class="ai-panel" id="aiPanel">
+  <div class="ai-header">
+    <div class="ai-header-icon"><i class="fas fa-robot"></i></div>
+    <div style="flex:1">
+      <div style="font-size:14px;font-weight:600">EcoSense AI</div>
+      <div style="font-size:11px;color:var(--text-muted)">Waste intelligence assistant</div>
+    </div>
+    <button style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:16px" onclick="AI.togglePanel()" aria-label="Close"><i class="fas fa-times"></i></button>
+  </div>
+
+  <div class="ai-messages" id="aiMessages">
+    <!-- Filled by JS -->
+  </div>
+
+  <div class="ai-suggestions" id="aiSuggestions">
+    <!-- Filled by JS -->
+  </div>
+
+  <div class="ai-input-area">
+    <input type="text" class="ai-input" id="aiInput" placeholder="Ask about bins, routes, predictions..." onkeydown="if(event.key==='Enter')AI.send()" aria-label="AI message input">
+    <button class="ai-send" id="aiSendBtn" onclick="AI.send()" aria-label="Send"><i class="fas fa-paper-plane"></i></button>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- Sidebar                                      -->
+<!-- ============================================ -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-icon"><i class="fas fa-leaf"></i></div>
+    <div>
+      <div style="font-weight:700;font-size:16px;color:var(--text-primary)">EcoSense</div>
+      <div style="font-size:11px;color:var(--text-muted)">Waste Intelligence</div>
+    </div>
+  </div>
+  <nav style="flex:1;padding:16px 0;overflow-y:auto">
+    <div style="padding:0 20px 8px;font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em">Main</div>
+    <div class="nav-item active" data-page="dashboard"><i class="fas fa-th-large"></i> Dashboard</div>
+    <div class="nav-item" data-page="bins"><i class="fas fa-trash-alt"></i> Bin Monitoring <span class="badge">3</span></div>
+    <div class="nav-item" data-page="routes"><i class="fas fa-route"></i> Route Planner</div>
+    <div class="nav-item" data-page="analytics"><i class="fas fa-chart-area"></i> Analytics</div>
+    <div style="padding:20px 20px 8px;font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em">Intelligence</div>
+    <div class="nav-item" data-page="ai-hub" onclick="event.preventDefault();AI.togglePanel()"><i class="fas fa-robot"></i> AI Assistant <span class="ai-badge">AI</span></div>
+    <div style="padding:20px 20px 8px;font-size:10px;font-weight:700;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.1em">Management</div>
+    <div class="nav-item" data-page="alerts"><i class="fas fa-bell"></i> Alerts <span class="badge">7</span></div>
+    <div class="nav-item" data-page="schedule"><i class="fas fa-calendar-alt"></i> Schedules</div>
+    <div class="nav-item" data-page="drivers"><i class="fas fa-truck"></i> Fleet</div>
+    <div class="nav-item" data-page="settings"><i class="fas fa-cog"></i> Settings</div>
+  </nav>
+  <div style="padding:16px 20px;border-top:1px solid var(--border)">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="width:34px;height:34px;border-radius:8px;background:linear-gradient(135deg,var(--accent),#059669);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:#fff" id="sidebarAvatar">AK</div>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:13px;font-weight:600" id="sidebarUserName">Admin Kowalski</div>
+        <div style="font-size:11px;color:var(--text-muted)">Operations Lead</div>
+      </div>
+      <button style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:14px" onclick="Auth.logout()" title="Sign out" aria-label="Sign out"><i class="fas fa-sign-out-alt"></i></button>
+    </div>
+  </div>
+</aside>
+
+<!-- ============================================ -->
+<!-- Main Content                                 -->
+<!-- ============================================ -->
+<div class="main-content" id="mainContent" style="display:none">
+  <header class="topbar">
+    <div style="display:flex;align-items:center;gap:16px">
+      <button id="menuToggle" style="display:none;background:none;border:none;color:var(--text-secondary);font-size:18px;cursor:pointer"><i class="fas fa-bars"></i></button>
+      <div class="search-box">
+        <i class="fas fa-search" style="color:var(--text-muted);font-size:13px"></i>
+        <input type="text" placeholder="Search bins, routes, alerts..." id="globalSearch" aria-label="Search">
+        <kbd style="font-size:10px;padding:2px 6px;background:var(--bg-elevated);border:1px solid var(--border);border-radius:4px;color:var(--text-muted);font-family:'JetBrains Mono',monospace">/</kbd>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px">
+      <div style="font-size:12px;color:var(--text-muted)" class="mono" id="liveTime"></div>
+      <div style="display:flex;align-items:center;gap:6px;padding:4px 10px;background:rgba(34,197,94,0.1);border-radius:6px">
+        <div style="width:6px;height:6px;background:var(--success);border-radius:50%;animation:pulseDot 2s infinite"></div>
+        <span style="font-size:11px;color:var(--success);font-weight:600">LIVE</span>
+      </div>
+      <button style="background:none;border:none;color:var(--text-secondary);font-size:16px;cursor:pointer;position:relative" aria-label="Notifications" onclick="App.navigate('alerts')">
+        <i class="fas fa-bell"></i>
+        <div style="position:absolute;top:-4px;right:-4px;width:8px;height:8px;background:var(--danger);border-radius:50%;border:2px solid var(--bg-base)"></div>
+      </button>
+    </div>
+  </header>
+
+  <main class="page-content" style="position:relative;z-index:1">
+
+    <!-- Dashboard -->
+    <section class="page-section active" id="page-dashboard">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+        <div>
+          <h1 style="font-size:24px;font-weight:700">Command Center</h1>
+          <p style="font-size:13px;color:var(--text-muted);margin-top:4px">Real-time waste management overview</p>
+        </div>
+        <div class="tab-group">
+          <button class="tab-btn active" onclick="Dashboard.setRange(this,'today')">Today</button>
+          <button class="tab-btn" onclick="Dashboard.setRange(this,'week')">Week</button>
+          <button class="tab-btn" onclick="Dashboard.setRange(this,'month')">Month</button>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px" id="statCards"></div>
+
+      <!-- AI Insights strip -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:24px" id="aiInsightsStrip">
+        <div class="ai-insight-card">
+          <div class="ai-insight-icon"><i class="fas fa-lightbulb"></i></div>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--accent);margin-bottom:3px">AI INSIGHT</div>
+            <div style="font-size:13px;color:var(--text-secondary);line-height:1.5" id="aiInsight1">Analyzing sensor data...</div>
+          </div>
+        </div>
+        <div class="ai-insight-card">
+          <div class="ai-insight-icon"><i class="fas fa-chart-line"></i></div>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--accent);margin-bottom:3px">PREDICTION</div>
+            <div style="font-size:13px;color:var(--text-secondary);line-height:1.5" id="aiInsight2">Loading prediction...</div>
+          </div>
+        </div>
+        <div class="ai-insight-card">
+          <div class="ai-insight-icon"><i class="fas fa-exclamation-circle"></i></div>
+          <div>
+            <div style="font-size:12px;font-weight:600;color:var(--accent);margin-bottom:3px">RECOMMENDATION</div>
+            <div style="font-size:13px;color:var(--text-secondary);line-height:1.5" id="aiInsight3">Generating recommendations...</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:24px">
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+            <h3 style="font-size:15px;font-weight:600">Collection Trends</h3>
+            <span style="font-size:11px;color:var(--text-muted)" class="mono">Last 7 days</span>
+          </div>
+          <canvas id="collectionChart" height="220"></canvas>
+        </div>
+        <div class="card">
+          <h3 style="font-size:15px;font-weight:600;margin-bottom:16px">Waste Composition</h3>
+          <canvas id="compositionChart" height="220"></canvas>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+            <h3 style="font-size:15px;font-weight:600">Recent Alerts</h3>
+            <button class="btn btn-secondary btn-sm" onclick="App.navigate('alerts')">View All</button>
+          </div>
+          <div id="recentAlerts" style="display:flex;flex-direction:column;gap:8px"></div>
+        </div>
+        <div class="card">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+            <h3 style="font-size:15px;font-weight:600">Critical Bins</h3>
+            <button class="btn btn-secondary btn-sm" onclick="App.navigate('bins')">View All</button>
+          </div>
+          <div id="criticalBins" style="display:flex;flex-direction:column;gap:8px"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bins -->
+    <section class="page-section" id="page-bins">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+        <div><h1 style="font-size:24px;font-weight:700">Bin Monitoring</h1><p style="font-size:13px;color:var(--text-muted);margin-top:4px">Track fill levels and sensor data across all smart bins</p></div>
+        <button class="btn btn-primary" onclick="Bins.showAddModal()"><i class="fas fa-plus"></i> Register Bin</button>
+      </div>
+      <div style="display:flex;gap:12px;margin-bottom:20px;flex-wrap:wrap" id="binFilters"></div>
+      <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:16px">
+        <div class="map-container" style="height:500px"><canvas id="binMapCanvas" style="width:100%;height:100%"></canvas>
+          <div class="map-legend">
+            <div class="legend-item"><div class="legend-dot" style="background:var(--success)"></div>Normal</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--warning)"></div>Warning</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--danger)"></div>Critical</div>
+            <div class="legend-item"><div class="legend-dot" style="background:var(--info)"></div>Empty</div>
+          </div>
+        </div>
+        <div style="max-height:500px;overflow-y:auto" id="binListContainer"></div>
+      </div>
+    </section>
+
+    <!-- Routes -->
+    <section class="page-section" id="page-routes">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+        <div><h1 style="font-size:24px;font-weight:700">Route Planner</h1><p style="font-size:13px;color:var(--text-muted);margin-top:4px">Optimized collection routes for maximum efficiency</p></div>
+        <button class="btn btn-primary" onclick="Routes.optimize()"><i class="fas fa-magic"></i> Optimize Routes</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px" id="routeStats"></div>
+      <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:16px">
+        <div class="map-container" style="height:420px"><canvas id="routeMapCanvas" style="width:100%;height:100%"></canvas></div>
+        <div style="display:flex;flex-direction:column;gap:12px;max-height:420px;overflow-y:auto" id="routeList"></div>
+      </div>
+    </section>
+
+    <!-- Analytics -->
+    <section class="page-section" id="page-analytics">
+      <div style="margin-bottom:24px"><h1 style="font-size:24px;font-weight:700">Analytics</h1><p style="font-size:13px;color:var(--text-muted);margin-top:4px">Deep insights into waste patterns and operations</p></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
+        <div class="card"><h3 style="font-size:15px;font-weight:600;margin-bottom:16px">Weekly Waste Volume (kg)</h3><canvas id="weeklyVolumeChart" height="240"></canvas></div>
+        <div class="card"><h3 style="font-size:15px;font-weight:600;margin-bottom:16px">Collection Efficiency</h3><canvas id="efficiencyChart" height="240"></canvas></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px">
+        <div class="card"><h3 style="font-size:15px;font-weight:600;margin-bottom:16px">Zone Performance</h3><canvas id="zoneChart" height="240"></canvas></div>
+        <div class="card"><h3 style="font-size:15px;font-weight:600;margin-bottom:16px">Prediction vs Actual</h3><canvas id="predictionChart" height="240"></canvas></div>
+      </div>
+      <div class="card">
+        <h3 style="font-size:15px;font-weight:600;margin-bottom:16px">Monthly Summary Table</h3>
+        <table class="data-table"><thead><tr><th>Month</th><th>Total Collected (kg)</th><th>Collections</th><th>Avg Fill Rate</th><th>Efficiency</th><th>Cost Saved</th></tr></thead><tbody id="monthlyTable"></tbody></table>
+      </div>
+    </section>
+
+    <!-- Alerts -->
+    <section class="page-section" id="page-alerts">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+        <div><h1 style="font-size:24px;font-weight:700">Alert Center</h1><p style="font-size:13px;color:var(--text-muted);margin-top:4px">Manage and respond to system notifications</p></div>
+        <button class="btn btn-secondary" onclick="Alerts.resolveAll()"><i class="fas fa-check-double"></i> Resolve All</button>
+      </div>
+      <div style="display:flex;gap:12px;margin-bottom:20px" id="alertFilters"></div>
+      <div id="alertsList" style="display:flex;flex-direction:column;gap:10px"></div>
+    </section>
+
+    <!-- Schedule -->
+    <section class="page-section" id="page-schedule">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+        <div><h1 style="font-size:24px;font-weight:700">Collection Schedules</h1><p style="font-size:13px;color:var(--text-muted);margin-top:4px">Manage pickup schedules and recurring tasks</p></div>
+        <button class="btn btn-primary" onclick="Schedule.showAddModal()"><i class="fas fa-plus"></i> New Schedule</button>
+      </div>
+      <div class="card" style="overflow-x:auto">
+        <table class="data-table"><thead><tr><th>Zone</th><th>Route</th><th>Frequency</th><th>Next Pickup</th><th>Assigned Driver</th><th>Status</th><th>Actions</th></tr></thead><tbody id="scheduleBody"></tbody></table>
+      </div>
+    </section>
+
+    <!-- Drivers -->
+    <section class="page-section" id="page-drivers">
+      <div style="margin-bottom:24px"><h1 style="font-size:24px;font-weight:700">Fleet Management</h1><p style="font-size:13px;color:var(--text-muted);margin-top:4px">Track drivers and vehicle status in real-time</p></div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px" id="driverCards"></div>
+    </section>
+
+    <!-- Settings -->
+    <section class="page-section" id="page-settings">
+      <div style="margin-bottom:24px"><h1 style="font-size:24px;font-weight:700">System Settings</h1><p style="font-size:13px;color:var(--text-muted);margin-top:4px">Configure thresholds, notifications, and system parameters</p></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+        <div class="card">
+          <h3 style="font-size:15px;font-weight:600;margin-bottom:20px">Alert Thresholds</h3>
+          <div class="form-group"><label class="form-label">Critical Fill Level (%)</label><input type="range" min="70" max="98" value="90" id="criticalThreshold" style="width:100%;accent-color:var(--danger)" oninput="Settings.updateThreshold('critical',this.value)"><div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-top:4px"><span>70%</span><span class="mono" id="criticalVal">90%</span><span>98%</span></div></div>
+          <div class="form-group"><label class="form-label">Warning Fill Level (%)</label><input type="range" min="50" max="85" value="75" id="warningThreshold" style="width:100%;accent-color:var(--warning)" oninput="Settings.updateThreshold('warning',this.value)"><div style="display:flex;justify-content:space-between;font-size:11px;color:var(--text-muted);margin-top:4px"><span>50%</span><span class="mono" id="warningVal">75%</span><span>85%</span></div></div>
+          <div class="form-group"><label class="form-label">Sensor Offline Timeout (min)</label><input type="number" class="form-input" value="30" id="offlineTimeout"></div>
+          <button class="btn btn-primary" onclick="Settings.saveThresholds()"><i class="fas fa-save"></i> Save Thresholds</button>
+        </div>
+        <div class="card">
+          <h3 style="font-size:15px;font-weight:600;margin-bottom:20px">Notification Preferences</h3>
+          <div style="display:flex;flex-direction:column;gap:14px">
+            <label style="display:flex;justify-content:space-between;align-items:center;cursor:pointer"><span style="font-size:14px;color:var(--text-secondary)">Critical bin alerts</span><input type="checkbox" checked style="accent-color:var(--accent);width:18px;height:18px"></label>
+            <label style="display:flex;justify-content:space-between;align-items:center;cursor:pointer"><span style="font-size:14px;color:var(--text-secondary)">Route deviation warnings</span><input type="checkbox" checked style="accent-color:var(--accent);width:18px;height:18px"></label>
+            <label style="display:flex;justify-content:space-between;align-items:center;cursor:pointer"><span style="font-size:14px;color:var(--text-secondary)">Daily summary emails</span><input type="checkbox" style="accent-color:var(--accent);width:18px;height:18px"></label>
+            <label style="display:flex;justify-content:space-between;align-items:center;cursor:pointer"><span style="font-size:14px;color:var(--text-secondary)">Sensor offline alerts</span><input type="checkbox" checked style="accent-color:var(--accent);width:18px;height:18px"></label>
+            <label style="display:flex;justify-content:space-between;align-items:center;cursor:pointer"><span style="font-size:14px;color:var(--text-secondary)">AI recommendation alerts</span><input type="checkbox" checked style="accent-color:var(--accent);width:18px;height:18px"></label>
+          </div>
+          <div class="glow-line"></div>
+          <div class="form-group"><label class="form-label">Notification Email</label><input type="email" class="form-input" value="ops@ecosense.io"></div>
+          <button class="btn btn-primary" onclick="Settings.saveNotifications()"><i class="fas fa-save"></i> Save Preferences</button>
+        </div>
+        <div class="card">
+          <h3 style="font-size:15px;font-weight:600;margin-bottom:20px">System Information</h3>
+          <div style="display:flex;flex-direction:column;gap:12px;font-size:13px">
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--text-muted)">Version</span><span class="mono" style="color:var(--text-secondary)">v2.4.1</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--text-muted)">AI Engine</span><span class="mono" style="color:var(--accent)">EcoAI v1.2</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--text-muted)">Active Sensors</span><span class="mono" style="color:var(--accent)">247</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--text-muted)">Uptime</span><span class="mono" style="color:var(--text-secondary)">99.7%</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--text-muted)">Last Sync</span><span class="mono" style="color:var(--text-secondary)">12 sec ago</span></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:var(--text-muted)">Database Size</span><span class="mono" style="color:var(--text-secondary)">2.4 GB</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="font-size:15px;font-weight:600;margin-bottom:20px">Zone Configuration</h3>
+          <div id="zoneConfig" style="display:flex;flex-direction:column;gap:10px"></div>
+          <div class="glow-line"></div>
+          <button class="btn btn-secondary" onclick="Settings.addZone()"><i class="fas fa-plus"></i> Add Zone</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- ============================================ -->
+<!-- database.js                                  -->
+<!-- ============================================ -->
+<script>
+const Database = {
+  thresholds: { critical: 90, warning: 75, offlineTimeout: 30 },
+  zones: [
+    { id:'Z1', name:'Downtown Core', color:'#10b981', bins:42, activeRoutes:3 },
+    { id:'Z2', name:'Riverside District', color:'#06b6d4', bins:35, activeRoutes:2 },
+    { id:'Z3', name:'Industrial Park', color:'#f59e0b', bins:28, activeRoutes:2 },
+    { id:'Z4', name:'Suburban North', color:'#8b5cf6', bins:56, activeRoutes:4 },
+    { id:'Z5', name:'Harbor Area', color:'#ec4899', bins:31, activeRoutes:2 },
+    { id:'Z6', name:'University Campus', color:'#f97316', bins:24, activeRoutes:1 },
+  ],
+  bins: [], alerts: [], routes: [], schedules: [], drivers: [],
+  currentUser: null,
+
+  init() {
+    this.generateBins(); this.generateAlerts(); this.generateRoutes();
+    this.generateSchedules(); this.generateDrivers();
+  },
+
+  generateBins() {
+    const types = ['General','Recyclable','Organic','Hazardous'];
+    const tc = { General:'#6b7280', Recyclable:'#10b981', Organic:'#f59e0b', Hazardous:'#ef4444' };
+    const streets = ['Main St','Oak Ave','Elm Blvd','Pine Rd','Cedar Ln','Maple Dr','Birch Way','Willow Ct','Spruce Pl','Ash St','Cherry Ave','Walnut Blvd','Hickory Rd','Poplar Ln','Sycamore Dr','Magnolia Way','Juniper Ct','Cypress Pl','Redwood St','Sequoia Ave','Aspen Blvd','Cottonwood Rd','Dogwood Ln','Hemlock Dr','Laurel Way','Mulberry Ct','Peach Pl','Pecan St','Sweetgum Ave','Tupelo Blvd','Ironwood Rd','Locust Ln','Beech Dr'];
+    for (let i=1;i<=48;i++) {
+      const fl = Math.random()*100;
+      let st='normal';
+      if(fl>=this.thresholds.critical)st='critical';
+      else if(fl>=this.thresholds.warning)st='warning';
+      else if(fl<10)st='empty';
+      const z=this.zones[Math.floor(Math.random()*this.zones.length)];
+      this.bins.push({
+        id:`BIN-${String(i).padStart(3,'0')}`, type:types[Math.floor(Math.random()*types.length)],
+        typeColor:tc[types[Math.floor(Math.random()*types.length)]],
+        fillLevel:Math.round(fl*10)/10, status:st, zone:z.name, zoneId:z.id,
+        location:`${streets[Math.floor(Math.random()*streets.length)]} & ${streets[Math.floor(Math.random()*streets.length)]}`,
+        lat:40.71+(Math.random()-0.5)*0.08, lng:-74.01+(Math.random()-0.5)*0.08,
+        battery:Math.round(20+Math.random()*80), lastReading:Date.now()-Math.floor(Math.random()*3600000),
+        temperature:Math.round((15+Math.random()*20)*10)/10, collections:Math.floor(Math.random()*120),
+      });
+    }
+    this.bins.forEach(b=>{b.typeColor=tc[b.type];});
+  },
+
+  generateAlerts() {
+    const at=[{type:'critical',icon:'fa-exclamation-triangle',msgs:['Bin BIN-{id} at {pct}% — immediate collection','Sensor malfunction at BIN-{id}','Overflow at BIN-{id} by citizen']},{type:'warning',icon:'fa-exclamation-circle',msgs:['BIN-{id} approaching full at {pct}%','Battery low on BIN-{id} ({bat}%)','Collection delayed for {zone}']},{type:'info',icon:'fa-info-circle',msgs:['Route R-{rid} completed','BIN-{id} serviced — 0%','New bin BIN-{id} in {zone}']}];
+    for(let i=0;i<18;i++){
+      const c=at[Math.floor(Math.random()*at.length)];
+      const b=this.bins[Math.floor(Math.random()*this.bins.length)];
+      let m=c.msgs[Math.floor(Math.random()*c.msgs.length)];
+      m=m.replace('{id}',b.id.split('-')[1]).replace('{pct}',Math.round(b.fillLevel)).replace('{bat}',b.battery).replace('{zone}',b.zone).replace('{rid}',String(Math.floor(Math.random()*5)+1));
+      this.alerts.push({id:`ALT-${String(i+1).padStart(3,'0')}`,type:c.type,icon:c.icon,message:m,binId:b.id,timestamp:Date.now()-Math.floor(Math.random()*86400000),resolved:Math.random()<0.3});
+    }
+    this.alerts.sort((a,b)=>b.timestamp-a.timestamp);
+  },
+
+  generateRoutes() {
+    const dn=['Marcus Rivera','Sarah Chen','Jake Morrison','Aisha Patel','Liam O\'Brien'];
+    for(let i=1;i<=5;i++){
+      const zb=this.bins.filter(b=>b.zoneId===this.zones[i-1]?.id).slice(0,8);
+      const stops=zb.map(b=>({binId:b.id,fillLevel:b.fillLevel,lat:b.lat,lng:b.lng}));
+      if(!stops.length)continue;
+      this.routes.push({id:`R-${i}`,name:`${this.zones[i-1]?.name||'Zone'} Collection`,driver:dn[i-1],stops,distance:Math.round(8+Math.random()*20),estimatedTime:Math.round(45+Math.random()*90),status:['active','pending','completed'][Math.floor(Math.random()*3)],efficiency:Math.round(75+Math.random()*25),fuelSaved:Math.round(2+Math.random()*8)});
+    }
+  },
+
+  generateSchedules() {
+    const freq=['Daily','Every 2 days','Every 3 days','Weekly','Bi-weekly'];
+    const st=['Active','Active','Active','Paused','Active'];
+    const dn=['Marcus Rivera','Sarah Chen','Jake Morrison','Aisha Patel','Liam O\'Brien'];
+    for(let i=0;i<this.zones.length;i++){
+      const nd=[0,1,0,2,1,3];
+      this.schedules.push({id:`SCH-${String(i+1).padStart(3,'0')}`,zone:this.zones[i].name,route:`R-${i+1}`,frequency:freq[i%freq.length],nextPickup:new Date(Date.now()+nd[i]*86400000+Math.floor(Math.random()*36000000)),driver:dn[i%dn.length],status:st[i]});
+    }
+  },
+
+  generateDrivers() {
+    const st=['on-route','on-route','idle','on-route','off-duty'];
+    const v=['Volvo FE Electric','Mack LR Electric','BYD 8TT','Peterbilt 220EV','ISEKI SV26'];
+    const pl=['ECO-4821','ECO-7393','ECO-1156','ECO-9054','ECO-3367'];
+    const nm=['Marcus Rivera','Sarah Chen','Jake Morrison','Aisha Patel','Liam O\'Brien'];
+    const rt=[4.8,4.9,4.6,4.7,4.5],ct=[342,289,156,278,198];
+    for(let i=0;i<5;i++){
+      this.drivers.push({id:`DRV-${i+1}`,name:nm[i],vehicle:v[i],plate:pl[i],status:st[i],rating:rt[i],completedToday:Math.floor(Math.random()*12),completedTotal:ct[i],currentRoute:st[i]==='on-route'?`R-${i+1}`:null,lat:40.71+(Math.random()-0.5)*0.06,lng:-74.01+(Math.random()-0.5)*0.06});
+    }
+  },
+
+  tick() {
+    this.bins.forEach(bin=>{
+      if(Math.random()<0.08){
+        bin.fillLevel=Math.min(100,bin.fillLevel+Math.random()*2);
+        bin.fillLevel=Math.round(bin.fillLevel*10)/10;
+        bin.lastReading=Date.now();
+        if(bin.fillLevel>=this.thresholds.critical)bin.status='critical';
+        else if(bin.fillLevel>=this.thresholds.warning)bin.status='warning';
+        else if(bin.fillLevel<10)bin.status='empty';
+        else bin.status='normal';
+        if(bin.status==='critical'&&Math.random()<0.3){
+          if(!this.alerts.find(a=>a.binId===bin.id&&!a.resolved&&a.type==='critical')){
+            this.alerts.unshift({id:`ALT-${String(this.alerts.length+1).padStart(3,'0')}`,type:'critical',icon:'fa-exclamation-triangle',message:`Bin ${bin.id} at ${Math.round(bin.fillLevel)}% — immediate collection required`,binId:bin.id,timestamp:Date.now(),resolved:false});
+          }
+        }
+      }
+    });
+  }
+};
+</script>
+
+<!-- ============================================ -->
+<!-- utils.js                                     -->
+<!-- ============================================ -->
+<script>
+const Utils = {
+  timeAgo(ts) { const d=Date.now()-ts,m=Math.floor(d/60000); if(m<1)return'Just now'; if(m<60)return`${m}m ago`; const h=Math.floor(m/60); if(h<24)return`${h}h ago`; return`${Math.floor(h/24)}d ago`; },
+  formatTime(d) { return d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}); },
+  formatDate(d) { return d.toLocaleDateString('en-US',{month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'}); },
+  fillBarColor(l) { if(l>=Database.thresholds.critical)return'var(--danger)'; if(l>=Database.thresholds.warning)return'var(--warning)'; if(l<10)return'var(--info)'; return'var(--accent)'; },
+  statusClass(s) { return{normal:'normal',warning:'warning',critical:'critical',empty:'empty'}[s]||'normal'; },
+  toast(msg,type='info') {
+    const c=document.getElementById('toastContainer');
+    const co={info:'var(--info)',success:'var(--success)',warning:'var(--warning)',danger:'var(--danger)'};
+    const ic={info:'fa-info-circle',success:'fa-check-circle',warning:'fa-exclamation-circle',danger:'fa-exclamation-triangle'};
+    const el=document.createElement('div'); el.className='toast';
+    el.innerHTML=`<i class="fas ${ic[type]}" style="color:${co[type]};font-size:16px"></i><span>${msg}</span>`;
+    c.appendChild(el);
+    setTimeout(()=>{el.classList.add('leaving');setTimeout(()=>el.remove(),300);},4000);
+  },
+  showModal(title,content,actions) {
+    document.getElementById('modalContainer').innerHTML=`<div class="modal-overlay" onclick="if(event.target===this)Utils.closeModal()"><div class="modal-box"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px"><h3 style="font-size:17px;font-weight:700">${title}</h3><button style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:18px" onclick="Utils.closeModal()" aria-label="Close"><i class="fas fa-times"></i></button></div><div id="modalBody">${content}</div>${actions?`<div style="display:flex;gap:10px;justify-content:flex-end;margin-top:20px">${actions}</div>`:''}</div></div>`;
+  },
+  closeModal() { document.getElementById('modalContainer').innerHTML=''; },
+};
+</script>
+
+<!-- ============================================ -->
+<!-- api.js                                       -->
+<!-- ============================================ -->
+<script>
+const API = {
+  getStats(range) {
+    const m={today:1,week:7,month:30}[range]||1;
+    const bins=Database.bins;
+    return new Promise(r=>setTimeout(()=>r({totalBins:bins.length,activeSensors:bins.filter(b=>b.battery>15).length,criticalBins:bins.filter(b=>b.status==='critical').length,warningBins:bins.filter(b=>b.status==='warning').length,totalCollected:Math.round(1240*m*(0.9+Math.random()*0.2)),collections:Math.round(18*m*(0.85+Math.random()*0.3)),recyclingRate:Math.round((62+Math.random()*10)*10)/10,fuelSaved:Math.round(34*m*(0.8+Math.random()*0.4))}),150));
+  },
+  getBins(f='all') { return new Promise(r=>setTimeout(()=>r(f==='all'?[...Database.bins]:Database.bins.filter(b=>b.status===f)),100)); },
+  getAlerts(f='all') { return new Promise(r=>setTimeout(()=>{if(f==='all')r([...Database.alerts]);else if(f==='resolved')r(Database.alerts.filter(a=>a.resolved));else r(Database.alerts.filter(a=>a.type===f&&!a.resolved));},100)); },
+  resolveAlert(id) { return new Promise(r=>{setTimeout(()=>{const a=Database.alerts.find(x=>x.id===id);if(a)a.resolved=true;r(a);},80);}); },
+  addBin(d) { return new Promise(r=>{setTimeout(()=>{const b={id:`BIN-${String(Database.bins.length+1).padStart(3,'0')}`,...d,fillLevel:0,status:'empty',battery:100,lastReading:Date.now(),temperature:Math.round((15+Math.random()*20)*10)/10,collections:0};Database.bins.push(b);r(b);},200);}); },
+  addSchedule(d) { return new Promise(r=>{setTimeout(()=>{const s={id:`SCH-${String(Database.schedules.length+1).padStart(3,'0')}`,...d,status:'Active'};Database.schedules.push(s);r(s);},200);}); },
+  deleteSchedule(id) { return new Promise(r=>{setTimeout(()=>{Database.schedules=Database.schedules.filter(s=>s.id!==id);r();},100);}); },
+};
+</script>
+
+<!-- ============================================ -->
+<!-- auth.login.js — Authentication logic         -->
+<!-- ============================================ -->
+<script>
+const Auth = {
+  isLoggedIn: false,
+
+  initLoginBg() {
+    const canvas = document.getElementById('loginBgCanvas');
+    const ctx = canvas.getContext('2d');
+    let w, h, particles = [];
+
+    const resize = () => { w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight; };
+    resize();
+    window.addEventListener('resize', resize);
+
+    for (let i = 0; i < 60; i++) {
+      particles.push({
+        x: Math.random() * w, y: Math.random() * h,
+        vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4,
+        r: Math.random() * 2 + 0.5, a: Math.random() * 0.3 + 0.05,
+      });
+    }
+
+    const draw = () => {
+      ctx.clearRect(0, 0, w, h);
+      // Connection lines
+      for (let i = 0; i < particles.length; i++) {
+        for (let j = i + 1; j < particles.length; j++) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 150) {
+            ctx.beginPath();
+            ctx.moveTo(particles[i].x, particles[i].y);
+            ctx.lineTo(particles[j].x, particles[j].y);
+            ctx.strokeStyle = `rgba(16,185,129,${0.06 * (1 - dist / 150)})`;
+            ctx.lineWidth = 0.5
