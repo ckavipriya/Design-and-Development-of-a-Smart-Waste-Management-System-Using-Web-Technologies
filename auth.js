@@ -1,26 +1,39 @@
-const express = require('express');
-const { body } = require('express-validator');
-const router = express.Router();
-const { signup, login } = require('../controllers/authController');
+const jwt = require('jsonwebtoken');
+const User = require('../../models/User');
 
-/**
- * POST /api/auth/signup
- * body: { name, email, password, role(optional: volunteer|ngo), skills, location, bio }
- */
-router.post('/signup', [
-  body('name').isLength({ min: 2 }).withMessage('Name required'),
-  body('email').isEmail().withMessage('Valid email required'),
-  body('password').isLength({ min: 6 }).withMessage('Password min 6 chars'),
-  body('role').optional().isIn(['volunteer','ngo','admin'])
-], signup);
+const verifyToken = (req, res, next) => {
+  const authHeader = req.headers.authorization || '';
+  const token = authHeader.startsWith('Bearer ') ? authHeader.split(' ')[1] : null;
+  if (!token) return res.status(401).json({ message: 'No token provided' });
 
-/**
- * POST /api/auth/login
- * body: { email, password }
- */
-router.post('/login', [
-  body('email').isEmail().withMessage('Valid email required'),
-  body('password').exists().withMessage('Password required')
-], login);
+  try {
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    req.userId = payload.id;
+    req.userRole = payload.role;
+    next();
+  } catch (err) {
+    return res.status(401).json({ message: 'Invalid or expired token' });
+  }
+};
 
-module.exports = router;
+// Attach full user object (optional, helpful for controllers)
+const attachUser = async (req, res, next) => {
+  try {
+    if (!req.userId) return next();
+    const user = await User.findById(req.userId).select('-password');
+    req.user = user;
+    next();
+  } catch (err) {
+    next(err);
+  }
+};
+
+const requireRole = (...roles) => (req, res, next) => {
+  if (!req.userRole) return res.status(403).json({ message: 'Role not found' });
+  if (!roles.includes(req.userRole)) {
+    return res.status(403).json({ message: 'Forbidden: insufficient role' });
+  }
+  next();
+};
+
+module.exports = { verifyToken, requireRole, attachUser };
