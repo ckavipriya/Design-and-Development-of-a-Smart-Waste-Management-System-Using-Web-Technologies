@@ -1,1153 +1,139 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoSense | Smart Waste Management System</title>
-    <!-- Google Fonts for modern typography -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Material Icons for UI elements -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
-
-    <style>
-        :root {
-            /* Color Palette */
-            --primary: #10b981;       /* Emerald Green */
-            --primary-dark: #059669;
-            --secondary: #3b82f6;     /* Blue */
-            --accent: #f59e0b;        /* Amber/Warning */
-            --danger: #ef4444;        /* Red/Alert */
-            --bg-body: #f3f4f6;
-            --bg-card: #ffffff;
-            --text-main: #1f2937;
-            --text-muted: #6b7280;
-            --border: #e5e7eb;
-            --sidebar-width: 260px;
-            --header-height: 70px;
-            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --transition: all 0.3s ease;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-        }
-
-        /* --- Sidebar --- */
-        .sidebar {
-            width: var(--sidebar-width);
-            background-color: var(--bg-card);
-            border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            z-index: 20;
-            transition: var(--transition);
-        }
-
-        .logo-area {
-            height: var(--header-height);
-            display: flex;
-            align-items: center;
-            padding: 0 24px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .logo-icon {
-            font-size: 32px;
-            color: var(--primary);
-            margin-right: 12px;
-        }
-
-        .logo-text {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text-main);
-        }
-
-        .nav-links {
-            padding: 24px 16px;
-            flex: 1;
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            padding: 12px 16px;
-            margin-bottom: 8px;
-            border-radius: 8px;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-weight: 500;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .nav-item:hover {
-            background-color: #f0fdf4; /* Light green tint */
-            color: var(--primary-dark);
-        }
-
-        .nav-item.active {
-            background-color: var(--primary);
-            color: white;
-            box-shadow: var(--shadow-sm);
-        }
-
-        .nav-item .material-icons-round {
-            margin-right: 12px;
-            font-size: 20px;
-        }
-
-        .user-profile {
-            padding: 20px;
-            border-top: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #e5e7eb;
-            object-fit: cover;
-        }
-
-        .user-info h4 {
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .user-info p {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        /* --- Main Content --- */
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Header */
-        header {
-            height: var(--header-height);
-            background-color: var(--bg-card);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 32px;
-        }
-
-        .header-title h2 {
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-
-        .header-actions {
-            display: flex;
-            gap: 16px;
-        }
-
-        .icon-btn {
-            background: none;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            color: var(--text-muted);
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .icon-btn:hover {
-            background-color: #f9fafb;
-            color: var(--primary);
-        }
-
-        .badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: var(--danger);
-            color: white;
-            font-size: 0.7rem;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        /* Dashboard Grid */
-        .dashboard-container {
-            padding: 32px;
-            overflow-y: auto;
-            flex: 1;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: auto auto 1fr;
-            gap: 24px;
-        }
-
-        /* KPI Cards */
-        .kpi-card {
-            background: var(--bg-card);
-            padding: 24px;
-            border-radius: 12px;
-            box-shadow: var(--shadow-sm);
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            border: 1px solid var(--border);
-        }
-
-        .kpi-icon {
-            width: 56px;
-            height: 56px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-        }
-
-        .kpi-green { background-color: #d1fae5; color: var(--primary); }
-        .kpi-blue { background-color: #dbeafe; color: var(--secondary); }
-        .kpi-orange { background-color: #fef3c7; color: var(--accent); }
-        .kpi-red { background-color: #fee2e2; color: var(--danger); }
-
-        .kpi-data h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-
-        .kpi-data p {
-            font-size: 0.875rem;
-            color: var(--text-muted);
-        }
-
-        /* Map Section (The 2D Tool) */
-        .map-section {
-            grid-column: span 3;
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            min-height: 450px;
-        }
-
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-
-        .section-header h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        .map-legend {
-            display: flex;
-            gap: 16px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
-        /* The Visual Map Area */
-        #city-map {
-            flex: 1;
-            background-color: #f8fafc;
-            background-image: 
-                linear-gradient(#e2e8f0 1px, transparent 1px),
-                linear-gradient(90deg, #e2e8f0 1px, transparent 1px);
-            background-size: 40px 40px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            position: relative;
-            overflow: hidden;
-            cursor: grab;
-        }
-
-        #city-map:active {
-            cursor: grabbing;
-        }
-
-        .map-bin {
-            position: absolute;
-            width: 32px;
-            height: 32px;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            border: 2px solid white;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 10;
-        }
-
-        .map-bin:hover {
-            transform: translate(-50%, -50%) scale(1.2);
-            z-index: 20;
-        }
-
-        .map-bin i {
-            color: white;
-            font-size: 18px;
-        }
-
-        /* Truck Icon on Map */
-        .map-truck {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            transform: translate(-50%, -50%);
-            z-index: 15;
-            font-size: 32px;
-            color: var(--secondary);
-            transition: top 2s linear, left 2s linear; /* Smooth movement */
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-        }
-
-        /* Alerts Panel */
-        .alerts-section {
-            grid-column: span 1;
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            max-height: 550px;
-        }
-
-        .alerts-list {
-            overflow-y: auto;
-            flex: 1;
-            padding-right: 8px;
-        }
-
-        .alert-item {
-            display: flex;
-            align-items: start;
-            gap: 12px;
-            padding: 12px 0;
-            border-bottom: 1px solid #f3f4f6;
-        }
-
-        .alert-item:last-child {
-            border-bottom: none;
-        }
-
-        .alert-icon {
-            padding: 6px;
-            border-radius: 8px;
-            background-color: #fee2e2;
-            color: var(--danger);
-        }
-        
-        .alert-icon.warning {
-            background-color: #fef3c7;
-            color: var(--accent);
-        }
-
-        .alert-content h5 {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .alert-content span {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        .alert-time {
-            font-size: 0.7rem;
-            color: #9ca3af;
-            margin-left: auto;
-            white-space: nowrap;
-        }
-
-        /* Analytics Section */
-        .analytics-section {
-            grid-column: span 4;
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border);
-            height: 300px;
-        }
-
-        .chart-container {
-            width: 100%;
-            height: 220px;
-            position: relative;
-        }
-
-        canvas {
-            width: 100%;
-            height: 100%;
-        }
-
-        /* Modal for Bin Details */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 100;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s;
-        }
-
-        .modal-overlay.open {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .modal {
-            background: white;
-            padding: 32px;
-            border-radius: 16px;
-            width: 400px;
-            max-width: 90%;
-            box-shadow: var(--shadow-md);
-            transform: translateY(20px);
-            transition: transform 0.3s;
-        }
-
-        .modal-overlay.open .modal {
-            transform: translateY(0);
-        }
-
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-
-        .close-btn {
-            background: none;
-            border: none;
-            cursor: pointer;
-            color: var(--text-muted);
-        }
-
-        .bin-stat-row {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 12px;
-            font-size: 0.95rem;
-        }
-
-        .fill-level-bar {
-            width: 100%;
-            height: 12px;
-            background-color: #e5e7eb;
-            border-radius: 6px;
-            overflow: hidden;
-            margin: 16px 0 24px 0;
-        }
-
-        .fill-progress {
-            height: 100%;
-            background-color: var(--primary);
-            width: 0%;
-            transition: width 1s ease;
-        }
-
-        .action-btn {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-weight: 600;
-            cursor: pointer;
-            background-color: var(--primary);
-            color: white;
-            transition: background 0.2s;
-        }
-
-        .action-btn:hover {
-            background-color: var(--primary-dark);
-        }
-
-        /* Toast Notification */
-        .toast {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background: var(--text-main);
-            color: white;
-            padding: 12px 24px;
-            border-radius: 8px;
-            box-shadow: var(--shadow-md);
-            transform: translateY(100px);
-            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            z-index: 200;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .toast.show {
-            transform: translateY(0);
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .dashboard-container {
-                grid-template-columns: 1fr 1fr;
-            }
-            .map-section { grid-column: span 2; }
-            .alerts-section { grid-column: span 2; max-height: 300px; }
-            .analytics-section { grid-column: span 2; }
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                position: fixed;
-                left: -100%;
-                height: 100%;
-                box-shadow: var(--shadow-md);
-            }
-            .sidebar.active { left: 0; }
-            .dashboard-container {
-                grid-template-columns: 1fr;
-                padding: 16px;
-            }
-            .map-section, .alerts-section, .analytics-section {
-                grid-column: span 1;
-            }
-            header { padding: 0 16px; }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar" id="sidebar">
-        <div class="logo-area">
-            <span class="material-icons-round logo-icon">recycling</span>
-            <span class="logo-text">EcoSense</span>
-        </div>
-        <nav class="nav-links">
-            <a href="#" class="nav-item active" onclick="activateNav(this)">
-                <span class="material-icons-round">dashboard</span>
-                Dashboard
-            </a>
-            <a href="#" class="nav-item" onclick="activateNav(this)">
-                <span class="material-icons-round">map</span>
-                Live Map
-            </a>
-            <a href="#" class="nav-item" onclick="activateNav(this)">
-                <span class="material-icons-round">delete</span>
-                Bins List
-            </a>
-            <a href="#" class="nav-item" onclick="activateNav(this)">
-                <span class="material-icons-round">local_shipping</span>
-                Fleet
-            </a>
-            <a href="#" class="nav-item" onclick="activateNav(this)">
-                <span class="material-icons-round">bar_chart</span>
-                Analytics
-            </a>
-            <a href="#" class="nav-item" onclick="activateNav(this)">
-                <span class="material-icons-round">settings</span>
-                Settings
-            </a>
-        </nav>
-        <div class="user-profile">
-            <img src="https://picsum.photos/seed/admin/40/40" alt="Admin" class="avatar">
-            <div class="user-info">
-                <h4>Alex Morgan</h4>
-                <p>City Admin</p>
-            </div>
-        </div>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <header>
-            <div class="header-title">
-                <button class="icon-btn" id="menu-toggle" style="margin-right: 16px; display: none;">
-                    <span class="material-icons-round">menu</span>
-                </button>
-                <h2>Dashboard Overview</h2>
-            </div>
-            <div class="header-actions">
-                <button class="icon-btn" title="Notifications">
-                    <span class="material-icons-round">notifications</span>
-                    <span class="badge" id="notif-badge">3</span>
-                </button>
-                <button class="icon-btn" title="Refresh Data" onclick="randomizeData()">
-                    <span class="material-icons-round">refresh</span>
-                </button>
-            </div>
-        </header>
-
-        <div class="dashboard-container">
-            <!-- KPI 1 -->
-            <div class="kpi-card">
-                <div class="kpi-icon kpi-green">
-                    <span class="material-icons-round">delete_outline</span>
-                </div>
-                <div class="kpi-data">
-                    <h3 id="total-waste">1,240 kg</h3>
-                    <p>Waste Collected Today</p>
-                </div>
-            </div>
-
-            <!-- KPI 2 -->
-            <div class="kpi-card">
-                <div class="kpi-icon kpi-orange">
-                    <span class="material-icons-round">warning_amber</span>
-                </div>
-                <div class="kpi-data">
-                    <h3 id="critical-bins">5</h3>
-                    <p>Critical Bins (>90%)</p>
-                </div>
-            </div>
-
-            <!-- KPI 3 -->
-            <div class="kpi-card">
-                <div class="kpi-icon kpi-blue">
-                    <span class="material-icons-round">local_shipping</span>
-                </div>
-                <div class="kpi-data">
-                    <h3>8 / 12</h3>
-                    <p>Fleet Active</p>
-                </div>
-            </div>
-
-            <!-- KPI 4 -->
-            <div class="kpi-card">
-                <div class="kpi-icon kpi-red">
-                    <span class="material-icons-round">eco</span>
-                </div>
-                <div class="kpi-data">
-                    <h3>84%</h3>
-                    <p>Recycling Rate</p>
-                </div>
-            </div>
-
-            <!-- Interactive Map Section -->
-            <section class="map-section">
-                <div class="section-header">
-                    <h3>Live Bin Status Map</h3>
-                    <div class="map-legend">
-                        <div class="legend-item"><div class="dot" style="background:var(--primary)"></div>Normal</div>
-                        <div class="legend-item"><div class="dot" style="background:var(--accent)"></div>Moderate</div>
-                        <div class="legend-item"><div class="dot" style="background:var(--danger)"></div>Critical</div>
-                    </div>
-                </div>
-                <!-- 2D Visualization Container -->
-                <div id="city-map">
-                    <!-- Trucks and Bins will be injected here by JS -->
-                </div>
-            </section>
-
-            <!-- Alerts Feed -->
-            <section class="alerts-section">
-                <div class="section-header">
-                    <h3>Recent Alerts</h3>
-                    <button class="icon-btn" style="width:32px; height:32px;" title="Clear All" onclick="clearAlerts()">
-                        <span class="material-icons-round" style="font-size:18px;">done_all</span>
-                    </button>
-                </div>
-                <div class="alerts-list" id="alerts-list">
-                    <!-- Alert Items injected via JS -->
-                </div>
-            </section>
-
-            <!-- Analytics Chart -->
-            <section class="analytics-section">
-                <div class="section-header">
-                    <h3>Waste Generation Trends (Weekly)</h3>
-                </div>
-                <div class="chart-container">
-                    <canvas id="wasteChart"></canvas>
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <!-- Bin Detail Modal -->
-    <div class="modal-overlay" id="bin-modal">
-        <div class="modal">
-            <div class="modal-header">
-                <h3 id="modal-bin-id">Bin #1024</h3>
-                <button class="close-btn" onclick="closeModal()">
-                    <span class="material-icons-round">close</span>
-                </button>
-            </div>
-            <div class="bin-stat-row">
-                <span>Location:</span>
-                <strong id="modal-loc">Main St. & 4th Ave</strong>
-            </div>
-            <div class="bin-stat-row">
-                <span>Type:</span>
-                <strong id="modal-type">Recyclable</strong>
-            </div>
-            <div class="bin-stat-row">
-                <span>Last Emptied:</span>
-                <strong id="modal-last">2 hours ago</strong>
-            </div>
-            
-            <p style="font-size: 0.9rem; margin-top: 16px; color: var(--text-muted);">Fill Level</p>
-            <div class="fill-level-bar">
-                <div class="fill-progress" id="modal-progress" style="width: 0%;"></div>
-            </div>
-
-            <div class="bin-stat-row" id="modal-status-text">
-                <span style="color: var(--primary); font-weight: 600;">Status: Normal</span>
-            </div>
-
-            <button class="action-btn" onclick="dispatchTruck()">Dispatch Truck</button>
-        </div>
-    </div>
-
-    <!-- Toast -->
-    <div class="toast" id="toast">
-        <span class="material-icons-round" style="color: #4ade80;">check_circle</span>
-        <span id="toast-msg">Action Successful</span>
-    </div>
-
-    <script>
-        // --- Data Models ---
-        const BIN_TYPES = ['General', 'Recyclable', 'Organic'];
-        const LOCATIONS = ['Central Park', 'Market Square', 'Westside Mall', 'City Library', 'Tech Hub', 'North Station', 'East Gate', 'Riverside Dr.'];
-        
-        // Generate mock bins
-        let bins = Array.from({ length: 15 }, (_, i) => ({
-            id: 1000 + i,
-            x: Math.floor(Math.random() * 80) + 10, // % coordinates
-            y: Math.floor(Math.random() * 80) + 10, // % coordinates
-            fillLevel: Math.floor(Math.random() * 100),
-            type: BIN_TYPES[Math.floor(Math.random() * BIN_TYPES.length)],
-            location: LOCATIONS[Math.floor(Math.random() * LOCATIONS.length)],
-            lastEmptied: new Date(Date.now() - Math.random() * 10000000)
-        }));
-
-        // Mock Trucks
-        let trucks = [
-            { id: 'T-01', x: 10, y: 10, status: 'Idle' },
-            { id: 'T-02', x: 80, y: 80, status: 'En Route' }
-        ];
-
-        let selectedBin = null;
-
-        // --- DOM Elements ---
-        const mapEl = document.getElementById('city-map');
-        const alertsListEl = document.getElementById('alerts-list');
-        const modalEl = document.getElementById('bin-modal');
-        const notifBadge = document.getElementById('notif-badge');
-
-        // --- Initialization ---
-        function init() {
-            renderMap();
-            renderAlerts();
-            drawChart();
-            updateKPIs();
-            
-            // Responsive menu toggle
-            const menuBtn = document.getElementById('menu-toggle');
-            const sidebar = document.getElementById('sidebar');
-            
-            if(window.innerWidth <= 768) {
-                menuBtn.style.display = 'flex';
-            }
-            
-            menuBtn.addEventListener('click', () => {
-                sidebar.classList.toggle('active');
-            });
-
-            // Start Simulation Loop
-            setInterval(simulateLiveUpdates, 5000); // Update fill levels every 5s
-            setInterval(moveTrucks, 3000); // Move trucks every 3s
-        }
-
-        // --- Map Rendering ---
-        function renderMap() {
-            // Clear existing static bins (trucks handled separately for smooth animation)
-            const existingBins = mapEl.querySelectorAll('.map-bin');
-            existingBins.forEach(b => b.remove());
-
-            bins.forEach(bin => {
-                const el = document.createElement('div');
-                el.className = 'map-bin';
-                el.style.left = bin.x + '%';
-                el.style.top = bin.y + '%';
-                
-                // Color logic
-                let color = 'var(--primary)';
-                if (bin.fillLevel > 50) color = 'var(--accent)';
-                if (bin.fillLevel > 85) color = 'var(--danger)';
-                
-                el.style.backgroundColor = color;
-                el.innerHTML = '<span class="material-icons-round">delete</span>';
-                
-                el.onclick = () => openBinModal(bin);
-                
-                mapEl.appendChild(el);
-            });
-
-            // Render Trucks
-            trucks.forEach(truck => {
-                let tEl = document.getElementById('truck-' + truck.id);
-                if (!tEl) {
-                    tEl = document.createElement('div');
-                    tEl.id = 'truck-' + truck.id;
-                    tEl.className = 'map-truck';
-                    tEl.innerHTML = '<span class="material-icons-round">local_shipping</span>';
-                    mapEl.appendChild(tEl);
-                }
-                tEl.style.left = truck.x + '%';
-                tEl.style.top = truck.y + '%';
-            });
-        }
-
-        // --- Logic & Simulation ---
-        function simulateLiveUpdates() {
-            // Randomly increase fill level of random bins
-            bins.forEach(bin => {
-                if (bin.fillLevel < 100 && Math.random() > 0.7) {
-                    bin.fillLevel = Math.min(100, bin.fillLevel + Math.floor(Math.random() * 10));
-                    
-                    // Trigger alert if crossing threshold
-                    if (bin.fillLevel > 85 && bin.fillLevel <= 95) {
-                        addAlert(bin, 'warning');
-                    } else if (bin.fillLevel > 95) {
-                        addAlert(bin, 'critical');
-                    }
-                }
-            });
-            renderMap(); // Re-render to show color changes
-            updateKPIs();
-        }
-
-        function moveTrucks() {
-            trucks.forEach(truck => {
-                // Simple random movement simulation
-                if (truck.status === 'En Route') {
-                    const dx = (Math.random() - 0.5) * 10;
-                    const dy = (Math.random() - 0.5) * 10;
-                    truck.x = Math.max(5, Math.min(95, truck.x + dx));
-                    truck.y = Math.max(5, Math.min(95, truck.y + dy));
-                    
-                    const tEl = document.getElementById('truck-' + truck.id);
-                    if(tEl) {
-                        tEl.style.left = truck.x + '%';
-                        tEl.style.top = truck.y + '%';
-                    }
-                }
-            });
-        }
-
-        function randomizeData() {
-            bins.forEach(b => b.fillLevel = Math.floor(Math.random() * 100));
-            renderMap();
-            updateKPIs();
-            showToast("Data Refreshed");
-        }
-
-        // --- Alerts System ---
-        function addAlert(bin, type) {
-            const id = Date.now();
-            const title = type === 'critical' ? 'Bin Overflow Critical!' : 'Bin Almost Full';
-            const iconClass = type === 'critical' ? 'error' : 'warning';
-            const colorClass = type === 'critical' ? '' : 'warning';
-
-            const item = document.createElement('div');
-            item.className = 'alert-item';
-            item.innerHTML = `
-                <div class="alert-icon ${colorClass}">
-                    <span class="material-icons-round">${iconClass}</span>
-                </div>
-                <div class="alert-content">
-                    <h5>${title}</h5>
-                    <span>Bin #${bin.id} at ${bin.location}</span>
-                </div>
-                <div class="alert-time">Just now</div>
-            `;
-            
-            alertsListEl.prepend(item);
-            
-            // Update badge
-            let count = parseInt(notifBadge.innerText);
-            notifBadge.innerText = count + 1;
-        }
-
-        function renderAlerts() {
-            // Initial dummy alerts
-            addAlert(bins[0], 'warning');
-            addAlert(bins[1], 'critical');
-        }
-
-        function clearAlerts() {
-            alertsListEl.innerHTML = '';
-            notifBadge.innerText = '0';
-            showToast("All alerts cleared");
-        }
-
-        // --- Modal Interactions ---
-        function openBinModal(bin) {
-            selectedBin = bin;
-            document.getElementById('modal-bin-id').innerText = `Bin #${bin.id}`;
-            document.getElementById('modal-loc').innerText = bin.location;
-            document.getElementById('modal-type').innerText = bin.type;
-            
-            // Format date
-            const timeStr = bin.lastEmptied.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-            document.getElementById('modal-last').innerText = `Today, ${timeStr}`;
-
-            const progressEl = document.getElementById('modal-progress');
-            progressEl.style.width = bin.fillLevel + '%';
-            
-            // Color code progress bar
-            if (bin.fillLevel > 85) progressEl.style.backgroundColor = 'var(--danger)';
-            else if (bin.fillLevel > 50) progressEl.style.backgroundColor = 'var(--accent)';
-            else progressEl.style.backgroundColor = 'var(--primary)';
-
-            const statusText = document.getElementById('modal-status-text');
-            if (bin.fillLevel > 85) {
-                statusText.innerHTML = '<span style="color: var(--danger); font-weight: 600;">Status: Critical - Needs Pickup</span>';
-            } else {
-                statusText.innerHTML = '<span style="color: var(--primary); font-weight: 600;">Status: Normal</span>';
-            }
-
-            modalEl.classList.add('open');
-        }
-
-        function closeModal() {
-            modalEl.classList.remove('open');
-            selectedBin = null;
-        }
-
-        // Close modal when clicking outside
-        modalEl.addEventListener('click', (e) => {
-            if (e.target === modalEl) closeModal();
-        });
-
-        function dispatchTruck() {
-            if (!selectedBin) return;
-            closeModal();
-            showToast(`Truck dispatched to Bin #${selectedBin.id}`);
-            
-            // Logic to visually move truck to bin (Simplified)
-            const availableTruck = trucks.find(t => t.status === 'Idle');
-            if (availableTruck) {
-                availableTruck.status = 'En Route';
-                // Animate truck to bin
-                availableTruck.x = selectedBin.x;
-                availableTruck.y = selectedBin.y;
-                renderMap();
-                
-                setTimeout(() => {
-                    availableTruck.status = 'Idle';
-                    selectedBin.fillLevel = 0; // Bin emptied
-                    renderMap();
-                }, 3000);
-            } else {
-                showToast("No trucks available currently!");
-            }
-        }
-
-        // --- KPI Updates ---
-        function updateKPIs() {
-            const totalWaste = bins.reduce((acc, b) => acc + (b.fillLevel * 2.5), 0); // Mock calc
-            document.getElementById('total-waste').innerText = Math.floor(totalWaste) + ' kg';
-            
-            const criticalCount = bins.filter(b => b.fillLevel > 90).length;
-            document.getElementById('critical-bins').innerText = criticalCount;
-            
-            // Visual styling for critical KPI
-            const kpiCard = document.getElementById('critical-bins').parentElement.parentElement;
-            if (criticalCount > 5) {
-                kpiCard.style.borderColor = 'var(--danger)';
-            } else {
-                kpiCard.style.borderColor = 'var(--border)';
-            }
-        }
-
-        // --- Custom Canvas Chart (No Libraries) ---
-        function drawChart() {
-            const canvas = document.getElementById('wasteChart');
-            const ctx = canvas.getContext('2d');
-            
-            // Fix resolution
-            const dpr = window.devicePixelRatio || 1;
-            const rect = canvas.getBoundingClientRect();
-            canvas.width = rect.width * dpr;
-            canvas.height = rect.height * dpr;
-            ctx.scale(dpr, dpr);
-
-            const width = rect.width;
-            const height = rect.height;
-            const padding = 30;
-
-            // Data
-            const data = [65, 59, 80, 81, 56, 95, 70];
-            const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-            const maxVal = 100;
-
-            // Clear
-            ctx.clearRect(0, 0, width, height);
-
-            // Draw Grid
-            ctx.beginPath();
-            ctx.strokeStyle = '#e5e7eb';
-            ctx.lineWidth = 1;
-            for (let i = 0; i <= 5; i++) {
-                const y = padding + (height - 2 * padding) * (i / 5);
-                ctx.moveTo(padding, y);
-                ctx.lineTo(width - padding, y);
-                
-                // Y-Axis Labels
-                ctx.fillStyle = '#9ca3af';
-                ctx.font = '10px Inter';
-                ctx.textAlign = 'right';
-                ctx.fillText(Math.round(maxVal - (maxVal * (i/5))), padding - 5, y + 3);
-            }
-            ctx.stroke();
-
-            // Draw Line
-            const xStep = (width - 2 * padding) / (data.length - 1);
-            
-            // Gradient Fill
-            const gradient = ctx.createLinearGradient(0, padding, 0, height - padding);
-            gradient.addColorStop(0, 'rgba(16, 185, 129, 0.2)');
-            gradient.addColorStop(1, 'rgba(16, 185, 129, 0)');
-
-            ctx.beginPath();
-            ctx.moveTo(padding, height - padding);
-            
-            data.forEach((val, index) => {
-                const x = padding + index * xStep;
-                const y = padding + (height - 2 * padding) * (1 - val / maxVal);
-                if (index === 0) ctx.moveTo(x, y);
-                else ctx.lineTo(x, y);
-            });
-            
-            ctx.lineTo(padding + (data.length - 1) * xStep, height - padding);
-            ctx.closePath();
-            ctx.fillStyle = gradient;
-            ctx.fill();
-
-            // Draw Stroke
-            ctx.beginPath();
-            ctx.strokeStyle = '#10b981';
-            ctx.lineWidth = 3;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-            
-            data.forEach((val, index) => {
-                const x = padding + index * xStep;
-                const y = padding + (height - 2 * padding) * (1 - val / maxVal);
-                if (index === 0) ctx.moveTo(x, y);
-                else ctx.lineTo(x, y);
-            });
-            ctx.stroke();
-
-            // Draw Points & Labels
-            data.forEach((val, index) => {
-                const x = padding + index * xStep;
-                const y = padding + (height - 2 * padding) * (1 - val / maxVal);
-                
-                // Point
-                ctx.beginPath();
-                ctx.fillStyle = '#fff';
-                ctx.strokeStyle = '#10b981';
-                ctx.lineWidth = 2;
-                ctx.arc(x, y, 4, 0, Math.PI * 2);
-                ctx.fill();
-                ctx.stroke();
-
-                // X-Label
-                ctx.fillStyle = '#6b7280';
-                ctx.font = '12px Inter';
-                ctx.textAlign = 'center';
-                ctx.fillText(labels[index], x, height - 5);
-            });
-        }
-
-        // --- Utilities ---
-        function activateNav(el) {
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
-            el.classList.add('active');
-            
-            // On mobile, close sidebar after click
-            if(window.innerWidth <= 768) {
-                document.getElementById('sidebar').classList.remove('active');
-            }
-        }
-
-        function showToast(message) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-msg').innerText = message;
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-
-        // Run
-        window.addEventListener('resize', drawChart); // Redraw chart on resize
-        window.onload = init;
-
-    </script>
-</body>
-</html>
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Diagnostic reports (https://nodejs.org/api/report.html)
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Directory for instrumented libs generated by jscoverage/JSCover
+lib-cov
+
+# Coverage directory used by tools like istanbul
+coverage
+*.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
+# Bower dependency directory (https://bower.io/)
+bower_components
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons (https://nodejs.org/api/addons.html)
+build/Release
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+# Snowpack dependency directory (https://snowpack.dev/)
+web_modules/
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional stylelint cache
+.stylelintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variable files
+.env
+.env.*
+!.env.example
+
+# parcel-bundler cache (https://parceljs.org/)
+.cache
+.parcel-cache
+
+# Next.js build output
+.next
+out
+
+# Nuxt.js build / generate output
+.nuxt
+dist
+
+# Gatsby files
+.cache/
+# Comment in the public line in if your project uses Gatsby and not Next.js
+# https://nextjs.org/blog/next-9-1#public-directory-support
+# public
+
+# vuepress build output
+.vuepress/dist
+
+# vuepress v2.x temp and cache directory
+.temp
+.cache
+
+# Sveltekit cache directory
+.svelte-kit/
+
+# vitepress build output
+**/.vitepress/dist
+
+# vitepress cache directory
+**/.vitepress/cache
+
+# Docusaurus cache and generated files
+.docusaurus
+
+# Serverless directories
+.serverless/
+
+# FuseBox cache
+.fusebox/
+
+# DynamoDB Local files
+.dynamodb/
+
+# Firebase cache directory
+.firebase/
+
+# TernJS port file
+.tern-port
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
+# yarn v3
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Vite logs files
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
