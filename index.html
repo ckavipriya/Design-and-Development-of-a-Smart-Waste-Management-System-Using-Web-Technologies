@@ -3,239 +3,570 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EcoSmart | Smart Waste System</title>
+    <title>EcoSense | Enterprise Waste Management</title>
     
-    <!-- External Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Fonts: Inter & Outfit for a premium look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
-        /* --- RESET & VARIABLES --- */
+        /* --- PREMIUM DESIGN SYSTEM --- */
         :root {
-            --primary: #00b894;
-            --secondary: #0984e3;
-            --bg: #f4f7f6;
-            --text: #2d3436;
-            --white: #ffffff;
-            --glass: rgba(255, 255, 255, 0.9);
-            --shadow: 0 10px 20px rgba(0,0,0,0.08);
+            --bg-dark: #0f172a;
+            --bg-card: rgba(30, 41, 59, 0.7);
+            --bg-card-hover: rgba(51, 65, 85, 0.8);
+            --primary: #10b981; /* Emerald Green */
+            --primary-glow: rgba(16, 185, 129, 0.4);
+            --accent: #3b82f6; /* Blue */
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+            --gradient-bg: radial-gradient(circle at 10% 20%, #1e293b 0%, #0f172a 90%);
+            --glass-blur: blur(12px);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
         
-        body { background-color: var(--bg); color: var(--text); overflow-x: hidden; }
+        body {
+            background: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 50%, rgba(16, 185, 129, 0.08), transparent 25%),
+                radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.08), transparent 25%);
+        }
 
-        /* --- LOADING SCREEN --- */
+        /* --- LOADER --- */
         #loader {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--white); z-index: 9999;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            position: fixed; inset: 0; background: var(--bg-dark); z-index: 9999;
+            display: flex; justify-content: center; align-items: center; flex-direction: column;
             transition: opacity 0.5s;
         }
-        .spinner {
-            width: 50px; height: 50px; border: 5px solid #ddd;
-            border-top: 5px solid var(--primary); border-radius: 50%;
-            animation: spin 1s linear infinite;
+        .loader-ring {
+            width: 60px; height: 60px; border: 4px solid rgba(255,255,255,0.1);
+            border-top-color: var(--primary); border-radius: 50%;
+            animation: spin 1s linear infinite; margin-bottom: 20px;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* --- HEADER --- */
+        /* --- NAVIGATION --- */
         header {
-            position: fixed; top: 0; width: 100%; height: 70px;
-            background: var(--glass); backdrop-filter: blur(10px);
+            position: fixed; top: 0; left: 0; width: 100%; height: 80px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: var(--glass-blur);
+            border-bottom: 1px solid var(--border);
             display: flex; justify-content: space-between; align-items: center;
-            padding: 0 5%; z-index: 1000; /* Ensures it stays on top */
-            box-shadow: var(--shadow);
+            padding: 0 5%; z-index: 1000;
         }
 
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); cursor: pointer; }
+        .logo {
+            font-family: 'Outfit', sans-serif; font-size: 1.8rem; font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            letter-spacing: -0.5px;
+        }
+
+        nav { flex: 1; margin-left: 40px; }
+        nav ul { display: flex; list-style: none; gap: 5px; overflow-x: auto; padding-bottom: 5px; }
+        nav ul::-webkit-scrollbar { height: 0; }
         
-        nav ul { display: flex; list-style: none; gap: 20px; }
         nav a {
-            text-decoration: none; color: var(--text); font-weight: 500;
-            cursor: pointer; transition: color 0.3s;
+            text-decoration: none; color: var(--text-muted); font-size: 0.9rem; font-weight: 500;
+            padding: 8px 16px; border-radius: 8px; transition: 0.3s; white-space: nowrap;
         }
-        nav a:hover { color: var(--primary); }
+        nav a:hover, nav a.active-link { color: var(--text-main); background: rgba(255,255,255,0.05); }
+        nav a.active-link { border: 1px solid var(--border); }
 
-        /* --- MAIN LAYOUT --- */
-        main { padding-top: 90px; min-height: 100vh; }
+        .nav-actions { display: flex; gap: 10px; }
+        .btn {
+            padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; border: none; font-size: 0.9rem;
+        }
+        .btn-primary { background: var(--primary); color: #000; box-shadow: 0 0 15px var(--primary-glow); }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 25px var(--primary-glow); }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-main); }
+        .btn-outline:hover { border-color: var(--primary); color: var(--primary); }
 
-        /* --- VIEW SWITCHING --- */
-        .view { display: none; animation: fadeIn 0.4s ease; padding: 0 5% 50px 5%; }
+        /* --- LAYOUT --- */
+        main { padding-top: 100px; padding-bottom: 50px; min-height: 100vh; }
+        
+        .view { display: none; padding: 0 5%; animation: slideUp 0.4s ease-out; }
         .view.active { display: block; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- COMPONENTS --- */
-        .hero {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://picsum.photos/seed/waste/1200/600') center/cover;
-            height: 400px; border-radius: 20px; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; color: white; text-align: center;
-            margin-bottom: 40px;
+        .section-title {
+            font-family: 'Outfit', sans-serif; font-size: 2.5rem; margin-bottom: 10px; background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
+        .section-subtitle { color: var(--primary); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 40px; display: block; }
 
-        .btn {
-            padding: 10px 24px; border: none; border-radius: 8px; cursor: pointer;
-            font-weight: 600; transition: transform 0.2s; display: inline-block;
-            margin-top: 10px;
-        }
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,184,148,0.4); }
-        .btn-outline { background: transparent; border: 2px solid white; color: white; margin-left: 10px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 40px; }
 
         .card {
-            background: var(--white); padding: 25px; border-radius: 15px;
-            box-shadow: var(--shadow); text-align: center; margin-bottom: 20px;
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px;
+            padding: 30px; backdrop-filter: blur(10px); transition: 0.3s; position: relative; overflow: hidden;
         }
+        .card:hover { background: var(--bg-card-hover); transform: translateY(-5px); border-color: var(--primary); }
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: 0; transition: 0.3s;
+        }
+        .card:hover::before { opacity: 1; }
+
+        .icon-box {
+            width: 50px; height: 50px; background: rgba(16, 185, 129, 0.1); border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; color: var(--primary);
+            font-size: 1.5rem; margin-bottom: 20px;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 60px 5%; margin-bottom: 60px; position: relative;
+        }
+        .hero-content { max-width: 600px; }
+        .hero h1 { font-family: 'Outfit'; font-size: 4rem; line-height: 1.1; margin-bottom: 20px; }
+        .hero p { font-size: 1.2rem; color: var(--text-muted); margin-bottom: 30px; line-height: 1.6; }
+        .hero-stats {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+            background: rgba(255,255,255,0.03); padding: 30px; border-radius: 20px; border: 1px solid var(--border);
+        }
+        .stat-item h3 { font-size: 2rem; color: var(--text-main); }
+        .stat-item span { color: var(--text-muted); font-size: 0.9rem; }
+
+        /* --- DASHBOARD SPECIFIC --- */
+        .dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .kpi-card { background: var(--bg-card); padding: 20px; border-radius: 15px; border: 1px solid var(--border); display: flex; align-items: center; gap: 15px; }
+        .kpi-icon { width: 45px; height: 45px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
         
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .list-group { display: flex; flex-direction: column; gap: 15px; }
+        .list-item {
+            background: rgba(255,255,255,0.02); padding: 15px; border-radius: 12px;
+            display: flex; justify-content: space-between; align-items: center; border: 1px solid transparent;
+        }
+        .list-item:hover { border-color: var(--border); background: rgba(255,255,255,0.04); }
+        .badge { padding: 4px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+        .badge-danger { background: rgba(255, 76, 76, 0.2); color: #ff4c4c; }
+        .badge-success { background: rgba(16, 185, 129, 0.2); color: #10b981; }
 
         /* --- FORMS --- */
-        .auth-box {
-            max-width: 400px; margin: 50px auto; background: var(--white);
-            padding: 40px; border-radius: 15px; box-shadow: var(--shadow);
+        .auth-container { max-width: 450px; margin: 50px auto; background: var(--bg-card); padding: 40px; border-radius: 24px; border: 1px solid var(--border); text-align: center; }
+        input, select, textarea {
+            width: 100%; background: rgba(0,0,0,0.2); border: 1px solid var(--border);
+            padding: 14px; color: white; border-radius: 10px; margin-bottom: 15px; outline: none;
         }
-        input, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; outline: none; }
-        
-        /* --- DASHBOARD --- */
-        .dash-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-        @media(max-width: 768px) { .dash-grid { grid-template-columns: 1fr; } }
-        
-        .progress-bar { height: 10px; background: #eee; border-radius: 5px; overflow: hidden; margin-top: 5px; }
-        .progress-fill { height: 100%; background: var(--primary); transition: width 0.5s; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 0 2px rgba(16,185,129,0.2); }
 
         /* --- TOAST --- */
         #toast {
-            visibility: hidden; min-width: 250px; background: #333; color: #fff;
-            text-align: center; border-radius: 8px; padding: 16px; position: fixed;
+            visibility: hidden; min-width: 300px; background: var(--bg-card); border: 1px solid var(--primary);
+            color: #fff; text-align: center; border-radius: 10px; padding: 16px; position: fixed;
             z-index: 2000; left: 50%; bottom: 30px; transform: translateX(-50%);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
         #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
         @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
         @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
-
     </style>
 </head>
 <body>
 
-    <!-- Loading Screen -->
+    <!-- LOADER -->
     <div id="loader">
-        <div class="spinner"></div>
-        <p style="margin-top: 15px; color: #666;">Loading EcoSmart...</p>
+        <div class="loader-ring"></div>
+        <h2 style="font-family: 'Outfit'; margin-top: 20px;">EcoSense</h2>
     </div>
 
-    <!-- Header -->
+    <!-- HEADER -->
     <header>
-        <div class="logo" onclick="app.router('home')">EcoSmart</div>
+        <div class="logo">EcoSense.</div>
         <nav>
-            <ul id="nav-list">
-                <li><a onclick="app.router('home')">Home</a></li>
-                <li><a onclick="app.router('services')">Services</a></li>
-                <li><a onclick="app.router('dashboard')" id="link-dash" style="display:none">Dashboard</a></li>
-                <li><a onclick="app.router('login')" id="link-login">Login</a></li>
-                <li><a onclick="app.logout()" id="link-logout" style="display:none; color: var(--danger);">Logout</a></li>
+            <ul>
+                <li><a onclick="app.router('home')" id="nav-home">Home</a></li>
+                <li><a onclick="app.router('about')" id="nav-about">About</a></li>
+                <li><a onclick="app.router('services')" id="nav-services">Services</a></li>
+                <li><a onclick="app.router('workflow')" id="nav-workflow">Workflow</a></li>
+                <li><a onclick="app.router('team')" id="nav-team">Team</a></li>
+                <li><a onclick="app.router('blog')" id="nav-blog">Insights</a></li>
+                <li><a onclick="app.router('contact')" id="nav-contact">Contact</a></li>
             </ul>
         </nav>
+        <div class="nav-actions">
+            <a onclick="app.router('login')" id="nav-login" class="btn btn-outline">Sign In</a>
+            <a onclick="app.router('register')" id="nav-register" class="btn btn-primary">Get Started</a>
+            <a onclick="app.router('dashboard')" id="nav-dashboard" class="btn btn-primary" style="display:none">Dashboard</a>
+            <a onclick="app.logout()" id="nav-logout" class="btn btn-outline" style="display:none; border-color: #ff4c4c; color: #ff4c4c;">Logout</a>
+        </div>
     </header>
 
     <main>
+
         <!-- 1. HOME -->
         <section id="home" class="view active">
             <div class="hero">
-                <h1>Smart Waste Management</h1>
-                <p>Optimizing city sanitation with IoT technology.</p>
-                <button class="btn btn-primary" onclick="app.router('services')">Get Started</button>
-                <button class="btn btn-outline" onclick="app.router('login')">Login</button>
-            </div>
-            
-            <h2 style="margin-bottom: 20px;">Why Choose Us?</h2>
-            <div class="grid-3">
-                <div class="card">
-                    <i class="fas fa-trash-alt" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;"></i>
-                    <h3>Smart Bins</h3>
-                    <p>Sensors detect fill levels instantly.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-truck" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;"></i>
-                    <h3>Efficient Routes</h3>
-                    <p>Save fuel and time with optimized tracking.</p>
-                </div>
-                <div class="card">
-                    <i class="fas fa-chart-line" style="font-size: 2rem; color: var(--primary); margin-bottom: 10px;"></i>
-                    <h3>Live Data</h3>
-                    <p>Real-time analytics for better decisions.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 2. SERVICES -->
-        <section id="services" class="view">
-            <h1>Our Services</h1>
-            <div class="grid-3" style="margin-top: 30px;">
-                <div class="card"><h3>IoT Monitoring</h3><p>24/7 sensor tracking.</p></div>
-                <div class="card"><h3>Fleet Mgmt</h3><p>GPS tracking for trucks.</p></div>
-                <div class="card"><h3>Citizen App</h3><p>Report garbage easily.</p></div>
-                <div class="card"><h3>Analytics</h3><p>Waste generation reports.</p></div>
-                <div class="card"><h3>Billing</h3><p>Automated invoicing.</p></div>
-                <div class="card"><h3>Support</h3><p>24/7 technical help.</p></div>
-            </div>
-        </section>
-
-        <!-- 3. LOGIN -->
-        <section id="login" class="view">
-            <div class="auth-box">
-                <h2 style="text-align: center;">Login</h2>
-                <form onsubmit="app.handleLogin(event)">
-                    <input type="email" id="login-email" placeholder="Email" required>
-                    <input type="password" id="login-pass" placeholder="Password" required>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Login</button>
-                </form>
-                <p style="text-align: center; margin-top: 15px; font-size: 0.9rem;">
-                    New User? <a href="#" onclick="app.router('register')" style="color: var(--primary);">Register</a>
-                </p>
-                <div style="background: #f0f0f0; padding: 10px; margin-top: 15px; font-size: 0.8rem; border-radius: 5px;">
-                    <strong>Demo:</strong> user@demo.com / 1234
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. REGISTER -->
-        <section id="register" class="view">
-            <div class="auth-box">
-                <h2 style="text-align: center;">Register</h2>
-                <form onsubmit="app.handleRegister(event)">
-                    <input type="text" id="reg-name" placeholder="Full Name" required>
-                    <input type="email" id="reg-email" placeholder="Email" required>
-                    <input type="password" id="reg-pass" placeholder="Password" required>
-                    <button type="submit" class="btn btn-primary" style="width: 100%;">Sign Up</button>
-                </form>
-                <p style="text-align: center; margin-top: 15px;">
-                    Already a user? <a href="#" onclick="app.router('login')" style="color: var(--primary);">Login</a>
-                </p>
-            </div>
-        </section>
-
-        <!-- 5. DASHBOARD -->
-        <section id="dashboard" class="view">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
-                <h2>Dashboard</h2>
-                <button class="btn btn-primary" onclick="app.showToast('Feature coming in v2!')">+ Report Issue</button>
-            </div>
-
-            <div class="dash-grid">
-                <!-- Bin List -->
-                <div class="card" style="text-align: left;">
-                    <h3><i class="fas fa-wifi"></i> Live Bin Levels</h3>
-                    <div id="bins-container" style="margin-top: 20px;">
-                        <!-- JS will populate this -->
+                <div class="hero-content">
+                    <h1>Smart Waste Management<br><span style="color: var(--primary)">For The Future.</span></h1>
+                    <p>Leveraging IoT, AI, and Cloud Computing to optimize urban sanitation, reduce carbon footprints, and build sustainable cities.</p>
+                    <div style="display: flex; gap: 15px;">
+                        <button class="btn btn-primary" onclick="app.router('register')">Start Free Trial</button>
+                        <button class="btn btn-outline" onclick="app.router('services')">View Solutions</button>
                     </div>
                 </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <h3>40%</h3>
+                        <span>Cost Reduction</span>
+                    </div>
+                    <div class="stat-item">
+                        <h3>24/7</h3>
+                        <span>Real-time Monitoring</span>
+                    </div>
+                    <div class="stat-item">
+                        <h3>10k+</h3>
+                        <span>Smart Bins</span>
+                    </div>
+                    <div class="stat-item">
+                        <h3>0</h3>
+                        <span>Overflow Issues</span>
+                    </div>
+                </div>
+            </div>
 
-                <!-- Chart -->
+            <span class="section-subtitle">Core Capabilities</span>
+            <h2 class="section-title">Why Choose EcoSense?</h2>
+            <br>
+            <div class="grid-3">
                 <div class="card">
-                    <h3>Analytics</h3>
-                    <canvas id="myChart" style="max-height: 300px;"></canvas>
+                    <div class="icon-box"><i class="fas fa-microchip"></i></div>
+                    <h3>IoT Integration</h3>
+                    <p style="color:var(--text-muted); margin-top: 10px;">Ultrasonic sensors with edge computing capabilities for accurate fill-level detection.</p>
+                </div>
+                <div class="card">
+                    <div class="icon-box"><i class="fas fa-route"></i></div>
+                    <h3>Route Optimization</h3>
+                    <p style="color:var(--text-muted); margin-top: 10px;">AI algorithms calculate the most efficient collection paths to save fuel and time.</p>
+                </div>
+                <div class="card">
+                    <div class="icon-box"><i class="fas fa-chart-line"></i></div>
+                    <h3>Predictive Analytics</h3>
+                    <p style="color:var(--text-muted); margin-top: 10px;">Forecast waste generation patterns based on historical data and seasonality.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. ABOUT -->
+        <section id="about" class="view">
+            <span class="section-subtitle">Our Mission</span>
+            <h2 class="section-title">Revolutionizing Urban Sanitation</h2>
+            <br>
+            <div class="grid-2">
+                <div>
+                    <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-muted);">
+                        EcoSense is a Final Year Engineering Project designed to tackle the global waste management crisis. Traditional methods are inefficient, costly, and environmentally damaging. 
+                        <br><br>
+                        By deploying a network of smart sensors and connecting them to a cloud-based dashboard, we provide municipalities with the data they need to make informed decisions, reduce operational costs, and improve the quality of life for citizens.
+                    </p>
+                    <div style="margin-top: 30px; display: flex; gap: 20px;">
+                        <div>
+                            <h3 style="color: var(--primary); font-size: 2rem;">Node.js</h3>
+                            <p style="font-size: 0.8rem;">Backend</p>
+                        </div>
+                        <div>
+                            <h3 style="color: var(--accent); font-size: 2rem;">MongoDB</h3>
+                            <p style="font-size: 0.8rem;">Database</p>
+                        </div>
+                        <div>
+                            <h3 style="color: #f59e0b; font-size: 2rem;">React</h3>
+                            <p style="font-size: 0.8rem;">Frontend</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="background: url('https://picsum.photos/seed/tech/600/400') center/cover; height: 400px; display: flex; align-items: flex-end; padding: 30px;">
+                    <div>
+                        <h3 style="color: white; text-shadow: 0 2px 10px rgba(0,0,0,0.8);">Smart City Tech</h3>
+                        <p style="color: rgba(255,255,255,0.8);">Powered by modern web technologies.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. SERVICES -->
+        <section id="services" class="view">
+            <span class="section-subtitle">Solutions</span>
+            <h2 class="section-title">Enterprise Services</h2>
+            <br>
+            <div class="grid-3">
+                <div class="card">
+                    <i class="fas fa-wifi" style="font-size: 1.5rem; color: var(--primary); margin-bottom: 15px;"></i>
+                    <h4>Live Monitoring</h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Real-time status of every bin in the city.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 1.5rem; color: #ff4c4c; margin-bottom: 15px;"></i>
+                    <h4>Alert Systems</h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Instant SMS/Email alerts on overflow or fire.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-file-invoice" style="font-size: 1.5rem; color: var(--accent); margin-bottom: 15px;"></i>
+                    <h4>Reporting Suite</h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Generate PDF reports for compliance.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-users" style="font-size: 1.5rem; color: #f59e0b; margin-bottom: 15px;"></i>
+                    <h4>Citizen Engagement</h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Mobile app for public reporting.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-map-marked-alt" style="font-size: 1.5rem; color: #a855f7; margin-bottom: 15px;"></i>
+                    <h4>GPS Tracking</h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Track fleet movements in real-time.</p>
+                </div>
+                <div class="card">
+                    <i class="fas fa-cogs" style="font-size: 1.5rem; color: #64748b; margin-bottom: 15px;"></i>
+                    <h4>API Access</h4>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 5px;">Integrate with existing city systems.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. WORKFLOW -->
+        <section id="workflow" class="view">
+            <span class="section-subtitle">Process</span>
+            <h2 class="section-title">How It Works</h2>
+            <br>
+            <div style="max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; gap: 40px;">
+                <div style="display: flex; gap: 20px; align-items: flex-start;">
+                    <div style="width: 50px; height: 50px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #000; flex-shrink: 0;">1</div>
+                    <div>
+                        <h3>Sensors Detect</h3>
+                        <p style="color: var(--text-muted); margin-top: 5px;">IoT devices inside bins measure waste volume using ultrasonic waves and transmit data over GSM/Wi-Fi.</p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 20px; align-items: flex-start;">
+                    <div style="width: 50px; height: 50px; background: var(--accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff; flex-shrink: 0;">2</div>
+                    <div>
+                        <h3>Cloud Processing</h3>
+                        <p style="color: var(--text-muted); margin-top: 5px;">Node.js server receives data, validates it, and stores it in MongoDB. Analytics are generated in real-time.</p>
+                    </div>
+                </div>
+                <div style="display: flex; gap: 20px; align-items: flex-start;">
+                    <div style="width: 50px; height: 50px; background: #f59e0b; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; color: #fff; flex-shrink: 0;">3</div>
+                    <div>
+                        <h3>Decision Making</h3>
+                        <p style="color: var(--text-muted); margin-top: 5px;">Admins view the dashboard. If bins hit 80%, the system triggers an alert and suggests a truck route.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. TEAM -->
+        <section id="team" class="view">
+            <span class="section-subtitle">Developers</span>
+            <h2 class="section-title">Meet The Team</h2>
+            <br>
+            <div class="grid-3">
+                <div class="card" style="text-align: center;">
+                    <img src="https://picsum.photos/seed/dev1/150/150" style="border-radius: 50%; border: 3px solid var(--primary); margin-bottom: 20px;">
+                    <h3>Alex Mercer</h3>
+                    <p style="color: var(--accent); font-size: 0.9rem;">Lead Engineer</p>
+                    <div style="margin-top: 15px; display: flex; justify-content: center; gap: 10px;">
+                        <i class="fab fa-github" style="cursor: pointer;"></i>
+                        <i class="fab fa-linkedin" style="cursor: pointer;"></i>
+                    </div>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <img src="https://picsum.photos/seed/dev2/150/150" style="border-radius: 50%; border: 3px solid var(--primary); margin-bottom: 20px;">
+                    <h3>Sarah Connor</h3>
+                    <p style="color: var(--accent); font-size: 0.9rem;">UI/UX Designer</p>
+                    <div style="margin-top: 15px; display: flex; justify-content: center; gap: 10px;">
+                        <i class="fab fa-dribbble" style="cursor: pointer;"></i>
+                        <i class="fab fa-behance" style="cursor: pointer;"></i>
+                    </div>
+                </div>
+                <div class="card" style="text-align: center;">
+                    <img src="https://picsum.photos/seed/dev3/150/150" style="border-radius: 50%; border: 3px solid var(--primary); margin-bottom: 20px;">
+                    <h3>David Chen</h3>
+                    <p style="color: var(--accent); font-size: 0.9rem;">IoT Specialist</p>
+                    <div style="margin-top: 15px; display: flex; justify-content: center; gap: 10px;">
+                        <i class="fab fa-github" style="cursor: pointer;"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. BLOG -->
+        <section id="blog" class="view">
+            <span class="section-subtitle">News</span>
+            <h2 class="section-title">Latest Insights</h2>
+            <br>
+            <div class="grid-3">
+                <div class="card" style="padding: 0; overflow: hidden;">
+                    <img src="https://picsum.photos/seed/blog1/400/250" style="width: 100%; object-fit: cover;">
+                    <div style="padding: 25px;">
+                        <span class="badge badge-success">Technology</span>
+                        <h3 style="margin-top: 10px;">The Future of Smart Cities</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">How IoT is reshaping urban infrastructure...</p>
+                        <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600; display: block; margin-top: 15px;">Read Article &rarr;</a>
+                    </div>
+                </div>
+                <div class="card" style="padding: 0; overflow: hidden;">
+                    <img src="https://picsum.photos/seed/blog2/400/250" style="width: 100%; object-fit: cover;">
+                    <div style="padding: 25px;">
+                        <span class="badge badge-danger">Urgent</span>
+                        <h3 style="margin-top: 10px;">Handling E-Waste Effectively</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">Strategies for managing electronic waste...</p>
+                        <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600; display: block; margin-top: 15px;">Read Article &rarr;</a>
+                    </div>
+                </div>
+                <div class="card" style="padding: 0; overflow: hidden;">
+                    <img src="https://picsum.photos/seed/blog3/400/250" style="width: 100%; object-fit: cover;">
+                    <div style="padding: 25px;">
+                        <span class="badge" style="background: rgba(59, 130, 246, 0.2); color: #3b82f6;">Case Study</span>
+                        <h3 style="margin-top: 10px;">Success: Sector 7</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">How we reduced collection costs by 40%...</p>
+                        <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 600; display: block; margin-top: 15px;">Read Article &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. CONTACT -->
+        <section id="contact" class="view">
+            <div class="grid-2" style="align-items: center;">
+                <div>
+                    <span class="section-subtitle">Get In Touch</span>
+                    <h2 class="section-title">Let's Discuss Your Project</h2>
+                    <p style="color: var(--text-muted); margin: 20px 0;">Interested in deploying EcoSense for your city or campus? Reach out to our engineering team.</p>
+                    <div style="margin-top: 30px;">
+                        <div style="display: flex; gap: 15px; margin-bottom: 15px;">
+                            <div class="icon-box"><i class="fas fa-envelope"></i></div>
+                            <div>
+                                <h4>Email Us</h4>
+                                <p style="color: var(--text-muted);">hello@ecosense.tech</p>
+                            </div>
+                        </div>
+                        <div style="display: flex; gap: 15px;">
+                            <div class="icon-box"><i class="fas fa-phone"></i></div>
+                            <div>
+                                <h4>Call Us</h4>
+                                <p style="color: var(--text-muted);">+1 (555) 123-4567</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3>Send Message</h3>
+                    <form onsubmit="event.preventDefault(); app.showToast('Message Sent!');">
+                        <input type="text" placeholder="Full Name" required>
+                        <input type="email" placeholder="Email Address" required>
+                        <textarea rows="4" placeholder="Your Message" required></textarea>
+                        <button class="btn btn-primary" style="width: 100%;">Send Inquiry</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. LOGIN -->
+        <section id="login" class="view">
+            <div class="auth-container">
+                <h2 style="margin-bottom: 10px;">Welcome Back</h2>
+                <p style="color: var(--text-muted); margin-bottom: 30px;">Access your EcoSense Dashboard</p>
+                <form onsubmit="app.handleLogin(event)">
+                    <input type="email" id="login-email" placeholder="Email Address" required>
+                    <input type="password" id="login-pass" placeholder="Password" required>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 10px;">Login to Dashboard</button>
+                </form>
+                <p style="margin-top: 20px; font-size: 0.9rem;">
+                    Don't have an account? <a href="#" onclick="app.router('register')" style="color: var(--primary);">Create Account</a>
+                </p>
+                <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px; font-size: 0.8rem; text-align: left;">
+                    <strong>Demo Credentials:</strong><br>
+                    User: user@demo.com<br>Pass: 1234
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. REGISTER -->
+        <section id="register" class="view">
+            <div class="auth-container">
+                <h2 style="margin-bottom: 10px;">Create Account</h2>
+                <p style="color: var(--text-muted); margin-bottom: 30px;">Join the smart sanitation revolution</p>
+                <form onsubmit="app.handleRegister(event)">
+                    <input type="text" id="reg-name" placeholder="Full Name" required>
+                    <input type="email" id="reg-email" placeholder="Email Address" required>
+                    <input type="password" id="reg-pass" placeholder="Password" required>
+                    <select>
+                        <option value="user">Municipal Officer</option>
+                        <option value="admin">System Admin</option>
+                    </select>
+                    <button class="btn btn-primary" style="width: 100%; margin-top: 10px;">Sign Up Free</button>
+                </form>
+                <p style="margin-top: 20px; font-size: 0.9rem;">
+                    Already have an account? <a href="#" onclick="app.router('login')" style="color: var(--primary);">Login</a>
+                </p>
+            </div>
+        </section>
+
+        <!-- 10. DASHBOARD -->
+        <section id="dashboard" class="view">
+            <div class="dash-header">
+                <div>
+                    <h2 style="font-family: 'Outfit';">Dashboard Overview</h2>
+                    <p style="color: var(--text-muted);">Real-time city waste monitoring</p>
+                </div>
+                <div>
+                    <button class="btn btn-outline" onclick="app.showToast('Refreshing Data...')"><i class="fas fa-sync"></i> Refresh</button>
+                    <button class="btn btn-primary" onclick="app.showToast('Report System Online')"><i class="fas fa-plus"></i> Report Issue</button>
+                </div>
+            </div>
+
+            <!-- KPI Cards -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon" style="background: rgba(16, 185, 129, 0.2); color: var(--primary);"><i class="fas fa-trash"></i></div>
+                    <div>
+                        <h4 style="color: var(--text-muted); font-size: 0.8rem;">Total Collected</h4>
+                        <h3 style="font-size: 1.5rem;">1,240 <span style="font-size: 0.8rem; color: var(--primary);">tons</span></h3>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon" style="background: rgba(245, 158, 11, 0.2); color: #f59e0b;"><i class="fas fa-truck"></i></div>
+                    <div>
+                        <h4 style="color: var(--text-muted); font-size: 0.8rem;">Active Trucks</h4>
+                        <h3 style="font-size: 1.5rem;">12 <span style="font-size: 0.8rem; color: #f59e0b;">vehicles</span></h3>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-icon" style="background: rgba(239, 68, 68, 0.2); color: #ef4444;"><i class="fas fa-exclamation-circle"></i></div>
+                    <div>
+                        <h4 style="color: var(--text-muted); font-size: 0.8rem;">Critical Bins</h4>
+                        <h3 style="font-size: 1.5rem;">3 <span style="font-size: 0.8rem; color: #ef4444;">alerts</span></h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content -->
+            <div class="grid-2">
+                <!-- Chart Section -->
+                <div class="card">
+                    <h3 style="margin-bottom: 20px;">Waste Analytics (Live)</h3>
+                    <canvas id="mainChart" height="200"></canvas>
+                </div>
+
+                <!-- Live Bin Status -->
+                <div class="card">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 20px;">
+                        <h3>Bin Status</h3>
+                        <span class="badge badge-success">System Online</span>
+                    </div>
+                    <div id="bin-list" class="list-group">
+                        <!-- Populated by JS -->
+                    </div>
                 </div>
             </div>
         </section>
@@ -243,25 +574,26 @@
     </main>
 
     <!-- Toast Notification -->
-    <div id="toast">Message</div>
+    <div id="toast">Notification</div>
 
     <script>
-        // --- MOCK BACKEND & LOGIC ---
         const app = {
             data: {
                 users: [],
                 bins: [
-                    { id: 1, loc: "Sector 4", level: 45 },
-                    { id: 2, loc: "Main Market", level: 88 },
-                    { id: 3, loc: "City Park", level: 20 }
+                    { id: 1, loc: "Sector 4 - North", level: 45, status: "Normal" },
+                    { id: 2, loc: "Main Market", level: 88, status: "Critical" },
+                    { id: 3, loc: "City Park", level: 20, status: "Normal" },
+                    { id: 4, loc: "Bus Terminal", level: 65, status: "Moderate" },
+                    { id: 5, loc: "Industrial Zone", level: 92, status: "Critical" }
                 ],
                 currentUser: null,
-                chartInstance: null
+                chart: null
             },
 
             init: function() {
                 try {
-                    // Load from LocalStorage safely
+                    // Load Data
                     const storedUsers = localStorage.getItem('eco_users');
                     if(storedUsers) this.data.users = JSON.parse(storedUsers);
 
@@ -272,71 +604,51 @@
                     }
 
                     // Remove Loader
-                    document.getElementById('loader').style.opacity = '0';
-                    setTimeout(() => document.getElementById('loader').style.display = 'none', 500);
+                    const loader = document.getElementById('loader');
+                    loader.style.opacity = '0';
+                    setTimeout(() => loader.style.display = 'none', 500);
 
-                    // Start IoT Simulation
-                    this.simulateIoT();
+                    // Start Simulation
+                    this.startSimulation();
 
-                    console.log("App Initialized Successfully");
-                } catch (e) {
-                    console.error("Init Error:", e);
-                    document.getElementById('loader').innerHTML = "<p style='color:red'>Error loading app. Please check console.</p>";
-                }
+                } catch (e) { console.error(e); }
             },
 
-            // --- NAVIGATION ---
             router: function(pageId) {
-                // Check Auth
-                if (pageId === 'dashboard' && !this.data.currentUser) {
-                    this.showToast('Please Login First');
+                if(pageId === 'dashboard' && !this.data.currentUser) {
+                    this.showToast('Please Login First', 'error');
                     this.router('login');
                     return;
                 }
 
-                // Hide all views
                 document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
-                
-                // Show target
                 const target = document.getElementById(pageId);
-                if(target) target.classList.add('active');
+                if(target) {
+                    target.classList.add('active');
+                    window.scrollTo(0, 0);
+                    if(pageId === 'dashboard') this.renderDashboard();
+                }
 
-                // Specific page logic
-                if(pageId === 'dashboard') this.loadDashboard();
-
-                window.scrollTo(0, 0);
+                // Update Nav State
+                document.querySelectorAll('nav a, .nav-actions a').forEach(a => {
+                    a.classList.remove('active-link');
+                    if(a.id === 'nav-'+pageId) a.classList.add('active-link');
+                });
             },
 
-            updateNav: function() {
-                const isLogged = !!this.data.currentUser;
-                document.getElementById('link-login').style.display = isLogged ? 'none' : 'block';
-                document.getElementById('link-dash').style.display = isLogged ? 'block' : 'none';
-                document.getElementById('link-logout').style.display = isLogged ? 'block' : 'none';
-            },
-
-            // --- AUTH ---
             handleLogin: function(e) {
                 e.preventDefault();
                 const email = document.getElementById('login-email').value;
                 const pass = document.getElementById('login-pass').value;
 
-                // Mock Login Logic
                 const user = this.data.users.find(u => u.email === email && u.pass === pass);
-                
-                // Fallback for demo if no users registered yet
                 if (!user && email === 'user@demo.com' && pass === '1234') {
-                    this.data.currentUser = { name: 'Demo User', email: email };
+                    this.loginUser({ name: 'Demo Admin', email: email });
                 } else if (user) {
-                    this.data.currentUser = user;
+                    this.loginUser(user);
                 } else {
-                    this.showToast('Invalid Credentials');
-                    return;
+                    this.showToast('Invalid Credentials', 'error');
                 }
-
-                sessionStorage.setItem('eco_session', JSON.stringify(this.data.currentUser));
-                this.updateNav();
-                this.showToast('Login Successful');
-                this.router('dashboard');
             },
 
             handleRegister: function(e) {
@@ -344,11 +656,18 @@
                 const name = document.getElementById('reg-name').value;
                 const email = document.getElementById('reg-email').value;
                 const pass = document.getElementById('reg-pass').value;
-
                 this.data.users.push({ name, email, pass });
                 localStorage.setItem('eco_users', JSON.stringify(this.data.users));
-                this.showToast('Registration Successful! Please Login.');
+                this.showToast('Account Created! Please Login.');
                 this.router('login');
+            },
+
+            loginUser: function(user) {
+                this.data.currentUser = user;
+                sessionStorage.setItem('eco_session', JSON.stringify(user));
+                this.updateNav();
+                this.showToast('Login Successful');
+                this.router('dashboard');
             },
 
             logout: function() {
@@ -359,85 +678,101 @@
                 this.showToast('Logged Out');
             },
 
-            // --- DASHBOARD & IOT ---
-            loadDashboard: function() {
-                const container = document.getElementById('bins-container');
-                container.innerHTML = '';
+            updateNav: function() {
+                const loggedIn = !!this.data.currentUser;
+                document.getElementById('nav-login').style.display = loggedIn ? 'none' : 'block';
+                document.getElementById('nav-register').style.display = loggedIn ? 'none' : 'block';
+                document.getElementById('nav-dashboard').style.display = loggedIn ? 'block' : 'none';
+                document.getElementById('nav-logout').style.display = loggedIn ? 'block' : 'none';
+            },
+
+            renderDashboard: function() {
+                // Render List
+                const list = document.getElementById('bin-list');
+                list.innerHTML = '';
                 
                 let labels = [];
-                let dataPoints = [];
+                let data = [];
 
                 this.data.bins.forEach(bin => {
-                    // Render List
-                    let color = bin.level > 80 ? 'var(--danger)' : 'var(--primary)';
-                    let barColor = bin.level > 80 ? '#ff7675' : '#00b894';
+                    let badgeClass = bin.level > 80 ? 'badge-danger' : 'badge-success';
+                    let barColor = bin.level > 80 ? '#ef4444' : '#10b981';
                     
-                    container.innerHTML += `
-                        <div style="margin-bottom: 15px;">
-                            <div style="display:flex; justify-content:space-between;">
+                    list.innerHTML += `
+                        <div class="list-item">
+                            <div>
                                 <strong>${bin.loc}</strong>
-                                <span style="color:${color}">${bin.level}%</span>
+                                <div style="height: 4px; width: 100px; background: rgba(255,255,255,0.1); margin-top: 5px; border-radius: 2px;">
+                                    <div style="width: ${bin.level}%; height: 100%; background: ${barColor}; border-radius: 2px;"></div>
+                                </div>
                             </div>
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: ${bin.level}%; background:${barColor}"></div>
+                            <div style="text-align: right;">
+                                <h4 style="margin-bottom: 2px;">${bin.level}%</h4>
+                                <span class="badge ${badgeClass}">${bin.status}</span>
                             </div>
                         </div>
                     `;
                     labels.push(bin.loc);
-                    dataPoints.push(bin.level);
+                    data.push(bin.level);
                 });
 
-                // Render Chart (Safe Load)
+                // Render Chart (Styled for Dark Mode)
                 try {
-                    const ctx = document.getElementById('myChart').getContext('2d');
-                    if (this.data.chartInstance) this.data.chartInstance.destroy();
-                    
-                    this.data.chartInstance = new Chart(ctx, {
+                    const ctx = document.getElementById('mainChart').getContext('2d');
+                    if(this.data.chart) this.data.chart.destroy();
+
+                    this.data.chart = new Chart(ctx, {
                         type: 'bar',
                         data: {
                             labels: labels,
                             datasets: [{
                                 label: 'Fill Level %',
-                                data: dataPoints,
-                                backgroundColor: '#00b894',
-                                borderRadius: 5
+                                data: data,
+                                backgroundColor: '#10b981',
+                                borderRadius: 6,
+                                hoverBackgroundColor: '#3b82f6'
                             }]
                         },
-                        options: { responsive: true }
+                        options: {
+                            responsive: true,
+                            plugins: { legend: { display: false } },
+                            scales: {
+                                y: { 
+                                    beginAtZero: true, 
+                                    grid: { color: 'rgba(255,255,255,0.05)' },
+                                    ticks: { color: '#94a3b8' }
+                                },
+                                x: {
+                                    grid: { display: false },
+                                    ticks: { color: '#94a3b8' }
+                                }
+                            }
+                        }
                     });
-                } catch (err) {
-                    console.error("Chart library error:", err);
-                    document.getElementById('myChart').parentNode.innerHTML += "<p style='color:red; text-align:center; margin-top:10px;'>Chart.js failed to load. Check Internet.</p>";
-                }
+                } catch(e) { console.log("Chart Error"); }
             },
 
-            simulateIoT: function() {
+            startSimulation: function() {
                 setInterval(() => {
                     this.data.bins.forEach(bin => {
-                        // Random fluctuation
-                        let change = Math.floor(Math.random() * 10) - 4;
+                        const change = Math.floor(Math.random() * 10) - 4;
                         bin.level = Math.max(0, Math.min(100, bin.level + change));
+                        bin.status = bin.level > 80 ? "Critical" : (bin.level > 50 ? "Moderate" : "Normal");
                     });
-                    
-                    // Only update if dashboard is open
                     if(document.getElementById('dashboard').classList.contains('active')) {
-                        this.loadDashboard();
+                        this.renderDashboard();
                     }
                 }, 3000);
             },
 
             showToast: function(msg) {
-                const x = document.getElementById("toast");
-                x.innerText = msg;
-                x.className = "show";
-                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+                const t = document.getElementById("toast");
+                t.innerText = msg; t.className = "show";
+                setTimeout(() => t.className = t.className.replace("show", ""), 3000);
             }
         };
 
-        // Initialize App when DOM is ready
-        window.onload = function() {
-            app.init();
-        };
+        window.onload = () => app.init();
     </script>
 </body>
 </html>
